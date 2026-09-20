@@ -1411,7 +1411,35 @@ img {
     width: 190px;
     height: 190px;
   }
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 
+.contact-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 14px 20px;
+  border: 1px solid #343944;
+  border-radius: 30px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.contact-email:hover {
+  border-color: #1685ff;
+  color: #1685ff;
+}
+
+.contact-email span {
+  font-size: 22px;
+}
   .hero-logo {
     font-size: 34px;
   }
