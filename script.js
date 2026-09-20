@@ -77,7 +77,7 @@ const products = [
   {
     id: 3,
     name: "Montre Rolex",
-    price: 179,
+    price: 189,
     description: "ساعة روليكس فخمةوأنيقة",
     images: [
       "images/01.jpg",
