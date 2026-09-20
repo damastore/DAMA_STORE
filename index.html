@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAMA STORE</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="header">
+
+  <!-- الاسم فاليسار -->
+  <div class="logo">
+    DAMA <span>STORE</span>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#home">Accueil</a>
+    <a href="#products">Produits</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- اللوغو القديم فاليمين -->
+  <div class="header-right">
+    <img src="images/logo.png" alt="Logo" class="header-logo">
+
+    <button id="open-cart" class="cart-button">
+      Panier
+      <span id="cart-count">0</span>
+    </button>
+  </div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section id="home" class="hero">
+
+  <div class="hero-text">
+
+    <div class="hero-logo">
+      DAMA <span>STORE</span>
+    </div>
+
+    <p class="hero-description">
+      Découvrez nos produits sélectionnés
+    </p>
+
+    <p class="hero-scroll">
+      ↓ Descendez pour voir nos produits
+    </p>
+
+    <a href="#products" class="hero-button">
+      Voir les produits
+    </a>
+
+  </div>
+
+  <div class="welcome-logo">
+    <div class="welcome-circle">
+      <strong>DAMA</strong>
+      <span>STORE</span>
+
+      <div class="welcome-message">
+        Bienvenue chez<br>
+        DAMA STORE
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+
+<section id="products" class="products-section">
+
+  <div class="section-heading">
+    <h2>Nos Produits</h2>
+    <p>Découvrez notre sélection</p>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="product-search">
+    <input
+      type="search"
+      id="product-search"
+      placeholder="Rechercher un produit..."
+      autocomplete="off"
+    >
+  </div>
+
+  <!-- 4 فوق + 4 تحت -->
+  <div class="product-grid" id="product-grid"></div>
+
+</section>
+
+
+<!-- ================= BENEFITS ================= -->
+
+<section class="benefits">
+
+  <div>
+    <h3>🚚 Livraison</h3>
+    <p>Livraison partout au Maroc</p>
+  </div>
+
+  <div>
+    <h3>💳 Paiement</h3>
+    <p>Paiement à la livraison</p>
+  </div>
+
+  <div>
+    <h3>⭐ Qualité</h3>
+    <p>Produits sélectionnés</p>
+  </div>
+
+</section>
+
+
+<!-- ================= CONTACT ================= -->
+
+<section id="contact" class="contact">
+  <h2>Contact</h2>
+  <p>Pour toute question, contactez-nous.</p>
+</section>
+
+
+<footer>
+  <div class="logo">
+    DAMA <span>STORE</span>
+  </div>
+
+  <p>© 2026 DAMA STORE — Tous droits réservés</p>
+</footer>
+
+
+<!-- ================= PRODUCT MODAL ================= -->
+
+<div id="product-modal" class="modal" aria-hidden="true">
+
+  <div class="modal-content product-modal-content">
+
+    <button id="close-product" class="close-button">×</button>
+
+    <div id="product-detail-image" class="product-detail-image"></div>
+
+    <div class="product-detail-info">
+
+      <h2 id="product-detail-name"></h2>
+
+      <div id="product-detail-price" class="detail-price"></div>
+
+      <p id="product-detail-description"></p>
+
+      <div class="quantity-control">
+        <button id="detail-minus">−</button>
+        <span id="detail-quantity">1</span>
+        <button id="detail-plus">+</button>
+      </div>
+
+      <div class="detail-buttons">
+
+        <button id="detail-buy-now" class="primary-button">
+          Acheter maintenant
+        </button>
+
+        <button id="detail-add-cart" class="secondary-button">
+          Ajouter au panier
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ================= CART ================= -->
+
+<div id="cart-modal" class="modal" aria-hidden="true">
+
+  <div class="modal-content cart-content">
+
+    <button id="close-cart" class="close-button">×</button>
+
+    <h2>Votre panier</h2>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-total">
+      <span>Total :</span>
+      <strong>
+        <span id="cart-total">0</span> DH
+      </strong>
+    </div>
+
+    <button id="checkout-button" class="primary-button checkout-button">
+      Commander
+    </button>
+
+
+    <!-- ORDER FORM -->
+
+    <form id="order-form" hidden>
+
+      <h3>Informations de livraison</h3>
+
+      <input
+        type="text"
+        name="name"
+        id="customer-name"
+        placeholder="Nom complet"
+        required
+      >
+
+      <input
+        type="tel"
+        name="phone"
+        id="customer-phone"
+        placeholder="Téléphone"
+        required
+      >
+
+      <input
+        type="text"
+        name="city"
+        id="customer-city"
+        placeholder="Ville"
+        required
+      >
+
+      <textarea
+        name="address"
+        id="customer-address"
+        placeholder="Adresse complète"
+        required
+      ></textarea>
+
+      <button type="submit" class="primary-button">
+        Confirmer la commande
+      </button>
+
+      <p id="order-message"></p>
+
+    </form>
+
+  </div>
+</div>
+
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
