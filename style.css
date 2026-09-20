@@ -7,6 +7,8 @@
   --white: #ffffff;
 }
 
+/* ================= GENERAL ================= */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -18,16 +20,23 @@ html {
 }
 
 body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   font-family: Arial, sans-serif;
   background: white;
   color: var(--dark);
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
 
 /* ================= HEADER ================= */
 
 .header {
-  height: 75px;
+  min-height: 75px;
   background: var(--dark);
   display: flex;
   align-items: center;
@@ -38,9 +47,6 @@ body {
   z-index: 1000;
   box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
 }
-
-
-/* الاسم فاليسار */
 
 .logo {
   font-size: 25px;
@@ -53,11 +59,9 @@ body {
   color: var(--accent);
 }
 
-
-/* Navigation */
-
 .header nav {
   display: flex;
+  align-items: center;
   gap: 30px;
 }
 
@@ -71,17 +75,11 @@ body {
   color: var(--accent);
 }
 
-
-/* اليمين */
-
 .header-right {
   display: flex;
   align-items: center;
   gap: 15px;
 }
-
-
-/* اللوغو القديم */
 
 .header-logo {
   width: 42px;
@@ -89,9 +87,6 @@ body {
   object-fit: contain;
   border-radius: 50%;
 }
-
-
-/* Cart */
 
 .cart-button {
   border: 1px solid var(--accent);
@@ -115,47 +110,121 @@ body {
   margin-left: 5px;
 }
 
-
 /* ================= HERO ================= */
 
 .hero {
   min-height: 470px;
-  background: var(--light);
+  background: #ccc9be;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  padding: 60px 9%;
+  gap: 50px;
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 0;
   text-align: center;
-  padding: 50px 20px;
+  padding-left: 2%;
 }
 
 .hero-logo {
   font-size: 65px;
   font-weight: 900;
   letter-spacing: 3px;
-  margin-bottom: 20px;
   color: var(--dark);
+  margin-bottom: 18px;
+  line-height: 1.15;
 }
 
 .hero-logo span {
   color: var(--accent);
 }
 
-.hero p {
-  color: var(--muted);
+.hero-description {
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--dark);
   font-size: 18px;
-  margin-bottom: 30px;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.hero-scroll {
+  color: var(--dark);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 25px;
 }
 
 .hero-button {
+  display: inline-block;
   background: var(--accent);
   color: white;
   padding: 14px 28px;
   border-radius: 30px;
   text-decoration: none;
   font-weight: bold;
+  transition: 0.2s;
 }
 
+.hero-button:hover {
+  transform: translateY(-2px);
+}
+
+/* ================= WELCOME CIRCLE ================= */
+
+.welcome-logo {
+  flex: 0 0 330px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-circle {
+  width: 290px;
+  height: 290px;
+  border: 7px solid var(--accent);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.10),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.6);
+}
+
+.welcome-circle strong {
+  font-size: 36px;
+  letter-spacing: 3px;
+  color: var(--dark);
+}
+
+.welcome-circle span {
+  font-size: 31px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--accent);
+  margin-bottom: 15px;
+}
+
+.welcome-circle small,
+.welcome-message {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  line-height: 1.6;
+  color: var(--dark);
+}
 
 /* ================= PRODUCTS ================= */
 
@@ -176,7 +245,6 @@ body {
 .section-heading p {
   color: var(--muted);
 }
-
 
 /* ================= SEARCH ================= */
 
@@ -202,8 +270,7 @@ body {
   border-color: var(--accent);
 }
 
-
-/* ================= 4 + 4 ================= */
+/* ================= PRODUCT GRID ================= */
 
 .product-grid {
   display: grid;
@@ -211,10 +278,8 @@ body {
   gap: 22px;
 }
 
-
-/* ================= PRODUCT CARD ================= */
-
 .product-card {
+  min-width: 0;
   background: white;
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -239,44 +304,35 @@ body {
   overflow: hidden;
 }
 
-.product-image img {
+.product-image img,
+.product-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
-
-/* الصورة فارغة */
 
 .empty-image {
   color: #aaa;
   font-size: 14px;
 }
 
-
-/* السهم */
+/* Product next-image button */
 
 .next-product {
   position: absolute;
   right: 12px;
   top: 12px;
-
   width: 35px;
   height: 35px;
-
   border: 1px solid var(--border);
   border-radius: 50%;
-
   background: white;
   color: var(--accent);
-
   font-size: 23px;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   z-index: 5;
 }
 
@@ -284,7 +340,6 @@ body {
   background: var(--accent);
   color: white;
 }
-
 
 .product-info {
   padding: 18px;
@@ -299,14 +354,13 @@ body {
   color: var(--accent);
 }
 
-
 /* ================= BENEFITS ================= */
 
 .benefits {
   background: var(--light);
   padding: 50px 6%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 25px;
   text-align: center;
 }
@@ -319,18 +373,70 @@ body {
   color: var(--muted);
 }
 
-
 /* ================= CONTACT ================= */
 
-.contact {
+.contact,
+.contact-section {
   text-align: center;
   padding: 80px 20px;
 }
 
-.contact h2 {
+.contact h2,
+.contact-section h2 {
   margin-bottom: 15px;
 }
 
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  max-width: 100%;
+  margin: 25px auto;
+  text-align: center;
+}
+
+.contact-info h2 {
+  margin-bottom: 5px;
+}
+
+.contact-info p {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.contact-email {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 14px 20px;
+  border: 1px solid var(--accent);
+  border-radius: 30px;
+  color: var(--dark);
+  background: transparent;
+  text-decoration: none;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  transition: all 0.3s ease;
+}
+
+.contact-email:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.contact-email span {
+  font-size: 22px;
+  flex-shrink: 0;
+}
 
 /* ================= FOOTER ================= */
 
@@ -345,8 +451,7 @@ footer .logo {
   margin-bottom: 15px;
 }
 
-
-/* ================= MODAL ================= */
+/* ================= MODALS ================= */
 
 .modal {
   display: none;
@@ -364,6 +469,7 @@ footer .logo {
 }
 
 .modal-content {
+  width: min(850px, 95vw);
   background: white;
   border-radius: 18px;
   padding: 30px;
@@ -382,13 +488,12 @@ footer .logo {
   cursor: pointer;
 }
 
-
 /* ================= PRODUCT DETAILS ================= */
 
 .product-modal-content {
   width: min(850px, 95vw);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 35px;
   align-items: center;
 }
@@ -469,7 +574,6 @@ footer .logo {
   color: white;
 }
 
-
 /* ================= CART ================= */
 
 .cart-content {
@@ -508,6 +612,7 @@ footer .logo {
 .cart-total {
   display: flex;
   justify-content: space-between;
+  gap: 12px;
   padding: 25px 0;
   font-size: 20px;
 }
@@ -516,10 +621,10 @@ footer .logo {
   width: 100%;
 }
 
-
 /* ================= ORDER FORM ================= */
 
-#order-form {
+#order-form,
+.order-form {
   margin-top: 25px;
   border-top: 1px solid var(--border);
   padding-top: 25px;
@@ -530,7 +635,9 @@ footer .logo {
 }
 
 #order-form input,
-#order-form textarea {
+#order-form textarea,
+.order-form input,
+.order-form textarea {
   width: 100%;
   padding: 13px;
   margin-bottom: 12px;
@@ -539,7 +646,8 @@ footer .logo {
   font-family: inherit;
 }
 
-#order-form textarea {
+#order-form textarea,
+.order-form textarea {
   min-height: 100px;
   resize: vertical;
 }
@@ -548,419 +656,9 @@ footer .logo {
   margin-top: 15px;
 }
 
+/* ================= LAPTOP ================= */
 
-/* ================= MOBILE ================= */
-
-@media (max-width: 1000px) {
-
-  .product-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .header nav {
-    display: none;
-  }
-
-  .product-modal-content {
-    grid-template-columns: 1fr;
-  }
-
-  .product-detail-image {
-    height: 300px;
-  }
-}
-
-
-@media (max-width: 550px) {
-
-  .header {
-    padding: 0 12px;
-  }
-
-  .logo {
-    font-size: 19px;
-  }
-
-  .header-logo {
-    width: 35px;
-    height: 35px;
-  }
-
-  .cart-button {
-    padding: 8px 12px;
-  }
-
-  .hero-logo {
-    font-size: 42px;
-  }
-
-  .products-section {
-    padding: 55px 12px;
-  }
-
-  .product-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .product-image {
-    height: 190px;
-  }
-
-  .product-info {
-    padding: 12px;
-  }
-
-  .product-info h3 {
-    font-size: 15px;
-  }
-
-  .benefits {
-    grid-template-columns: 1fr;
-  }
-}
-/* ================= NEW HERO ================= */
-
-.hero {
-  min-height: 470px;
-  background: #ccc9BE;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 60px 9%;
-  gap: 50px;
-}
-
-.hero-text {
-  flex: 1;
-  text-align: left;
-  padding-left: 3%;
-}
-
-.hero-logo {
-  font-size: 65px;
-  font-weight: 900;
-  letter-spacing: 3px;
-  color: var(--dark);
-  margin-bottom: 18px;
-}
-
-.hero-logo span {
-  color: var(--accent);
-}
-
-.hero-text p {
-  color: var(--muted);
-  font-size: 18px;
-  margin-bottom: 30px;
-}
-
-.hero-button {
-  display: inline-block;
-  background: var(--accent);
-  color: white;
-  padding: 14px 28px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-
-/* ================= WELCOME LOGO ================= */
-
-.welcome-logo {
-  flex: 0 0 330px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.welcome-circle {
-  width: 290px;
-  height: 290px;
-  border: 7px solid var(--accent);
-  border-radius: 50%;
-  background: rgba(255,255,255,0.35);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.10),
-    inset 0 0 0 2px rgba(255,255,255,0.6);
-}
-
-.welcome-circle strong {
-  font-size: 36px;
-  letter-spacing: 3px;
-  color: var(--dark);
-}
-
-.welcome-circle span {
-  font-size: 31px;
-  font-weight: 800;
-  letter-spacing: 4px;
-  color: var(--accent);
-  margin-bottom: 15px;
-}
-
-.welcome-circle small {
-  font-size: 16px;
-  color: var(--dark);
-  line-height: 1.5;
-}
-
-
-/* ================= MOBILE ================= */
-
-@media (max-width: 700px) {
-
-  .hero {
-    flex-direction: column;
-    text-align: center;
-    padding: 55px 20px;
-  }
-
-  .hero-text {
-    text-align: center;
-    padding-left: 0;
-  }
-
-  .hero-logo {
-    font-size: 42px;
-  }
-
-  .welcome-logo {
-    flex: none;
-  }
-
-  .welcome-circle {
-    width: 230px;
-    height: 230px;
-  }
-
-  .welcome-circle strong {
-    font-size: 29px;
-  }
-
-  .welcome-circle span {
-    font-size: 25px;
-  }
-}
-/* ===== HERO FINAL ===== */
-
-.hero {
-  min-height: 470px;
-  background: #ccc9BE;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 60px 9%;
-  gap: 50px;
-}
-
-.hero-text {
-  flex: 1;
-  text-align: center;
-  padding-left: 2%;
-}
-
-.hero-logo {
-  font-size: 65px;
-  font-weight: 900;
-  letter-spacing: 3px;
-  color: var(--dark);
-  margin-bottom: 18px;
-}
-
-.hero-logo span {
-  color: var(--accent);
-}
-
-.hero-description {
-  font-family: Georgia, "Times New Roman", serif;
-  color: var(--dark);
-  font-size: 18px;
-  font-weight: 600;
-  font-style: italic;
-  letter-spacing: 0.5px;
-  margin-bottom: 12px;
-}
-.hero-scroll {
-  color: var(--dark);
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 25px;
-}
-
-.hero-button {
-  display: inline-block;
-  background: var(--accent);
-  color: white;
-  padding: 14px 28px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.2s;
-}
-
-.hero-button:hover {
-  transform: translateY(-2px);
-}
-
-
-/* ===== CERCLE ===== */
-
-.welcome-logo {
-  flex: 0 0 330px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.welcome-circle {
-  width: 290px;
-  height: 290px;
-  border: 7px solid var(--accent);
-  border-radius: 50%;
-  background: rgba(255,255,255,0.35);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.10),
-    inset 0 0 0 2px rgba(255,255,255,0.6);
-}
-
-.welcome-circle strong {
-  font-size: 36px;
-  letter-spacing: 3px;
-  color: var(--dark);
-}
-
-.welcome-circle span {
-  font-size: 31px;
-  font-weight: 800;
-  letter-spacing: 4px;
-  color: var(--accent);
-  margin-bottom: 15px;
-}
-
-.welcome-message {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 18px;
-  font-weight: 700;
-  font-style: italic;
-  letter-spacing: 0.5px;
-  line-height: 1.6;
-  color: var(--dark);
-}
-
-/* ===== MOBILE ===== */
-
-@media (max-width: 700px) {
-
-  .hero {
-    flex-direction: column;
-    text-align: center;
-    padding: 55px 20px;
-  }
-
-  .hero-text {
-    text-align: center;
-    padding-left: 0;
-  }
-
-  .hero-logo {
-    font-size: 42px;
-  }
-
-  .welcome-logo {
-    flex: none;
-  }
-
-  .welcome-circle {
-    width: 230px;
-    height: 230px;
-  }
-
-  .welcome-circle strong {
-    font-size: 29px;
-  }
-
-  .welcome-circle span {
-    font-size: 25px;
-  }
-/* =====================================================
-   DAMA STORE - RESPONSIVE DESIGN
-   Phone + Tablet + Laptop + Desktop
-   ===================================================== */
-
-/* ===== GENERAL ===== */
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-
-/* =====================================================
-   LARGE DESKTOP
-   1200px+
-   ===================================================== */
-
-@media (min-width: 1200px) {
-
-  .header {
-    padding-left: 6%;
-    padding-right: 6%;
-  }
-
-  .hero {
-    padding-left: 8%;
-    padding-right: 8%;
-  }
-
-  .products-section,
-  .benefits,
-  .contact-section {
-    padding-left: 6%;
-    padding-right: 6%;
-  }
-
-}
-
-
-/* =====================================================
-   LAPTOP / SMALL DESKTOP
-   701px - 1199px
-   ===================================================== */
-
-@media (min-width: 701px) and (max-width: 1199px) {
-
+@media (min-width: 1001px) and (max-width: 1199px) {
   .header {
     padding: 0 4%;
   }
@@ -974,13 +672,8 @@ img {
   }
 
   .hero {
-    min-height: 430px;
     padding: 50px 5%;
     gap: 25px;
-  }
-
-  .hero-text {
-    padding-left: 0;
   }
 
   .hero-logo {
@@ -988,7 +681,7 @@ img {
   }
 
   .welcome-logo {
-    flex: 0 0 280px;
+    flex-basis: 280px;
   }
 
   .welcome-circle {
@@ -1000,56 +693,62 @@ img {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
   }
-
 }
 
+/* ================= TABLET ================= */
 
-/* =====================================================
-   TABLET
-   501px - 700px
-   ===================================================== */
-
-@media (min-width: 501px) and (max-width: 700px) {
-
+@media (min-width: 701px) and (max-width: 1000px) {
   .header {
-    height: auto;
-    min-height: 70px;
-    padding: 12px 20px;
+    padding: 12px 4%;
     gap: 15px;
   }
 
   .header nav {
-    gap: 12px;
+    display: none;
   }
-
-  .header nav a {
-    font-size: 14px;
-  }
-
-  .logo {
-    font-size: 20px;
-  }
-
-  .header-right {
-    gap: 8px;
-  }
-
-  .header-logo {
-    width: 38px;
-    height: 38px;
-  }
-
-  .cart-button {
-    padding: 8px 12px;
-  }
-
-
-  /* HERO */
 
   .hero {
+    padding: 50px 5%;
+    gap: 25px;
+  }
+
+  .hero-logo {
+    font-size: 48px;
+  }
+
+  .welcome-logo {
+    flex-basis: 250px;
+  }
+
+  .welcome-circle {
+    width: 230px;
+    height: 230px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .product-modal-content {
+    gap: 20px;
+  }
+
+  .product-detail-image {
+    height: 300px;
+  }
+}
+
+/* ================= MOBILE AND SMALL TABLET ================= */
+
+@media (max-width: 700px) {
+  .hero {
     min-height: auto;
-    padding: 55px 30px;
-    gap: 35px;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 55px 20px;
+    gap: 38px;
   }
 
   .hero-text {
@@ -1059,49 +758,42 @@ img {
   }
 
   .hero-logo {
-    font-size: 48px;
-  }
-
-  .hero-description {
-    font-size: 17px;
-  }
-
-  .hero-scroll {
-    font-size: 14px;
+    font-size: 42px;
   }
 
   .welcome-logo {
+    width: 100%;
     flex: none;
   }
 
   .welcome-circle {
-    width: 250px;
-    height: 250px;
+    width: 230px;
+    height: 230px;
   }
 
-
-  /* PRODUCTS */
-
-  .product-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
+  .welcome-circle strong {
+    font-size: 29px;
   }
 
+  .welcome-circle span {
+    font-size: 25px;
+  }
+
+  .product-modal-content {
+    grid-template-columns: 1fr;
+  }
+
+  .product-detail-image {
+    height: 300px;
+  }
 }
 
-
-/* =====================================================
-   MOBILE
-   500px and below
-   ===================================================== */
+/* ================= PHONE ================= */
 
 @media (max-width: 500px) {
-
-  /* ===== HEADER ===== */
-
   .header {
-    height: auto;
     min-height: 65px;
+    height: auto;
     padding: 10px 14px;
     display: flex;
     flex-wrap: wrap;
@@ -1116,6 +808,7 @@ img {
   .header nav {
     order: 3;
     width: 100%;
+    display: flex;
     justify-content: center;
     gap: 18px;
     padding-top: 5px;
@@ -1144,23 +837,10 @@ img {
     padding: 2px 6px;
   }
 
-
-  /* ===== HERO ===== */
-
   .hero {
-    min-height: auto;
     width: 100%;
     padding: 50px 18px;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
     gap: 38px;
-  }
-
-  .hero-text {
-    width: 100%;
-    padding: 0;
-    text-align: center;
   }
 
   .hero-logo {
@@ -1173,7 +853,6 @@ img {
   .hero-description {
     font-size: 16px;
     line-height: 1.5;
-    margin-bottom: 10px;
   }
 
   .hero-scroll {
@@ -1185,14 +864,6 @@ img {
   .hero-button {
     padding: 12px 23px;
     font-size: 14px;
-  }
-
-
-  /* ===== WELCOME CIRCLE ===== */
-
-  .welcome-logo {
-    width: 100%;
-    flex: none;
   }
 
   .welcome-circle {
@@ -1212,13 +883,11 @@ img {
     margin-bottom: 12px;
   }
 
+  .welcome-circle small,
   .welcome-message {
     font-size: 15px;
     line-height: 1.5;
   }
-
-
-  /* ===== SECTION ===== */
 
   .products-section,
   .benefits,
@@ -1235,9 +904,6 @@ img {
     font-size: 14px;
   }
 
-
-  /* ===== SEARCH ===== */
-
   .product-search {
     width: 100%;
     max-width: 100%;
@@ -1250,9 +916,6 @@ img {
     padding: 0 16px;
   }
 
-
-  /* ===== PRODUCTS ===== */
-
   .product-grid {
     width: 100%;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1263,10 +926,16 @@ img {
     min-width: 0;
   }
 
-  .product-card img {
-    width: 100%;
-    max-width: 100%;
-    object-fit: cover;
+  .product-image {
+    height: 190px;
+  }
+
+  .product-info {
+    padding: 12px;
+  }
+
+  .product-info h3 {
+    font-size: 15px;
   }
 
   .next-product {
@@ -1277,8 +946,9 @@ img {
     font-size: 19px;
   }
 
-
-  /* ===== MODALS ===== */
+  .benefits {
+    grid-template-columns: 1fr;
+  }
 
   .modal,
   .modal-overlay {
@@ -1291,10 +961,25 @@ img {
     max-height: 92vh;
     overflow-y: auto;
     border-radius: 14px;
+    padding: 22px 16px;
   }
 
+  .product-detail-image {
+    height: 250px;
+  }
 
-  /* ===== FORM ===== */
+  .product-detail-info h2 {
+    font-size: 24px;
+  }
+
+  .cart-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .cart-item-actions {
+    justify-content: flex-start;
+  }
 
   input,
   textarea,
@@ -1303,29 +988,34 @@ img {
     max-width: 100%;
   }
 
-  .order-form {
-    width: 100%;
+  .contact,
+  .contact-section {
+    padding: 55px 16px;
   }
 
+  .contact-info {
+    gap: 12px;
+  }
 
-  /* ===== FOOTER ===== */
+  .contact-email {
+    gap: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  .contact-email span {
+    font-size: 20px;
+  }
 
   footer {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding: 30px 16px;
     text-align: center;
   }
-
 }
 
-
-/* =====================================================
-   VERY SMALL PHONES
-   380px and below
-   ===================================================== */
+/* ================= VERY SMALL PHONES ================= */
 
 @media (max-width: 380px) {
-
   .header {
     padding-left: 10px;
     padding-right: 10px;
@@ -1376,6 +1066,7 @@ img {
     font-size: 21px;
   }
 
+  .welcome-circle small,
   .welcome-message {
     font-size: 14px;
   }
@@ -1383,65 +1074,33 @@ img {
   .product-grid {
     gap: 9px;
   }
-
 }
 
-
-/* =====================================================
-   LANDSCAPE PHONE
-   ===================================================== */
+/* ================= LANDSCAPE PHONE ================= */
 
 @media (max-width: 700px) and (orientation: landscape) {
-
   .hero {
     flex-direction: row;
     min-height: 400px;
     padding: 35px 25px;
+    gap: 20px;
   }
 
   .hero-text {
     width: 55%;
   }
 
+  .hero-logo {
+    font-size: 34px;
+  }
+
   .welcome-logo {
     width: 45%;
+    flex: none;
   }
 
   .welcome-circle {
     width: 190px;
     height: 190px;
   }
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.contact-email {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  width: fit-content;
-  max-width: 100%;
-  padding: 14px 20px;
-  border: 1px solid #343944;
-  border-radius: 30px;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 16px;
-  transition: 0.3s;
-}
-
-.contact-email:hover {
-  border-color: #1685ff;
-  color: #1685ff;
-}
-
-.contact-email span {
-  font-size: 22px;
-}
-  .hero-logo {
-    font-size: 34px;
-  }
-
 }
