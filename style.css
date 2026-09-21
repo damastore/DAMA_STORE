@@ -1278,3 +1278,19 @@ footer .logo {
     font-size: 25px;
   }
 }
+.title-lines {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.title-lines::before,
+.title-lines::after {
+  content: "";
+  height: 2px;
+  background-color: #1a1a24;
+  flex: 1;
+  max-width: 80px;
+  margin: 0 15px;
+}
