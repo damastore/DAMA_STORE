@@ -1173,3 +1173,108 @@ footer .logo {
   font-size: 13px;
   z-index: 5;
 }
+/* ================= DAMA STORE MOVING BAR ================= */
+
+.dama-moving-bar {
+  width: 100%;
+  overflow: hidden;
+  background: var(--dark);
+  color: white;
+  padding: 13px 0;
+  white-space: nowrap;
+  border-top: 1px solid rgba(184, 139, 90, 0.4);
+  border-bottom: 1px solid rgba(184, 139, 90, 0.4);
+}
+
+.dama-moving-track {
+  display: flex;
+  width: max-content;
+  animation: dama-marquee 22s linear infinite;
+}
+
+.dama-moving-track span {
+  flex-shrink: 0;
+  padding-right: 45px;
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+@keyframes dama-marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ================= PRODUCT NAVIGATION ARROWS ================= */
+
+.product-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin: 0 auto 25px;
+}
+
+.product-navigation button {
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: white;
+  color: var(--accent);
+  font-size: 28px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.product-navigation button:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.product-navigation button:active {
+  transform: scale(0.95);
+}
+
+/* إخفاء السهم القديم اللي كان داخل كل بطاقة منتج */
+
+.next-product {
+  display: none !important;
+}
+
+/* ================= MOBILE NAVIGATION ARROWS ================= */
+
+@media (max-width: 500px) {
+  .dama-moving-bar {
+    padding: 11px 0;
+  }
+
+  .dama-moving-track span {
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding-right: 30px;
+  }
+
+  .product-navigation {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .product-navigation button {
+    width: 40px;
+    height: 40px;
+    font-size: 25px;
+  }
+}

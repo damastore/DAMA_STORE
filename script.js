@@ -1,7 +1,7 @@
 // ============================================
-// DAMA STORE
-// 8 Products + Search + Product Gallery + Cart + Firebase
-// ============================================
+ // DAMA STORE
+ // 8 Products + Search + Product Gallery + Cart + Firebase
+ // ============================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
@@ -15,7 +15,6 @@ import {
   ref,
   push
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
 
 /* ================= FIREBASE ================= */
 
@@ -41,7 +40,6 @@ signInAnonymously(auth)
     console.error("Erreur Firebase:", error);
   });
 
-
 /* ================= PRODUCTS ================= */
 
 const products = [
@@ -51,8 +49,6 @@ const products = [
     name: "Montre Rolexe",
     price: 189,
     description: "ساعة أنيقة للاستعمال اليومي",
-
-    // بدّل هاد المسارات بمسارات الصور ديالك
     images: [
       "images/003.jpg",
       "images/002.jpg",
@@ -65,8 +61,6 @@ const products = [
     name: "Braclet lacoste",
     price: 129,
     description: "سوار لاكوست أنيق بلمسة رياضية راقية، مناسب لجميع إطلالاتك اليومية.",
-
-
     images: [
       "images/1.jpg",
       "images/2.jpg",
@@ -129,7 +123,7 @@ const products = [
     description: "ساعة كلاسيكية فاخرة",
     images: [
       "images/22.jpg",
-      "images/21.jpg",
+      "images/21.jpg"
     ]
   },
 
@@ -138,14 +132,13 @@ const products = [
     name: "gourmette homme",
     price: 129,
     description: "لمسة أنيقة خفيفة",
-    images:  [
+    images: [
       "images/12.jpg",
-      "images/222.jpg",
+      "images/222.jpg"
     ]
   }
 
 ];
-
 
 /* ================= ELEMENTS ================= */
 
@@ -154,6 +147,12 @@ const productGrid =
 
 const productSearch =
   document.getElementById("product-search");
+
+const productsPrevButton =
+  document.getElementById("products-prev");
+
+const productsNextButton =
+  document.getElementById("products-next");
 
 const cartModal =
   document.getElementById("cart-modal");
@@ -215,7 +214,6 @@ const detailBuyNow =
 const detailAddCart =
   document.getElementById("detail-add-cart");
 
-
 /* ================= STATE ================= */
 
 let cart = [];
@@ -223,20 +221,18 @@ let selectedProduct = null;
 let selectedQuantity = 1;
 
 // رقم الصورة المفتوحة داخل تفاصيل المنتج
+
 let currentImageIndex = 0;
 
-
 /*
-  8 خانات:
-  4 فوق
-  4 تحت
+  ترتيب المنتجات اللي كيبان فالشبكة.
+  السهمين كيبدلو ترتيب المنتجات باستعمال الدوران.
 */
 
 let productSlots = [
   1, 2, 3, 4,
   5, 6, 7, 8
 ];
-
 
 /* ================= PRODUCT IMAGES ================= */
 
@@ -255,7 +251,6 @@ function getProductImages(product) {
 
   return [];
 }
-
 
 // الصورة الرئيسية اللي كتبان فبطاقة المنتج
 
@@ -279,7 +274,6 @@ function getProductImage(product) {
     >
   `;
 }
-
 
 /* ================= RENDER PRODUCTS ================= */
 
@@ -307,16 +301,6 @@ function renderProducts() {
 
             ${getProductImage(product)}
 
-            <button
-              class="next-product"
-              type="button"
-              data-next-slot="${slotIndex}"
-              title="Produit suivant"
-              aria-label="Produit suivant"
-            >
-              ›
-            </button>
-
           </div>
 
           <div class="product-info">
@@ -338,31 +322,45 @@ function renderProducts() {
     }).join("");
 }
 
+/* ================= PRODUCTS NAVIGATION ================= */
 
-/* ================= NEXT PRODUCT ARROW ================= */
+// تقديم المنتجات: أول منتج كيمشي للآخر.
 
-function nextProduct(slotIndex) {
+function nextProducts() {
 
-  const currentId = productSlots[slotIndex];
+  if (productSlots.length < 2) return;
 
-  let currentIndex =
-    products.findIndex(product => product.id === currentId);
+  const firstProduct = productSlots.shift();
 
-  if (currentIndex === -1) return;
-
-  currentIndex++;
-
-  if (currentIndex >= products.length) {
-    currentIndex = 0;
-  }
-
-  productSlots[slotIndex] =
-    products[currentIndex].id;
+  productSlots.push(firstProduct);
 
   renderProducts();
   applySearch();
 }
 
+// الرجوع بالمنتجات: آخر منتج كيمشي للأول.
+
+function previousProducts() {
+
+  if (productSlots.length < 2) return;
+
+  const lastProduct = productSlots.pop();
+
+  productSlots.unshift(lastProduct);
+
+  renderProducts();
+  applySearch();
+}
+
+// ربط الأسهم العامة
+
+if (productsPrevButton) {
+  productsPrevButton.addEventListener("click", previousProducts);
+}
+
+if (productsNextButton) {
+  productsNextButton.addEventListener("click", nextProducts);
+}
 
 /* ================= SEARCH ================= */
 
@@ -395,11 +393,9 @@ function applySearch() {
   });
 }
 
-
 if (productSearch) {
   productSearch.addEventListener("input", applySearch);
 }
-
 
 /* ================= PRODUCT DETAILS ================= */
 
@@ -494,7 +490,6 @@ function openProductDetails(productId) {
   productModal.setAttribute("aria-hidden", "false");
 }
 
-
 function closeProductDetails() {
 
   if (!productModal) return;
@@ -503,7 +498,6 @@ function closeProductDetails() {
   productModal.setAttribute("aria-hidden", "true");
 
 }
-
 
 // تبديل الصورة داخل نافذة تفاصيل المنتج
 
@@ -533,11 +527,9 @@ function changeDetailImage(direction) {
   }
 }
 
-
 if (closeProductButton) {
   closeProductButton.addEventListener("click", closeProductDetails);
 }
-
 
 if (productModal) {
 
@@ -550,7 +542,6 @@ if (productModal) {
   });
 
 }
-
 
 /* ================= QUANTITY ================= */
 
@@ -570,7 +561,6 @@ if (detailMinus) {
 
 }
 
-
 if (detailPlus) {
 
   detailPlus.addEventListener("click", () => {
@@ -584,7 +574,6 @@ if (detailPlus) {
   });
 
 }
-
 
 /* ================= CART ================= */
 
@@ -619,7 +608,6 @@ function addToCart(productId, quantity = 1) {
   renderCart();
 }
 
-
 function changeQuantity(productId, amount) {
 
   const item =
@@ -636,14 +624,12 @@ function changeQuantity(productId, amount) {
   renderCart();
 }
 
-
 function removeFromCart(productId) {
 
   cart = cart.filter(item => item.id !== productId);
 
   renderCart();
 }
-
 
 function getCartTotal() {
 
@@ -654,7 +640,6 @@ function getCartTotal() {
 
 }
 
-
 function getCartQuantity() {
 
   return cart.reduce(
@@ -663,7 +648,6 @@ function getCartQuantity() {
   );
 
 }
-
 
 /* ================= RENDER CART ================= */
 
@@ -737,7 +721,6 @@ function renderCart() {
   }
 }
 
-
 /* ================= CART MODAL ================= */
 
 function openCart() {
@@ -749,7 +732,6 @@ function openCart() {
 
 }
 
-
 function closeCart() {
 
   if (!cartModal) return;
@@ -759,16 +741,13 @@ function closeCart() {
 
 }
 
-
 if (openCartButton) {
   openCartButton.addEventListener("click", openCart);
 }
 
-
 if (closeCartButton) {
   closeCartButton.addEventListener("click", closeCart);
 }
-
 
 if (cartModal) {
 
@@ -781,7 +760,6 @@ if (cartModal) {
   });
 
 }
-
 
 /* ================= GLOBAL CLICK ================= */
 
@@ -805,26 +783,7 @@ document.addEventListener("click", event => {
     return;
   }
 
-
-  // سهم تبديل المنتج داخل البطاقة
-
-  const nextButton =
-    event.target.closest(".next-product");
-
-  if (nextButton) {
-
-    event.stopPropagation();
-
-    const slotIndex =
-      Number(nextButton.dataset.nextSlot);
-
-    nextProduct(slotIndex);
-
-    return;
-  }
-
-
-  // فتح تفاصيل المنتج
+  // فتح تفاصيل المنتج عند الضغط على البطاقة
 
   const productCard =
     event.target.closest(".product-card");
@@ -838,7 +797,6 @@ document.addEventListener("click", event => {
 
     return;
   }
-
 
   // أزرار السلة
 
@@ -867,7 +825,6 @@ document.addEventListener("click", event => {
 
 });
 
-
 /* ================= ADD CART ================= */
 
 if (detailAddCart) {
@@ -884,7 +841,6 @@ if (detailAddCart) {
   });
 
 }
-
 
 /* ================= BUY NOW ================= */
 
@@ -910,7 +866,6 @@ if (detailBuyNow) {
   });
 
 }
-
 
 /* ================= CHECKOUT ================= */
 
@@ -941,7 +896,6 @@ if (checkoutButton) {
   });
 
 }
-
 
 /* ================= ORDER ================= */
 
@@ -1037,7 +991,6 @@ if (orderForm) {
   });
 
 }
-
 
 /* ================= START ================= */
 

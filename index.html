@@ -5,26 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DAMA STORE</title>
   <link rel="stylesheet" href="style.css">
-  <meta name="google-site-verification" content="5CXuGN-yBDix8CicaOZb7lNWnjuVteEYDnHRxEK0WE8" />
-<link rel="icon" type="image/jpeg" href="images/15.jpeg">
+  <meta name="google-site-verification" content="5CXuGN-yBDix8CicaOZb7lNWnjuVteEYDnHRxEK0WE8">
+  <link rel="icon" type="image/jpeg" href="images/15.jpeg">
+</head>
+
+<body>
 
 <header class="header">
 
-  <!-- الاسم فاليسار -->
   <div class="logo">
     DAMA <span>STORE</span>
   </div>
 
-  <!-- Navigation -->
   <nav>
     <a href="#home">Accueil</a>
     <a href="#products">Produits</a>
     <a href="#contact">Contact</a>
   </nav>
 
-  <!-- اللوغو القديم فاليمين -->
   <div class="header-right">
-
     <button id="open-cart" class="cart-button">
       Panier
       <span id="cart-count">0</span>
@@ -33,8 +32,27 @@
 
 </header>
 
+<!-- MOVING ANNOUNCEMENT BAR -->
 
-<!-- ================= HERO ================= -->
+<div class="dama-moving-bar">
+  <div class="dama-moving-track">
+
+    <div class="dama-moving-group">
+      <span>✦ LIVRAISON GRATUITE PARTOUT AU MAROC ✦</span>
+      <span>✦ LIVRAISON GRATUITE PARTOUT AU MAROC ✦</span>
+      <span>✦ LIVRAISON GRATUITE PARTOUT AU MAROC ✦</span>
+    </div>
+
+    <div class="dama-moving-group" aria-hidden="true">
+      <span>✦ LIVRAISON GRATUITE PARTOUT AU MAROC ✦</span>
+      <span>✦ LIVRAISON GRATUITE PARTOUT AU MAROC ✦</span>
+      <span>✦ LIVRAISON GRATUITE PARTOUT AU MAROC ✦</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- HERO -->
 
 <section id="home" class="hero">
 
@@ -72,7 +90,7 @@
 
 </section>
 
-<!-- ================= PRODUCTS ================= -->
+<!-- PRODUCTS -->
 
 <section id="products" class="products-section">
 
@@ -81,7 +99,6 @@
     <p>Découvrez notre sélection</p>
   </div>
 
-  <!-- SEARCH -->
   <div class="product-search">
     <input
       type="search"
@@ -91,13 +108,29 @@
     >
   </div>
 
-  <!-- 4 فوق + 4 تحت -->
+  <!-- PRODUCT NAVIGATION ARROWS -->
+
+  <div class="product-navigation">
+    <button
+      type="button"
+      id="products-prev"
+      class="products-arrow"
+      aria-label="Produits précédents"
+    >‹</button>
+
+    <button
+      type="button"
+      id="products-next"
+      class="products-arrow"
+      aria-label="Produits suivants"
+    >›</button>
+  </div>
+
   <div class="product-grid" id="product-grid"></div>
 
 </section>
 
-
-<!-- ================= BENEFITS ================= -->
+<!-- BENEFITS -->
 
 <section class="benefits">
 
@@ -118,34 +151,31 @@
 
 </section>
 
-
-<!-- ================= CONTACT ================= -->
+<!-- CONTACT -->
 
 <section id="contact" class="contact">
   <h2>Contact</h2>
   <p>Pour toute question, contactez-nous.</p>
+
   <div class="contact-info">
-
-  <a href="mailto:damastoreofficiel@gmail.com" class="contact-email">
-
-    
-    <span>✉</span>
-    damastoreofficiel@gmail.com
-  </a>
-</div>
+    <a href="mailto:damastoreofficiel@gmail.com" class="contact-email">
+      <span>✉</span>
+      damastoreofficiel@gmail.com
+    </a>
+  </div>
 </section>
 
+<!-- FOOTER -->
 
 <footer>
   <div class="logo">
     DAMA <span>STORE</span>
   </div>
 
-  <p>© 2026 DAMA STORE — Tous droits réservés</p>
+  <p>©️ 2026 DAMA STORE — Tous droits réservés</p>
 </footer>
 
-
-<!-- ================= PRODUCT MODAL ================= -->
+<!-- PRODUCT MODAL -->
 
 <div id="product-modal" class="modal" aria-hidden="true">
 
@@ -186,8 +216,7 @@
   </div>
 </div>
 
-
-<!-- ================= CART ================= -->
+<!-- CART -->
 
 <div id="cart-modal" class="modal" aria-hidden="true">
 
@@ -209,7 +238,6 @@
     <button id="checkout-button" class="primary-button checkout-button">
       Commander
     </button>
-
 
     <!-- ORDER FORM -->
 
@@ -258,7 +286,6 @@
 
   </div>
 </div>
-
 
 <script type="module" src="script.js"></script>
 
