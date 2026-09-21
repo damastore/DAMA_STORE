@@ -288,6 +288,76 @@
 </div>
 
 <script type="module" src="script.js"></script>
+<!-- Font Awesome -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+<!-- WhatsApp Button -->
+<a href="https://wa.me/212723633715"
+   class="whatsapp-float"
+   target="_blank"
+   rel="noopener noreferrer">
+
+  <i class="fa-brands fa-whatsapp"></i>
+
+</a>
+
+<style>
+.whatsapp-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+
+  width: 60px;
+  height: 60px;
+
+  background: #25D366;
+  color: #fff;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+
+  font-size: 34px;
+
+  z-index: 99999;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+
+  animation: whatsappPulse 1.8s infinite;
+}
+
+.whatsapp-float i {
+  line-height: 1;
+}
+
+@keyframes whatsappPulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .whatsapp-float {
+    width: 56px;
+    height: 56px;
+    right: 16px;
+    bottom: 18px;
+    font-size: 31px;
+  }
+}
+</style>
 </body>
 </html>
