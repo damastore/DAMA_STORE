@@ -1180,10 +1180,13 @@ footer .logo {
   overflow: hidden;
   background: var(--dark);
   color: white;
-  padding: 13px 0;
   white-space: nowrap;
   border-top: 1px solid rgba(184, 139, 90, 0.4);
   border-bottom: 1px solid rgba(184, 139, 90, 0.4);
+  
+  /* التعديل الجديد غير هنا */
+  padding: 5px 0;
+  line-height: 1; /* هادي كتحيد الفراغ لي كيكون مع الكتيبة */
 }
 
 .dama-moving-track {
