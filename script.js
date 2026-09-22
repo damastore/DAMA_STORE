@@ -51,23 +51,23 @@ const products = [
   {
     id: 1,
     name: "Montre Rolexe",
-    price: 189,
+    price: 169.00,
     category: "montres",
     description: "ساعة أنيقة للاستعمال اليومي",
-    images: ["images/003.jpg", "images/002.jpg", "images/001.jpg"]
+    images: ["images/0033.png", "images/5555.png", "images/001.jpg"]
   },
   {
     id: 2,
     name: "Braclet lacoste",
-    price: 129,
+    price: 119.00,
     category: "bracelets",
     description: "سوار لاكوست أنيق بلمسة رياضية راقية، مناسب لجميع إطلالاتك اليومية.",
-    images: ["images/1.jpg", "images/2.jpg", "images/3.jpg"]
+    images: ["images/888.png", "images/2.png", "images/3.png"]
   },
   {
     id: 3,
     name: "Montre Rolex",
-    price: 189,
+    price: 169.00,
     category: "montres",
     description: "ساعة روليكس فخمة وأنيقة",
     images: ["images/01.jpg", "images/02.jpg", "images/03.jpg"]
@@ -75,7 +75,7 @@ const products = [
   {
     id: 4,
     name: "portefeuille Goyaro",
-    price: 139,
+    price: 129.00,
     category: "accessoires",
     description: "لمسة أنيقة لكل يوم",
     images: ["images/0001.jpg", "images/0002.jpg", "images/0003.jpg"]
@@ -83,7 +83,7 @@ const products = [
   {
     id: 5,
     name: "Montre odmarre piguet",
-    price: 189,
+    price: 169.00,
     category: "montres",
     description: "ساعة فخمة بتصميم راقٍ يليق بكل المناسبات.",
     images: ["images/00001.jpg", "images/00002.jpg", "images/00003.jpg"]
@@ -91,7 +91,7 @@ const products = [
   {
     id: 6,
     name: "Audemars piguet royal",
-    price: 269,
+    price: 269.00,
     category: "montres",
     description: "قمة الفخامة والدقة الميكانيكية",
     images: ["images/000001.jpg", "images/000002.jpg", "images/000003.jpg"]
@@ -359,7 +359,7 @@ function renderProducts() {
             product.price > 0
               ? `
                 <div class="dama-price-line">
-                  <strong class="dama-current-price">${product.price} DH</strong>
+                  <strong class="dama-current-price">${Number(product.price).toFixed(2)} DH</strong>
                   <del class="dama-old-price">${getOldPrice(product)} DH</del>
                 </div>
                 <p class="dama-free-delivery">Livraison gratuite</p>
