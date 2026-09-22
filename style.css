@@ -1297,3 +1297,176 @@ footer .logo {
   max-width: 80px;
   margin: 0 15px;
 }
+/* =========================================
+   DAMA STORE - FAVORITES
+========================================= */
+
+.dama-favorite-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 20;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(184, 139, 90, 0.5);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.95);
+  color: #777;
+
+  font-size: 27px;
+  line-height: 1;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+.dama-favorite-btn:hover {
+  transform: scale(1.1);
+  color: #c34c60;
+}
+
+.dama-favorite-btn.is-favorite {
+  color: #d63c55;
+  background: #fff5f6;
+  border-color: #d63c55;
+}
+
+.dama-favorite-btn span {
+  display: block;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   DAMA STORE - CATEGORY FILTERS
+========================================= */
+
+.dama-category-filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  width: 100%;
+  margin: -15px auto 35px;
+}
+
+.dama-filter-button {
+  padding: 10px 20px;
+
+  border: 1px solid var(--accent);
+  border-radius: 25px;
+
+  background: white;
+  color: var(--dark);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.dama-filter-button:hover,
+.dama-filter-button.active {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.dama-filter-button:active {
+  transform: scale(0.97);
+}
+
+/* =========================================
+   DAMA STORE - TOAST NOTIFICATION
+========================================= */
+
+#dama-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  z-index: 99999;
+
+  max-width: calc(100% - 30px);
+  width: max-content;
+
+  padding: 15px 24px;
+
+  background: var(--dark);
+  color: white;
+
+  border: 1px solid var(--accent);
+  border-radius: 35px;
+
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translate(-50%, 25px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0.3s ease;
+}
+
+#dama-toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+/* =========================================
+   MOBILE - FAVORITES + FILTERS + TOAST
+========================================= */
+
+@media (max-width: 700px) {
+  .dama-category-filters {
+    gap: 8px;
+    margin: -10px auto 25px;
+  }
+
+  .dama-filter-button {
+    padding: 9px 14px;
+    font-size: 12px;
+  }
+
+  .dama-favorite-btn {
+    top: 8px;
+    left: 8px;
+    width: 35px;
+    height: 35px;
+    font-size: 23px;
+  }
+
+  #dama-toast {
+    bottom: 20px;
+    padding: 12px 18px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  .dama-category-filters {
+    gap: 6px;
+  }
+
+  .dama-filter-button {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+}
