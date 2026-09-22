@@ -50,15 +50,15 @@ const authReady = signInAnonymously(auth)
 const products = [
   {
     id: 1,
-    name: "Montre Rolexe",
-    price: 169.00,
+    name: "ROLEX DATEJUST",
+    price: 170.00,
     category: "montres",
     description: "ساعة أنيقة للاستعمال اليومي",
-    images: ["images/0033.png", "images/5555.png", "images/001.jpg"]
+    images: ["images/01.jpg", "images/r1.jpeg", "images/r blu.jpeg", "images/aa.jpeg", "images/r vert.jpeg"]
   },
   {
     id: 2,
-    name: "Braclet lacoste",
+    name: "BRACLET LACOSTE",
     price: 119.00,
     category: "bracelets",
     description: "سوار لاكوست أنيق بلمسة رياضية راقية، مناسب لجميع إطلالاتك اليومية.",
@@ -66,51 +66,51 @@ const products = [
   },
   {
     id: 3,
-    name: "Montre Rolex",
-    price: 169.00,
+    name: "ROLEX SPRITE BATMAN",
+    price: 170.00,
     category: "montres",
-    description: "ساعة روليكس فخمة وأنيقة",
-    images: ["images/01.jpg", "images/02.jpg", "images/03.jpg"]
+    description: "ساعة روليكس فخمة وأنيقةقمة الفخامة والدقة الميكانيكية",
+    images: ["images/rool01.jpeg", "images/rool1.jpeg"]
   },
   {
     id: 4,
-    name: "portefeuille Goyaro",
-    price: 129.00,
+    name: "PORTEFEUILLE GOYARO",
+    price: 119.00,
     category: "accessoires",
     description: "لمسة أنيقة لكل يوم",
     images: ["images/0001.jpg", "images/0002.jpg", "images/0003.jpg"]
   },
   {
     id: 5,
-    name: "Montre odmarre piguet",
-    price: 169.00,
+    name: "AUDEMARS PIGUET ROYAL OAK",
+    price: 170.00,
     category: "montres",
     description: "ساعة فخمة بتصميم راقٍ يليق بكل المناسبات.",
     images: ["images/00001.jpg", "images/00002.jpg", "images/00003.jpg"]
   },
   {
     id: 6,
-    name: "Audemars piguet royal",
-    price: 269.00,
+    name: "TISSOT ACIER ",
+    price: 170.00,
     category: "montres",
     description: "قمة الفخامة والدقة الميكانيكية",
-    images: ["images/000001.jpg", "images/000002.jpg", "images/000003.jpg"]
+    images: ["images/tiso.jpeg"]
   },
   {
     id: 7,
-    name: "Montre Casio",
-    price: 189,
+    name: "CASIO CARRE",
+    price: 170.00,
     category: "montres",
     description: "ساعة كلاسيكية فاخرة",
-    images: ["images/22.jpg", "images/21.jpg"]
+    images: ["images/11.png", "images/22.png", "images/33.png"]
   },
   {
     id: 8,
-    name: "gourmette homme",
-    price: 129,
-    category: "bracelets",
+    name: "EMPORIO ARMANI",
+    price: 150.00,
+    category: "montres",
     description: "لمسة أنيقة خفيفة",
-    images: ["images/12.jpg", "images/222.jpg"]
+    images: ["images/hhh.jpeg"]
   }
 ];
 

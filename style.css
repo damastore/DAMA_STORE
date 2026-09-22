@@ -1470,3 +1470,11 @@ footer .logo {
     font-size: 11px;
   }
 }
+/* كود توحيد قياس صور المنتجات */
+.product-card img, 
+.product-item img {
+    width: 200%;
+    height: 300px; /* الارتفاع الثابت لجميع الصور */
+    object-fit: contain; /* كايحافظ على شكل الساعة بلا ما تتجبد */
+    aspect-ratio: 1 / 1; /* كايخلي إطار الصورة مربع متناسق */
+}
