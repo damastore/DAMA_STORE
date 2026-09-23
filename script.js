@@ -62,7 +62,7 @@ const products = [
     price: 119.00,
     category: "bracelets",
     description: "سوار لاكوست أنيق بلمسة رياضية راقية، مناسب لجميع إطلالاتك اليومية.",
-    images: ["images/888.png", "images/2.png", "images/3.png"]
+    images: ["images/888.png", "images/2.jpg", "images/3.jpg"]
   },
   {
     id: 3,
