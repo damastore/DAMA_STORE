@@ -24,6 +24,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 10px;
     }
 
     header h1 {
@@ -83,9 +84,46 @@
       display: none;
     }
 
-    /* =========================
-       STATISTICS
-    ========================= */
+    /* PUSH NOTIFICATIONS */
+
+    .notification-box {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 18px rgba(0,0,0,.06);
+    }
+
+    .notification-box h3 {
+      margin-top: 0;
+    }
+
+    #enable-notifications {
+      background: #b88b5a;
+      color: white;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    #notification-status {
+      margin: 12px 0 0;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .success {
+      color: #15803d;
+    }
+
+    .error {
+      color: #c00;
+    }
+
+    .info-message {
+      color: #555;
+    }
+
+    /* STATISTICS */
 
     .stats {
       display: grid;
@@ -118,9 +156,7 @@
       color: #777;
     }
 
-    /* =========================
-       SEARCH
-    ========================= */
+    /* SEARCH */
 
     .search-box {
       margin: 20px 0;
@@ -140,9 +176,7 @@
       border-color: #111;
     }
 
-    /* =========================
-       ORDERS
-    ========================= */
+    /* ORDERS */
 
     .order {
       background: white;
@@ -168,6 +202,7 @@
 
     .info {
       line-height: 1.7;
+      overflow-wrap: anywhere;
     }
 
     .products {
@@ -190,9 +225,7 @@
       background: white;
     }
 
-    /* =========================
-       DELETE
-    ========================= */
+    /* DELETE */
 
     .delete-order {
       background: #dc2626;
@@ -204,11 +237,6 @@
       opacity: .85;
     }
 
-    .error {
-      color: #c00;
-      margin-top: 10px;
-    }
-
     .empty {
       text-align: center;
       padding: 40px;
@@ -216,9 +244,7 @@
       border-radius: 15px;
     }
 
-    /* =========================
-       MOBILE
-    ========================= */
+    /* MOBILE */
 
     @media (max-width: 900px) {
       .stats {
@@ -285,19 +311,20 @@
   <!-- LOGIN -->
 
   <div id="login-box">
-
     <h2>Connexion Admin</h2>
 
     <input
       type="email"
       id="email"
       placeholder="Email"
+      autocomplete="username"
     >
 
     <input
       type="password"
       id="password"
       placeholder="Mot de passe"
+      autocomplete="current-password"
     >
 
     <button id="login-button">
@@ -305,18 +332,33 @@
     </button>
 
     <div id="login-error" class="error"></div>
-
   </div>
-
 
   <!-- ADMIN PANEL -->
 
   <div id="admin-panel">
-
     <div class="container">
 
       <h2>Commandes</h2>
 
+      <!-- PUSH NOTIFICATIONS -->
+
+      <div class="notification-box">
+        <h3>🔔 Notifications des nouvelles commandes</h3>
+
+        <p>
+          Active les notifications pour recevoir les alertes
+          sur cet appareil.
+        </p>
+
+        <button id="enable-notifications" type="button">
+          Activer les notifications
+        </button>
+
+        <p id="notification-status" class="info-message">
+          Notifications non activées.
+        </p>
+      </div>
 
       <!-- STATISTICS -->
 
@@ -354,19 +396,15 @@
 
       </div>
 
-
       <!-- SEARCH -->
 
       <div class="search-box">
-
         <input
           type="text"
           id="search-orders"
           placeholder="🔍 بحث بالاسم، الهاتف أو المدينة..."
         >
-
       </div>
-
 
       <!-- ORDERS -->
 
@@ -375,37 +413,39 @@
       </div>
 
     </div>
-
   </div>
-
 
   <script type="module">
 
     import { initializeApp }
       from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-
     import {
       getAuth,
       signInWithEmailAndPassword,
       onAuthStateChanged,
       signOut
-    }
-      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
     import {
       getDatabase,
       ref,
       onValue,
       update,
-      remove
-    }
-      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+      remove,
+      set
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    import {
+      getMessaging,
+      getToken,
+      onMessage,
+      isSupported
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
 
 
     // =========================
-    // FIREBASE
+    // FIREBASE CONFIG
     // =========================
 
     const firebaseConfig = {
@@ -418,11 +458,8 @@
       appId: "1:1076285666524:web:15e9b02fcd7ea67ecdb019"
     };
 
-
     const app = initializeApp(firebaseConfig);
-
     const auth = getAuth(app);
-
     const db = getDatabase(app);
 
 
@@ -430,31 +467,51 @@
     // ADMIN UID
     // =========================
 
-    const ADMIN_UID =
-      "XmTHlhCgDyY5JhGONjipnjx7SJq2";
+    const ADMIN_UID = "XmTHlhCgDyY5JhGONjipnjx7SJq2";
+
+
+    // =========================
+    // FCM PUBLIC VAPID KEY
+    // =========================
+
+    const VAPID_KEY =
+      "BJiVtfJbwX9Ho36Nr8Qo6icWv6jLrPIa3YM9yWBjkxKDRoK8GGZdP01cOa9Iu6BD0ylIOl_KjKf8uUmnZHRHh6k";
 
 
     // =========================
     // ELEMENTS
     // =========================
 
-    const loginBox =
-      document.getElementById("login-box");
+    const loginBox = document.getElementById("login-box");
+    const adminPanel = document.getElementById("admin-panel");
+    const loginButton = document.getElementById("login-button");
+    const logoutButton = document.getElementById("logout");
+    const loginError = document.getElementById("login-error");
+    const ordersContainer = document.getElementById("orders-container");
 
-    const adminPanel =
-      document.getElementById("admin-panel");
+    const enableNotificationsButton =
+      document.getElementById("enable-notifications");
 
-    const loginButton =
-      document.getElementById("login-button");
+    const notificationStatus =
+      document.getElementById("notification-status");
 
-    const logoutButton =
-      document.getElementById("logout");
 
-    const loginError =
-      document.getElementById("login-error");
+    // =========================
+    // STATE
+    // =========================
 
-    const ordersContainer =
-      document.getElementById("orders-container");
+    let ordersListenerStarted = false;
+    let messagingInstance = null;
+
+
+    // =========================
+    // NOTIFICATION STATUS
+    // =========================
+
+    function setNotificationStatus(message, type = "info-message") {
+      notificationStatus.textContent = message;
+      notificationStatus.className = type;
+    }
 
 
     // =========================
@@ -463,58 +520,35 @@
 
     loginButton.addEventListener("click", async () => {
 
-      const email =
-        document.getElementById("email").value.trim();
-
-      const password =
-        document.getElementById("password").value;
-
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
 
       loginError.textContent = "";
 
-
       if (!email || !password) {
-
-        loginError.textContent =
-          "دخل الإيميل والباسوورد.";
-
+        loginError.textContent = "دخل الإيميل والباسوورد.";
         return;
       }
 
-
       try {
-
-        const result =
-          await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
-
+        const result = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
 
         if (result.user.uid !== ADMIN_UID) {
-
           await signOut(auth);
-
-          loginError.textContent =
-            "هاد الحساب ماشي Admin.";
-
+          loginError.textContent = "هاد الحساب ماشي Admin.";
           return;
         }
 
-
         showAdmin();
 
-
       } catch (error) {
-
         console.error(error);
-
-        loginError.textContent =
-          "Email أو Password غير صحيح.";
-
+        loginError.textContent = "Email أو Password غير صحيح.";
       }
-
     });
 
 
@@ -526,27 +560,19 @@
 
       console.log("ADMIN UID:", user?.uid);
 
-
       if (!user) {
-
         loginBox.style.display = "block";
-
         adminPanel.style.display = "none";
-
+        ordersListenerStarted = false;
         return;
       }
-
 
       if (user.uid !== ADMIN_UID) {
-
         signOut(auth);
-
         return;
       }
 
-
       showAdmin();
-
     });
 
 
@@ -555,13 +581,11 @@
     // =========================
 
     function showAdmin() {
-
       loginBox.style.display = "none";
-
       adminPanel.style.display = "block";
 
       loadOrders();
-
+      updateNotificationButton();
     }
 
 
@@ -571,60 +595,38 @@
 
     function loadOrders() {
 
-      const ordersRef =
-        ref(db, "orders");
+      // Avoid attaching duplicate Firebase listeners.
+      if (ordersListenerStarted) return;
+      ordersListenerStarted = true;
 
+      const ordersRef = ref(db, "orders");
 
       onValue(
-
         ordersRef,
-
         (snapshot) => {
 
-          const data =
-            snapshot.val() || {};
+          const data = snapshot.val() || {};
 
-
-          window.allOrders =
-            Object.entries(data).map(
-              ([id, order]) => ({
-                id,
-                ...order
-              })
-            );
-
-
-          updateStats(
-            window.allOrders
+          window.allOrders = Object.entries(data).map(
+            ([id, order]) => ({
+              id,
+              ...order
+            })
           );
 
-
-          displayOrders(
-            window.allOrders
-          );
+          updateStats(window.allOrders);
+          applySearch();
 
         },
-
-
         (error) => {
 
-          console.error(
-            "Firebase ERROR:",
-            error
-          );
+          console.error("Firebase ERROR:", error);
 
-
-          ordersContainer.innerHTML = `
-            <div class="empty">
-              ❌ Erreur Firebase :
-              ${error.message}
-            </div>
-          `;
+          ordersContainer.textContent =
+            "Erreur Firebase : " + error.message;
 
         }
-
       );
-
     }
 
 
@@ -634,69 +636,39 @@
 
     function updateStats(orders) {
 
-      const totalOrders =
-        orders.length;
+      const totalOrders = orders.length;
 
+      const newOrders = orders.filter(
+        order => order.status === "nouvelle"
+      ).length;
 
-      const newOrders =
-        orders.filter(
-          order =>
-            order.status === "nouvelle"
-        ).length;
+      const confirmedOrders = orders.filter(
+        order => order.status === "confirmée"
+      ).length;
 
+      const shippedOrders = orders.filter(
+        order => order.status === "expédiée"
+      ).length;
 
-      const confirmedOrders =
-        orders.filter(
-          order =>
-            order.status === "confirmée"
-        ).length;
+      const totalSales = orders.reduce(
+        (sum, order) => sum + Number(order.total || 0),
+        0
+      );
 
-
-      const shippedOrders =
-        orders.filter(
-          order =>
-            order.status === "expédiée"
-        ).length;
-
-
-      const totalSales =
-        orders.reduce(
-          (sum, order) =>
-            sum + Number(order.total || 0),
-          0
-        );
-
-
-      document.getElementById(
-        "total-orders"
-      ).textContent =
+      document.getElementById("total-orders").textContent =
         totalOrders;
 
-
-      document.getElementById(
-        "new-orders"
-      ).textContent =
+      document.getElementById("new-orders").textContent =
         newOrders;
 
-
-      document.getElementById(
-        "confirmed-orders"
-      ).textContent =
+      document.getElementById("confirmed-orders").textContent =
         confirmedOrders;
 
-
-      document.getElementById(
-        "shipped-orders"
-      ).textContent =
+      document.getElementById("shipped-orders").textContent =
         shippedOrders;
 
-
-      document.getElementById(
-        "total-sales"
-      ).textContent =
-        totalSales.toLocaleString("fr-FR")
-        + " DH";
-
+      document.getElementById("total-sales").textContent =
+        totalSales.toLocaleString("fr-FR") + " DH";
     }
 
 
@@ -708,162 +680,122 @@
 
       ordersContainer.innerHTML = "";
 
-
       if (orders.length === 0) {
-
-        ordersContainer.innerHTML = `
-          <div class="empty">
-            📭 ما كاين حتى طلب.
-          </div>
-        `;
-
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "📭 ما كاين حتى طلب.";
+        ordersContainer.appendChild(empty);
         return;
       }
 
+      orders.slice().reverse().forEach(order => {
 
-      orders
-        .slice()
-        .reverse()
-        .forEach(order => {
+        const orderElement = document.createElement("div");
+        orderElement.className = "order";
 
+        const orderHeader = document.createElement("div");
+        orderHeader.className = "order-header";
 
-          const productsHTML =
-            (order.products || [])
-              .map(product => `
-                <div>
-                  ${product.name}
-                  × ${product.quantity}
-                  =
-                  ${Number(product.subtotal || 0).toLocaleString("fr-FR")}
-                  DH
-                </div>
-              `)
-              .join("");
+        const heading = document.createElement("h3");
+        heading.textContent = "Commande #" + String(order.id).slice(-6);
 
+        const statusSelect = document.createElement("select");
+        statusSelect.className = "status";
+        statusSelect.dataset.id = order.id;
 
-          const date =
-            order.createdAt
-              ? new Date(
-                  order.createdAt
-                ).toLocaleString("fr-FR")
-              : "-";
-
-
-          ordersContainer.innerHTML += `
-
-            <div class="order">
-
-              <div class="order-header">
-
-                <h3>
-                  Commande #${order.id.slice(-6)}
-                </h3>
-
-
-                <select
-                  class="status"
-                  data-id="${order.id}"
-                >
-
-                  <option
-                    value="nouvelle"
-                    ${order.status === "nouvelle" ? "selected" : ""}
-                  >
-                    Nouvelle
-                  </option>
-
-
-                  <option
-                    value="confirmée"
-                    ${order.status === "confirmée" ? "selected" : ""}
-                  >
-                    Confirmée
-                  </option>
-
-
-                  <option
-                    value="expédiée"
-                    ${order.status === "expédiée" ? "selected" : ""}
-                  >
-                    Expédiée
-                  </option>
-
-
-                  <option
-                    value="livrée"
-                    ${order.status === "livrée" ? "selected" : ""}
-                  >
-                    Livrée
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <div class="info">
-
-                <strong>Nom :</strong>
-                ${order.customer?.name || "-"}
-                <br>
-
-                <strong>Téléphone :</strong>
-                ${order.customer?.phone || "-"}
-                <br>
-
-                <strong>Ville :</strong>
-                ${order.customer?.city || "-"}
-                <br>
-
-                <strong>Adresse :</strong>
-                ${order.customer?.address || "-"}
-
-              </div>
-
-
-              <div class="products">
-
-                <strong>Produits :</strong>
-
-                ${productsHTML}
-
-              </div>
-
-
-              <div class="total">
-
-                Total :
-                ${Number(order.total || 0).toLocaleString("fr-FR")}
-                DH
-
-              </div>
-
-
-              <p>
-
-                <strong>Date :</strong>
-                ${date}
-
-              </p>
-
-
-              <button
-                class="delete-order"
-                data-id="${order.id}"
-              >
-                🗑️ Supprimer
-              </button>
-
-
-            </div>
-
-          `;
-
+        [
+          ["nouvelle", "Nouvelle"],
+          ["confirmée", "Confirmée"],
+          ["expédiée", "Expédiée"],
+          ["livrée", "Livrée"]
+        ].forEach(([value, label]) => {
+          const option = document.createElement("option");
+          option.value = value;
+          option.textContent = label;
+          option.selected = order.status === value;
+          statusSelect.appendChild(option);
         });
 
+        orderHeader.append(heading, statusSelect);
+
+        const info = document.createElement("div");
+        info.className = "info";
+
+        const customer = order.customer || {};
+
+        function addInfoLine(label, value) {
+          const strong = document.createElement("strong");
+          strong.textContent = label + " : ";
+
+          info.appendChild(strong);
+          info.appendChild(document.createTextNode(value || "-"));
+          info.appendChild(document.createElement("br"));
+        }
+
+        addInfoLine("Nom", String(customer.name || ""));
+        addInfoLine("Téléphone", String(customer.phone || ""));
+        addInfoLine("Ville", String(customer.city || ""));
+        addInfoLine("Adresse", String(customer.address || ""));
+
+        const productsBox = document.createElement("div");
+        productsBox.className = "products";
+
+        const productsTitle = document.createElement("strong");
+        productsTitle.textContent = "Produits :";
+        productsBox.appendChild(productsTitle);
+
+        (Array.isArray(order.products) ? order.products : []).forEach(product => {
+          const line = document.createElement("div");
+
+          const name = String(product.name || "Produit");
+          const quantity = Number(product.quantity || 0);
+          const subtotal = Number(product.subtotal || 0)
+            .toLocaleString("fr-FR");
+
+          line.textContent =
+            `${name} × ${quantity} = ${subtotal} DH`;
+
+          productsBox.appendChild(line);
+        });
+
+        const total = document.createElement("div");
+        total.className = "total";
+        total.textContent =
+          "Total : " +
+          Number(order.total || 0).toLocaleString("fr-FR") +
+          " DH";
+
+        const dateParagraph = document.createElement("p");
+        const dateLabel = document.createElement("strong");
+        dateLabel.textContent = "Date : ";
+
+        const dateText = order.createdAt
+          ? new Date(order.createdAt).toLocaleString("fr-FR")
+          : "-";
+
+        dateParagraph.append(
+          dateLabel,
+          document.createTextNode(dateText)
+        );
+
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "delete-order";
+        deleteButton.dataset.id = order.id;
+        deleteButton.textContent = "🗑️ Supprimer";
+
+        orderElement.append(
+          orderHeader,
+          info,
+          productsBox,
+          total,
+          dateParagraph,
+          deleteButton
+        );
+
+        ordersContainer.appendChild(orderElement);
+      });
 
       attachOrderEvents();
-
     }
 
 
@@ -873,88 +805,48 @@
 
     function attachOrderEvents() {
 
+      document.querySelectorAll(".status").forEach(select => {
 
-      document
-        .querySelectorAll(".status")
-        .forEach(select => {
+        select.addEventListener("change", async () => {
 
-          select.addEventListener(
-            "change",
-            async () => {
+          try {
+            await update(
+              ref(db, `orders/${select.dataset.id}`),
+              { status: select.value }
+            );
 
-              try {
-
-                await update(
-                  ref(
-                    db,
-                    `orders/${select.dataset.id}`
-                  ),
-                  {
-                    status: select.value
-                  }
-                );
-
-              } catch (error) {
-
-                console.error(error);
-
-                alert(
-                  "❌ Impossible de modifier le statut"
-                );
-
-              }
-
-            }
-          );
+          } catch (error) {
+            console.error(error);
+            alert("❌ Impossible de modifier le statut");
+          }
 
         });
 
+      });
 
-      document
-        .querySelectorAll(".delete-order")
-        .forEach(button => {
+      document.querySelectorAll(".delete-order").forEach(button => {
 
-          button.addEventListener(
-            "click",
-            async () => {
+        button.addEventListener("click", async () => {
 
-              const orderId =
-                button.dataset.id;
+          const orderId = button.dataset.id;
 
-
-              const confirmation =
-                confirm(
-                  "⚠️ واش متأكد بغيتي تحذف هاد الطلب؟"
-                );
-
-
-              if (!confirmation) return;
-
-
-              try {
-
-                await remove(
-                  ref(
-                    db,
-                    `orders/${orderId}`
-                  )
-                );
-
-              } catch (error) {
-
-                console.error(error);
-
-                alert(
-                  "❌ Impossible de supprimer la commande"
-                );
-
-              }
-
-            }
+          const confirmation = confirm(
+            "⚠️ واش متأكد بغيتي تحذف هاد الطلب؟"
           );
+
+          if (!confirmation) return;
+
+          try {
+            await remove(ref(db, `orders/${orderId}`));
+
+          } catch (error) {
+            console.error(error);
+            alert("❌ Impossible de supprimer la commande");
+          }
 
         });
 
+      });
     }
 
 
@@ -962,68 +854,202 @@
     // SEARCH
     // =========================
 
-    document
-      .getElementById("search-orders")
-      .addEventListener(
-        "input",
-        function () {
+    function applySearch() {
 
-          const search =
-            this.value
-              .toLowerCase()
-              .trim();
+      const search = document.getElementById("search-orders")
+        .value.toLowerCase().trim();
 
+      const allOrders = window.allOrders || [];
 
-          const filteredOrders =
-            window.allOrders.filter(order => {
+      const filteredOrders = allOrders.filter(order => {
 
-              const name =
-                String(
-                  order.customer?.name || ""
-                ).toLowerCase();
+        const name = String(order.customer?.name || "").toLowerCase();
+        const phone = String(order.customer?.phone || "").toLowerCase();
+        const city = String(order.customer?.city || "").toLowerCase();
 
+        return (
+          name.includes(search) ||
+          phone.includes(search) ||
+          city.includes(search)
+        );
+      });
 
-              const phone =
-                String(
-                  order.customer?.phone || ""
-                ).toLowerCase();
+      displayOrders(filteredOrders);
+    }
 
-
-              const city =
-                String(
-                  order.customer?.city || ""
-                ).toLowerCase();
+    document.getElementById("search-orders")
+      .addEventListener("input", applySearch);
 
 
-              return (
-                name.includes(search) ||
-                phone.includes(search) ||
-                city.includes(search)
-              );
+    // =========================
+    // PUSH NOTIFICATIONS
+    // =========================
 
-            });
+    async function updateNotificationButton() {
+
+      if (!("Notification" in window)) {
+        enableNotificationsButton.disabled = true;
+        setNotificationStatus(
+          "Notifications non prises en charge par ce navigateur.",
+          "error"
+        );
+        return;
+      }
+
+      if (!window.isSecureContext) {
+        enableNotificationsButton.disabled = true;
+        setNotificationStatus(
+          "Ouvre cette page depuis HTTPS pour activer les notifications.",
+          "error"
+        );
+        return;
+      }
+
+      if (Notification.permission === "granted") {
+        setNotificationStatus(
+          "Permission accordée. Appuie sur le bouton pour enregistrer cet appareil.",
+          "success"
+        );
+      } else if (Notification.permission === "denied") {
+        setNotificationStatus(
+          "Notifications bloquées. Vérifie les réglages de notifications de Safari ou de l’application web.",
+          "error"
+        );
+      } else {
+        setNotificationStatus(
+          "Appuie sur le bouton puis autorise les notifications.",
+          "info-message"
+        );
+      }
+    }
 
 
-          displayOrders(
-            filteredOrders
-          );
+    enableNotificationsButton.addEventListener("click", async () => {
 
+      enableNotificationsButton.disabled = true;
+      enableNotificationsButton.textContent = "Activation...";
+
+      try {
+
+        const user = auth.currentUser;
+
+        if (!user || user.uid !== ADMIN_UID) {
+          throw new Error("Connecte-toi avec le compte Admin.");
         }
-      );
+
+        if (!("Notification" in window)) {
+          throw new Error("Ce navigateur ne prend pas en charge les notifications.");
+        }
+
+        if (!window.isSecureContext) {
+          throw new Error("La page doit être ouverte en HTTPS.");
+        }
+
+        // iPhone/iPad web push requires an installed Home Screen web app
+        // and a supported iOS version.
+        const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+        const isStandalone =
+          window.matchMedia("(display-mode: standalone)").matches ||
+          window.navigator.standalone === true;
+
+        if (isIOS && !isStandalone) {
+          throw new Error(
+            "Sur iPhone, ajoute d'abord cette page à l'écran d'accueil, puis ouvre-la depuis son icône."
+          );
+        }
+
+        if (Notification.permission !== "granted") {
+          const permission = await Notification.requestPermission();
+
+          if (permission !== "granted") {
+            throw new Error("Tu n'as pas autorisé les notifications.");
+          }
+        }
+
+        const supported = await isSupported();
+
+        if (!supported) {
+          throw new Error("Firebase Messaging n'est pas pris en charge par ce navigateur.");
+        }
+
+        // Register the service worker located beside admin.html.
+        const registration = await navigator.serviceWorker.register(
+          "./firebase-messaging-sw.js"
+        );
+
+        await navigator.serviceWorker.ready;
+
+        messagingInstance = getMessaging(app);
+
+        const token = await getToken(messagingInstance, {
+          vapidKey: VAPID_KEY,
+          serviceWorkerRegistration: registration
+        });
+
+        if (!token) {
+          throw new Error("Firebase n'a pas retourné de token pour cet appareil.");
+        }
+
+        // Save this device token for the Admin account.
+        // Database rules must restrict this path to the Admin.
+        await set(
+          ref(db, `adminNotificationTokens/${user.uid}`),
+          {
+            token,
+            updatedAt: Date.now(),
+            userAgent: navigator.userAgent
+          }
+        );
+
+        setNotificationStatus(
+          "✅ Notifications autorisées et appareil enregistré. L'envoi automatique nécessite aussi une fonction Firebase côté serveur.",
+          "success"
+        );
+
+        // Receive messages while this Admin page is open.
+        onMessage(messagingInstance, (payload) => {
+
+          console.log("Message reçu au premier plan :", payload);
+
+          const title =
+            payload.notification?.title || "DAMA STORE";
+
+          const body =
+            payload.notification?.body || "Nouvelle notification.";
+
+          // Foreground messages are shown in the page status.
+          setNotificationStatus(
+            "🔔 " + title + " — " + body,
+            "success"
+          );
+        });
+
+      } catch (error) {
+
+        console.error("Notification setup error:", error);
+
+        setNotificationStatus(
+          "❌ " + (error.message || "Une erreur est survenue."),
+          "error"
+        );
+
+      } finally {
+
+        enableNotificationsButton.disabled = false;
+        enableNotificationsButton.textContent =
+          "Activer les notifications";
+
+      }
+    });
 
 
     // =========================
     // LOGOUT
     // =========================
 
-    logoutButton.addEventListener(
-      "click",
-      async () => {
-
-        await signOut(auth);
-
-      }
-    );
+    logoutButton.addEventListener("click", async () => {
+      await signOut(auth);
+    });
 
   </script>
 
