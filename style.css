@@ -1478,3 +1478,82 @@ footer .logo {
     object-fit: contain; /* كايحافظ على شكل الساعة بلا ما تتجبد */
     aspect-ratio: 1 / 1; /* كايخلي إطار الصورة مربع متناسق */
 }
+/* زر Instagram العائم فوق WhatsApp */
+.dama-instagram-float {
+  position: fixed;
+  right: 20px;
+  bottom: 100px;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  z-index: 9999;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  animation: dama-instagram-pulse 2s infinite;
+}
+
+.dama-instagram-float svg {
+  width: 28px;
+  height: 28px;
+}
+
+.dama-instagram-float:hover {
+  transform: scale(1.08);
+}
+
+@keyframes dama-instagram-pulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  }
+  50% {
+    box-shadow: 0 4px 18px rgba(214, 41, 118, 0.55);
+  }
+}
+
+@media (max-width: 600px) {
+  .dama-instagram-float {
+    right: 15px;
+    bottom: 90px;
+    width: 50px;
+    height: 50px;
+  }
+}
+.dama-instagram-float {
+  animation: dama-instagram-move 1.8s infinite ease-in-out,
+             dama-instagram-pulse 2s infinite;
+  transform-origin: center;
+}
+
+@keyframes dama-instagram-move {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+
+  25% {
+    transform: translateY(-5px) scale(1.05);
+  }
+
+  50% {
+    transform: translateY(0) scale(1);
+  }
+
+  75% {
+    transform: translateY(-3px) scale(1.03);
+  }
+}
+
+@keyframes dama-instagram-pulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  }
+
+  50% {
+    box-shadow: 0 4px 20px rgba(214, 41, 118, 0.6);
+  }
+}

@@ -34,7 +34,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-// كنستناو تسجيل الدخول قبل ما نسيفطو الطلب
 const authReady = signInAnonymously(auth)
   .then(({ user }) => {
     console.log("Firebase connecté ✅");
@@ -114,7 +113,6 @@ const products = [
   }
 ];
 
-// الثمن القديم = الثمن الحالي + 50 DH
 function getOldPrice(product) {
   return Number(product.price) + 50;
 }
@@ -372,36 +370,6 @@ function renderProducts() {
   }).join("");
 }
 
-/* ================= PRODUCT NAVIGATION ================= */
-
-function nextProducts() {
-  if (productSlots.length < 2) return;
-
-  const firstProduct = productSlots.shift();
-  productSlots.push(firstProduct);
-
-  renderProducts();
-  applySearch();
-}
-
-function previousProducts() {
-  if (productSlots.length < 2) return;
-
-  const lastProduct = productSlots.pop();
-  productSlots.unshift(lastProduct);
-
-  renderProducts();
-  applySearch();
-}
-
-if (productsPrevButton) {
-  productsPrevButton.addEventListener("click", previousProducts);
-}
-
-if (productsNextButton) {
-  productsNextButton.addEventListener("click", nextProducts);
-}
-
 /* ================= SEARCH + FILTER ================= */
 
 function applySearch() {
@@ -436,6 +404,36 @@ if (productSearch) {
   productSearch.addEventListener("input", applySearch);
 }
 
+/* ================= PRODUCT NAVIGATION ================= */
+
+function nextProducts() {
+  if (productSlots.length < 2) return;
+
+  const firstProduct = productSlots.shift();
+  productSlots.push(firstProduct);
+
+  renderProducts();
+  applySearch();
+}
+
+function previousProducts() {
+  if (productSlots.length < 2) return;
+
+  const lastProduct = productSlots.pop();
+  productSlots.unshift(lastProduct);
+
+  renderProducts();
+  applySearch();
+}
+
+if (productsPrevButton) {
+  productsPrevButton.addEventListener("click", previousProducts);
+}
+
+if (productsNextButton) {
+  productsNextButton.addEventListener("click", nextProducts);
+}
+
 /* ================= PRODUCT DETAILS ================= */
 
 function openProductDetails(productId) {
@@ -461,6 +459,7 @@ function openProductDetails(productId) {
             id="detail-main-img"
             src="${images[0]}"
             alt="${product.name}"
+            draggable="false"
           >
 
           ${
@@ -492,6 +491,29 @@ function openProductDetails(productId) {
           }
         </div>
       `;
+
+      const prevButton = productDetailImage.querySelector(".gallery-prev");
+      const nextButton = productDetailImage.querySelector(".gallery-next");
+
+      if (prevButton) {
+        prevButton.style.touchAction = "manipulation";
+
+        prevButton.addEventListener("click", event => {
+          event.preventDefault();
+          event.stopPropagation();
+          changeDetailImage(-1);
+        });
+      }
+
+      if (nextButton) {
+        nextButton.style.touchAction = "manipulation";
+
+        nextButton.addEventListener("click", event => {
+          event.preventDefault();
+          event.stopPropagation();
+          changeDetailImage(1);
+        });
+      }
     }
   }
 
@@ -587,7 +609,6 @@ if (detailPlus) {
     }
   });
 }
-
 /* ================= CART ================= */
 
 function addToCart(productId, quantity = 1) {
@@ -752,19 +773,8 @@ document.addEventListener("click", event => {
     return;
   }
 
-  const galleryArrow = event.target.closest(".gallery-arrow");
-
-  if (galleryArrow) {
-    event.stopPropagation();
-
-    if (galleryArrow.classList.contains("gallery-next")) {
-      changeDetailImage(1);
-    } else {
-      changeDetailImage(-1);
-    }
-
-    return;
-  }
+  // الأسهم ديال معرض الصور مربوطة مباشرة داخل openProductDetails()
+  // لذلك ما كنعاودوش نربطوها هنا لتفادي تكرار الحدث.
 
   const productCard = event.target.closest(".product-card");
 
@@ -1071,7 +1081,6 @@ if (orderForm) {
     }
 
     try {
-      // 1. نتأكدو أن Firebase Auth خدام
       const user = await authReady;
 
       if (!user) {
@@ -1080,13 +1089,11 @@ if (orderForm) {
         );
       }
 
-      // 2. نسجلو الطلب مرة وحدة فقط
       const ordersRef = ref(db, "orders");
       const result = await push(ordersRef, order);
 
       console.log("Commande enregistrée dans Firebase ✅", result.key);
 
-      // 3. نعرضو صفحة التأكيد من بعد نجاح التسجيل
       showOrderConfirmation(order, result.key);
 
       if (orderMessage) {
@@ -1094,7 +1101,6 @@ if (orderForm) {
           "✅ Votre commande a été envoyée avec succès !";
       }
 
-      // 4. نفرغو السلة والفورم
       cart = [];
       renderCart();
 
