@@ -3,35 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>DAMA STORE</title>
-
   <meta name="google-site-verification" content="P4SwVLSSu2gdLgpidoQAa7uVdleTaWYLrk6VA8nGfYg">
   <meta name="google-site-verification" content="5CXuGN-yBDix8CicaOZb7lNWnjuVteEYDnHRxEK0WE8">
-
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/jpeg" href="images/15.jpeg">
-
   <!-- Font Awesome -->
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-  <!-- DAMA STORE: panier + barre livraison -->
+  <!-- DAMA STORE: panier + barre livraison + splash screen -->
   <style>
-    /* PANIER HEADER */
+    /* =========================================
+       SPLASH SCREEN DAMA STORE
+       ========================================= */
+    #dama-splash {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100vh;
+      background: #202020;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999999;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #dama-splash.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .dama-splash-content {
+      text-align: center;
+      color: #b88b5a;
+      padding: 20px;
+      animation: damaSplashAppear 1.2s ease forwards;
+    }
+    .dama-splash-logo {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 46px;
+      font-weight: 700;
+      letter-spacing: 7px;
+      line-height: 1;
+    }
+    .dama-splash-logo span {
+      display: block;
+      font-size: 18px;
+      letter-spacing: 9px;
+      margin-top: 12px;
+      font-weight: 400;
+    }
+    .dama-splash-welcome {
+      margin: 28px 0 8px;
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: 2px;
+    }
+    .dama-splash-subtitle {
+      margin: 0 0 25px;
+      color: rgba(184, 139, 90, 0.75);
+      font-size: 13px;
+      letter-spacing: 2px;
+    }
+    .dama-splash-line {
+      width: 70px;
+      height: 1px;
+      background: #b88b5a;
+      margin: 0 auto;
+      opacity: 0.7;
+    }
+    @keyframes damaSplashAppear {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* =========================================
+       PANIER HEADER
+       ========================================= */
     .header-right {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-
     .cart-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
     }
-
     .cart-button .cart-icon {
       width: 20px;
       height: 20px;
@@ -39,11 +105,9 @@
       color: #b88b5a;
       transition: transform 0.25s ease;
     }
-
     .cart-button:hover .cart-icon {
       transform: translateY(-2px);
     }
-
     #cart-count {
       display: inline-flex;
       align-items: center;
@@ -52,8 +116,9 @@
       height: 25px;
       border-radius: 50%;
     }
-
-    /* BARRE LIVRAISON PLUS FINE */
+    /* =========================================
+       BARRE LIVRAISON
+       ========================================= */
     .dama-moving-bar {
       height: 24px;
       min-height: 24px;
@@ -62,29 +127,27 @@
       display: flex;
       align-items: center;
     }
-
     .dama-moving-track {
       min-height: 24px;
       height: 24px;
       display: flex;
       align-items: center;
     }
-
     .dama-moving-group {
       height: 24px;
       display: flex;
       align-items: center;
       flex-shrink: 0;
     }
-
     .dama-moving-group span {
       font-size: 11px;
       line-height: 1;
       padding: 0 18px;
       white-space: nowrap;
     }
-
-    /* WHATSAPP FLOAT */
+    /* =========================================
+       WHATSAPP FLOAT
+       ========================================= */
     .whatsapp-float {
       position: fixed;
       right: 20px;
@@ -103,48 +166,48 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.25);
       animation: whatsappPulse 1.8s infinite;
     }
-
     .whatsapp-float i {
       line-height: 1;
     }
-
     @keyframes whatsappPulse {
-      0%   { transform: scale(1); }
-      50%  { transform: scale(1.12); }
-      100% { transform: scale(1); }
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.12);
+      }
+      100% {
+        transform: scale(1);
+      }
     }
-
+    /* =========================================
+       MOBILE
+       ========================================= */
     @media (max-width: 600px) {
       .header-right {
         gap: 7px;
       }
-
       .cart-button {
         gap: 7px;
       }
-
       .cart-button .cart-icon {
         width: 18px;
         height: 18px;
       }
-
       #cart-count {
         min-width: 22px;
         height: 22px;
       }
-
       .dama-moving-bar,
       .dama-moving-track,
       .dama-moving-group {
         height: 22px;
         min-height: 22px;
       }
-
       .dama-moving-group span {
         font-size: 10px;
         padding: 0 12px;
       }
-
       .whatsapp-float {
         width: 56px;
         height: 56px;
@@ -152,31 +215,59 @@
         bottom: 18px;
         font-size: 31px;
       }
+      /* SPLASH MOBILE */
+      .dama-splash-logo {
+        font-size: 38px;
+        letter-spacing: 6px;
+      }
+      .dama-splash-logo span {
+        font-size: 15px;
+        letter-spacing: 7px;
+      }
+      .dama-splash-welcome {
+        font-size: 21px;
+      }
+      .dama-splash-subtitle {
+        font-size: 11px;
+      }
     }
   </style>
 </head>
-
 <body>
-
-<!-- HEADER -->
-
+<!-- =========================================
+     DAMA STORE SPLASH SCREEN
+     ========================================= -->
+<div id="dama-splash">
+  <div class="dama-splash-content">
+    <div class="dama-splash-line"></div>
+    <div class="dama-splash-logo">
+      DAMA
+      <span>STORE</span>
+    </div>
+    <p class="dama-splash-welcome">
+      ترحب بكم
+    </p>
+    <p class="dama-splash-subtitle">
+      Votre élégance notre passion
+    </p>
+    <div class="dama-splash-line"></div>
+  </div>
+</div>
+<!-- =========================================
+     HEADER
+     ========================================= -->
 <header class="header">
-
   <div class="logo">
     DAMA <span>STORE</span>
   </div>
-
   <nav>
     <a href="#home">Accueil</a>
     <a href="#products">Produits</a>
     <a href="#contact">Contact</a>
   </nav>
-
   <div class="header-right">
-
     <!-- PANIER AVEC ICONE -->
     <button id="open-cart" class="cart-button" type="button">
-
       <svg class="cart-icon"
            viewBox="0 0 24 24"
            fill="none"
@@ -185,262 +276,260 @@
            stroke-linecap="round"
            stroke-linejoin="round"
            aria-hidden="true">
-
         <circle cx="9" cy="21" r="1"></circle>
         <circle cx="19" cy="21" r="1"></circle>
-
         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-
       </svg>
-
       <span>Panier</span>
-
       <span id="cart-count">0</span>
-
     </button>
-
   </div>
-
 </header>
-
-<!-- MOVING ANNOUNCEMENT BAR -->
-
+<!-- =========================================
+     MOVING ANNOUNCEMENT BAR
+     ========================================= -->
 <div class="dama-moving-bar">
-
   <div class="dama-moving-track">
-
     <div class="dama-moving-group">
       <span>✦ LIVRAISON GRATUITE PARTOUT AU MAROC ✦</span>
       <span>✦ LIVRAISON GRATUITE PARTOUT AU MAROC ✦</span>
       <span>✦ LIVRAISON GRATUITE PARTOUT AU MAROC ✦</span>
     </div>
-
     <div class="dama-moving-group" aria-hidden="true">
       <span>✦ LIVRAISON GRATUITE PARTOUT AU MAROC ✦</span>
       <span>✦ LIVRAISON GRATUITE PARTOUT AU MAROC ✦</span>
       <span>✦ LIVRAISON GRATUITE PARTOUT AU MAROC ✦</span>
     </div>
-
   </div>
-
 </div>
-
-<!-- HERO -->
-
+<!-- =========================================
+     HERO
+     ========================================= -->
 <section id="home" class="hero">
-
   <div class="hero-text">
-
     <div class="hero-logo">
       DAMA <span>STORE</span>
     </div>
-
     <p class="hero-description">
       Découvrez nos produits sélectionnés
     </p>
-
     <p class="hero-scroll">
       ↓ Descendez pour voir nos produits
     </p>
-
     <a href="#products" class="hero-button">
       Voir les produits
     </a>
-
   </div>
-
   <div class="welcome-logo">
-
     <div class="welcome-circle">
-
       <strong>DAMA</strong>
       <span>STORE</span>
-
       <div class="welcome-message">
         Bienvenue chez<br>
         DAMA STORE
       </div>
-
     </div>
-
   </div>
-
 </section>
-
-<!-- PRODUCTS -->
-
+<!-- =========================================
+     PRODUCTS
+     ========================================= -->
 <section id="products" class="products-section">
-
   <div class="section-heading">
-    <h2 class="title-lines">Nos Produits</h2>
-    <p>Découvrez notre sélection</p>
+    <h2 class="title-lines">
+      Nos Produits
+    </h2>
+    <p>
+      Découvrez notre sélection
+    </p>
   </div>
-
   <div class="product-search">
-
     <input
       type="search"
       id="product-search"
       placeholder="Rechercher un produit..."
       autocomplete="off"
     >
-
   </div>
-
   <!-- PRODUCT NAVIGATION ARROWS -->
-
   <div class="product-navigation">
-
     <button
       type="button"
       id="products-prev"
       class="products-arrow"
       aria-label="Produits précédents"
-    >‹</button>
-
+    >
+      ‹
+    </button>
     <button
       type="button"
       id="products-next"
       class="products-arrow"
       aria-label="Produits suivants"
-    >›</button>
-
+    >
+      ›
+    </button>
   </div>
-
-  <div class="product-grid" id="product-grid"></div>
-
+  <div
+    class="product-grid"
+    id="product-grid">
+  </div>
 </section>
-
-<!-- BENEFITS -->
-
+<!-- =========================================
+     BENEFITS
+     ========================================= -->
 <section class="benefits">
-
   <div>
-    <h3>🚚 Livraison</h3>
-    <p>Livraison partout au Maroc</p>
+    <h3>
+      🚚 Livraison
+    </h3>
+    <p>
+      Livraison partout au Maroc
+    </p>
   </div>
-
   <div>
-    <h3>💳 Paiement</h3>
-    <p>Paiement à la livraison</p>
+    <h3>
+      💳 Paiement
+    </h3>
+    <p>
+      Paiement à la livraison
+    </p>
   </div>
-
   <div>
-    <h3>⭐ Qualité</h3>
-    <p>Produits sélectionnés</p>
+    <h3>
+      ⭐ Qualité
+    </h3>
+    <p>
+      Produits sélectionnés
+    </p>
   </div>
-
 </section>
-
-<!-- CONTACT -->
-
+<!-- =========================================
+     CONTACT
+     ========================================= -->
 <section id="contact" class="contact">
-
-  <h2>Contact</h2>
-
-  <p>Pour toute question, contactez-nous.</p>
-
+  <h2>
+    Contact
+  </h2>
+  <p>
+    Pour toute question, contactez-nous.
+  </p>
   <div class="contact-info">
-
-    <a href="mailto:damastoreofficiel@gmail.com" class="contact-email">
+    <a
+      href="mailto:damastoreofficiel@gmail.com"
+      class="contact-email"
+    >
       <span>✉</span>
       damastoreofficiel@gmail.com
     </a>
-
   </div>
-
 </section>
-
-<!-- FOOTER -->
-
+<!-- =========================================
+     FOOTER
+     ========================================= -->
 <footer>
-
   <div class="logo">
     DAMA <span>STORE</span>
   </div>
-
-  <p>©️ 2026 DAMA STORE — Tous droits réservés</p>
-
+  <p>
+    ©️ 2026 DAMA STORE — Tous droits réservés
+  </p>
 </footer>
-
-<!-- PRODUCT MODAL -->
-
-<div id="product-modal" class="modal" aria-hidden="true">
-
+<!-- =========================================
+     PRODUCT MODAL
+     ========================================= -->
+<div
+  id="product-modal"
+  class="modal"
+  aria-hidden="true"
+>
   <div class="modal-content product-modal-content">
-
-    <button id="close-product" class="close-button">×</button>
-
-    <div id="product-detail-image" class="product-detail-image"></div>
-
+    <button
+      id="close-product"
+      class="close-button"
+    >
+      ×
+    </button>
+    <div
+      id="product-detail-image"
+      class="product-detail-image">
+    </div>
     <div class="product-detail-info">
-
       <h2 id="product-detail-name"></h2>
-
-      <div id="product-detail-price" class="detail-price"></div>
-
-      <p id="product-detail-description"></p>
-
-      <div class="quantity-control">
-
-        <button id="detail-minus">−</button>
-
-        <span id="detail-quantity">1</span>
-
-        <button id="detail-plus">+</button>
-
+      <div
+        id="product-detail-price"
+        class="detail-price">
       </div>
-
+      <p id="product-detail-description"></p>
+      <div class="quantity-control">
+        <button id="detail-minus">
+          −
+        </button>
+        <span id="detail-quantity">
+          1
+        </span>
+        <button id="detail-plus">
+          +
+        </button>
+      </div>
       <div class="detail-buttons">
-
-        <button id="detail-buy-now" class="primary-button">
+        <button
+          id="detail-buy-now"
+          class="primary-button"
+        >
           Acheter maintenant
         </button>
-
-        <button id="detail-add-cart" class="secondary-button">
+        <button
+          id="detail-add-cart"
+          class="secondary-button"
+        >
           Ajouter au panier
         </button>
-
       </div>
-
     </div>
-
   </div>
-
 </div>
-
-<!-- CART MODAL -->
-
-<div id="cart-modal" class="modal" aria-hidden="true">
-
+<!-- =========================================
+     CART MODAL
+     ========================================= -->
+<div
+  id="cart-modal"
+  class="modal"
+  aria-hidden="true"
+>
   <div class="modal-content cart-content">
-
-    <button id="close-cart" class="close-button">×</button>
-
-    <h2>Votre panier</h2>
-
+    <button
+      id="close-cart"
+      class="close-button"
+    >
+      ×
+    </button>
+    <h2>
+      Votre panier
+    </h2>
     <div id="cart-items"></div>
-
     <div class="cart-total">
-
-      <span>Total :</span>
-
+      <span>
+        Total :
+      </span>
       <strong>
-        <span id="cart-total">0</span> DH
+        <span id="cart-total">
+          0
+        </span>
+        DH
       </strong>
-
     </div>
-
-    <button id="checkout-button" class="primary-button checkout-button">
+    <button
+      id="checkout-button"
+      class="primary-button checkout-button"
+    >
       Commander
     </button>
-
     <!-- ORDER FORM -->
-
     <form id="order-form" hidden>
-
-      <h3>Informations de livraison</h3>
-
+      <h3>
+        Informations de livraison
+      </h3>
       <input
         type="text"
         name="name"
@@ -448,7 +537,6 @@
         placeholder="Nom complet"
         required
       >
-
       <input
         type="tel"
         name="phone"
@@ -456,7 +544,6 @@
         placeholder="Téléphone"
         required
       >
-
       <input
         type="text"
         name="city"
@@ -464,32 +551,42 @@
         placeholder="Ville"
         required
       >
-
       <textarea
         name="address"
         id="customer-address"
         placeholder="Adresse complète"
         required
       ></textarea>
-
-      <button type="submit" class="primary-button">
+      <button
+        type="submit"
+        class="primary-button"
+      >
         Confirmer la commande
       </button>
-
       <p id="order-message"></p>
-
     </form>
-
   </div>
-
 </div>
-
-<!-- JAVASCRIPT -->
-
+<!-- =========================================
+     JAVASCRIPT
+     ========================================= -->
 <script type="module" src="script.js"></script>
-
-<!-- WHATSAPP BUTTON -->
-<!-- زر Instagram العائم -->
+<!-- =========================================
+     SPLASH SCREEN JAVASCRIPT
+     ========================================= -->
+<script>
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      const splash = document.getElementById("dama-splash");
+      if (splash) {
+        splash.classList.add("hide");
+      }
+    }, 2500);
+  });
+</script>
+<!-- =========================================
+     INSTAGRAM FLOAT
+     ========================================= -->
 <a
   href="https://www.instagram.com/damastore.officiel/"
   class="dama-instagram-float"
@@ -497,14 +594,39 @@
   rel="noopener noreferrer"
   aria-label="Visitez notre Instagram"
 >
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <rect x="3" y="3" width="18" height="18" rx="5"
-      fill="none" stroke="currentColor" stroke-width="2"/>
-    <circle cx="12" cy="12" r="4"
-      fill="none" stroke="currentColor" stroke-width="2"/>
-    <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+  <svg
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <rect
+      x="3"
+      y="3"
+      width="18"
+      height="18"
+      rx="5"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    />
+    <circle
+      cx="12"
+      cy="12"
+      r="4"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    />
+    <circle
+      cx="17.5"
+      cy="6.5"
+      r="1.2"
+      fill="currentColor"
+    />
   </svg>
 </a>
+<!-- =========================================
+     WHATSAPP FLOAT
+     ========================================= -->
 <a
   href="https://wa.me/212723633715"
   class="whatsapp-float"
@@ -512,10 +634,7 @@
   rel="noopener noreferrer"
   aria-label="Contacter DAMA STORE sur WhatsApp"
 >
-
   <i class="fa-brands fa-whatsapp"></i>
-
 </a>
-
 </body>
 </html>
