@@ -407,7 +407,7 @@ function showToast(message) {
         toast.style.opacity =
           "0";
       },
-      1000
+      500
     );
 }
 
