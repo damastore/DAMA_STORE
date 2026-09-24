@@ -69,6 +69,7 @@ img {
   color: white;
   text-decoration: none;
   font-weight: 600;
+  transition: color 0.25s ease;
 }
 
 .header nav a:hover {
@@ -96,10 +97,19 @@ img {
   border-radius: 25px;
   cursor: pointer;
   font-weight: bold;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .cart-button:hover {
   background: var(--accent);
+  transform: translateY(-2px);
+}
+
+.cart-button:active {
+  transform: scale(0.97);
 }
 
 #cart-count {
@@ -108,6 +118,8 @@ img {
   padding: 2px 7px;
   border-radius: 20px;
   margin-left: 5px;
+  display: inline-block;
+  transition: transform 0.2s ease;
 }
 
 /* ================= HERO ================= */
@@ -127,6 +139,7 @@ img {
   min-width: 0;
   text-align: center;
   padding-left: 2%;
+  animation: dama-hero-text 0.8s ease both;
 }
 
 .hero-logo {
@@ -169,11 +182,19 @@ img {
   border-radius: 30px;
   text-decoration: none;
   font-weight: bold;
-  transition: 0.2s;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 .hero-button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.hero-button:active {
+  transform: scale(0.97);
 }
 
 /* ================= WELCOME CIRCLE ================= */
@@ -183,6 +204,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: dama-hero-circle 0.9s ease both;
 }
 
 .welcome-circle {
@@ -199,6 +221,11 @@ img {
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.10),
     inset 0 0 0 2px rgba(255, 255, 255, 0.6);
+  transition: transform 0.4s ease;
+}
+
+.welcome-circle:hover {
+  transform: scale(1.02);
 }
 
 .welcome-circle strong {
@@ -235,6 +262,7 @@ img {
 .section-heading {
   text-align: center;
   margin-bottom: 30px;
+  animation: dama-heading 0.7s ease both;
 }
 
 .section-heading h2 {
@@ -264,10 +292,14 @@ img {
   color: var(--dark);
   font-size: 15px;
   outline: none;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .product-search input:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(184, 139, 90, 0.10);
 }
 
 /* ================= PRODUCT GRID ================= */
@@ -285,13 +317,63 @@ img {
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  transition: 0.25s;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   position: relative;
+
+  opacity: 0;
+  transform: translateY(25px);
+  animation: dama-product-show 0.7s ease forwards;
 }
 
 .product-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.product-card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.product-card:nth-child(2) {
+  animation-delay: 0.10s;
+}
+
+.product-card:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.product-card:nth-child(4) {
+  animation-delay: 0.20s;
+}
+
+.product-card:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+.product-card:nth-child(6) {
+  animation-delay: 0.30s;
+}
+
+.product-card:nth-child(7) {
+  animation-delay: 0.35s;
+}
+
+.product-card:nth-child(8) {
+  animation-delay: 0.40s;
+}
+
+@keyframes dama-product-show {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .product-image {
@@ -308,7 +390,13 @@ img {
 .product-card img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image img,
+.product-card:hover > img {
+  transform: scale(1.04);
 }
 
 .empty-image {
@@ -476,6 +564,19 @@ footer .logo {
   position: relative;
   max-height: 90vh;
   overflow-y: auto;
+  animation: dama-modal-show 0.25s ease both;
+}
+
+@keyframes dama-modal-show {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .close-button {
@@ -486,6 +587,11 @@ footer .logo {
   background: none;
   font-size: 30px;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.close-button:hover {
+  transform: rotate(90deg);
 }
 
 /* ================= PRODUCT DETAILS ================= */
@@ -507,12 +613,18 @@ footer .logo {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  position: relative;
 }
 
 .product-detail-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  transition: transform 0.35s ease;
+}
+
+.product-detail-image:hover img {
+  transform: scale(1.03);
 }
 
 .product-detail-info h2 {
@@ -547,6 +659,17 @@ footer .logo {
   border-radius: 8px;
   cursor: pointer;
   font-size: 20px;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.quantity-control button:hover {
+  background: var(--light);
+}
+
+.quantity-control button:active {
+  transform: scale(0.93);
 }
 
 .detail-buttons {
@@ -562,6 +685,10 @@ footer .logo {
   border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 .primary-button {
@@ -572,6 +699,17 @@ footer .logo {
 .secondary-button {
   background: var(--dark);
   color: white;
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.12);
+}
+
+.primary-button:active,
+.secondary-button:active {
+  transform: scale(0.97);
 }
 
 /* ================= CART ================= */
@@ -607,6 +745,17 @@ footer .logo {
   padding: 7px 10px;
   border-radius: 6px;
   cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.cart-item-actions button:hover {
+  background: var(--light);
+}
+
+.cart-item-actions button:active {
+  transform: scale(0.94);
 }
 
 .cart-total {
@@ -654,6 +803,387 @@ footer .logo {
 
 #order-message {
   margin-top: 15px;
+}
+
+/* ================= PRODUCT IMAGE GALLERY ================= */
+
+.detail-gallery {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.detail-gallery > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #202020;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.gallery-prev {
+  left: 12px;
+}
+
+.gallery-next {
+  right: 12px;
+}
+
+.gallery-arrow:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.gallery-arrow:active {
+  transform: translateY(-50%) scale(0.93);
+}
+
+.gallery-counter {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(32, 32, 32, 0.78);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  z-index: 5;
+}
+
+/* ================= DAMA STORE MOVING BAR ================= */
+
+.dama-moving-bar {
+  width: 100%;
+  overflow: hidden;
+  background: var(--dark);
+  color: white;
+  white-space: nowrap;
+  border-top: 1px solid rgba(184, 139, 90, 0.4);
+  border-bottom: 1px solid rgba(184, 139, 90, 0.4);
+  padding: 5px 0;
+  line-height: 1;
+}
+
+.dama-moving-track {
+  display: flex;
+  width: max-content;
+  animation: dama-marquee 22s linear infinite;
+}
+
+.dama-moving-track span {
+  flex-shrink: 0;
+  padding-right: 45px;
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+@keyframes dama-marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ================= PRODUCT NAVIGATION ARROWS ================= */
+
+.product-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin: 0 auto 25px;
+}
+
+.product-navigation button {
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: white;
+  color: var(--accent);
+  font-size: 28px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.product-navigation button:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.product-navigation button:active {
+  transform: scale(0.95);
+}
+
+/* إخفاء السهم القديم */
+
+.next-product {
+  display: none !important;
+}
+
+/* ================= TITLE LINES ================= */
+
+.title-lines {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.title-lines::before,
+.title-lines::after {
+  content: "";
+  height: 2px;
+  background-color: #1a1a24;
+  flex: 1;
+  max-width: 80px;
+  margin: 0 15px;
+}
+
+/* =========================================
+   DAMA STORE - FAVORITES
+========================================= */
+
+.dama-favorite-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 20;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(184, 139, 90, 0.5);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.95);
+  color: #777;
+
+  font-size: 27px;
+  line-height: 1;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+.dama-favorite-btn:hover {
+  transform: scale(1.1);
+  color: #c34c60;
+}
+
+.dama-favorite-btn.is-favorite {
+  color: #d63c55;
+  background: #fff5f6;
+  border-color: #d63c55;
+}
+
+.dama-favorite-btn span {
+  display: block;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   DAMA STORE - CATEGORY FILTERS
+========================================= */
+
+.dama-category-filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  width: 100%;
+  margin: -15px auto 35px;
+}
+
+.dama-filter-button {
+  padding: 10px 20px;
+
+  border: 1px solid var(--accent);
+  border-radius: 25px;
+
+  background: white;
+  color: var(--dark);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.dama-filter-button:hover,
+.dama-filter-button.active {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.dama-filter-button:active {
+  transform: scale(0.97);
+}
+
+/* =========================================
+   DAMA STORE - TOAST NOTIFICATION
+========================================= */
+
+#dama-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  z-index: 99999;
+
+  max-width: calc(100% - 30px);
+  width: max-content;
+
+  padding: 15px 24px;
+
+  background: var(--dark);
+  color: white;
+
+  border: 1px solid var(--accent);
+  border-radius: 35px;
+
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translate(-50%, 25px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0.3s ease;
+}
+
+#dama-toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+/* =========================================
+   INSTAGRAM FLOATING BUTTON
+========================================= */
+
+.dama-instagram-float {
+  position: fixed;
+  right: 20px;
+  bottom: 100px;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(
+    45deg,
+    #feda75,
+    #fa7e1e,
+    #d62976,
+    #962fbf,
+    #4f5bd5
+  );
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  z-index: 9999;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  animation:
+    dama-instagram-move 1.8s infinite ease-in-out,
+    dama-instagram-pulse 2s infinite;
+  transform-origin: center;
+}
+
+.dama-instagram-float svg {
+  width: 28px;
+  height: 28px;
+}
+
+.dama-instagram-float:hover {
+  transform: scale(1.08);
+}
+
+@keyframes dama-instagram-move {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  25% {
+    transform: translateY(-5px) scale(1.05);
+  }
+
+  50% {
+    transform: translateY(0) scale(1);
+  }
+
+  75% {
+    transform: translateY(-3px) scale(1.03);
+  }
+}
+
+@keyframes dama-instagram-pulse {
+  0%,
+  100% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  }
+
+  50% {
+    box-shadow: 0 4px 20px rgba(214, 41, 118, 0.6);
+  }
 }
 
 /* ================= LAPTOP ================= */
@@ -771,20 +1301,36 @@ footer .logo {
     height: 230px;
   }
 
-  .welcome-circle strong {
-    font-size: 29px;
-  }
-
-  .welcome-circle span {
-    font-size: 25px;
-  }
-
   .product-modal-content {
     grid-template-columns: 1fr;
   }
 
   .product-detail-image {
     height: 300px;
+  }
+
+  .dama-category-filters {
+    gap: 8px;
+    margin: -10px auto 25px;
+  }
+
+  .dama-filter-button {
+    padding: 9px 14px;
+    font-size: 12px;
+  }
+
+  .dama-favorite-btn {
+    top: 8px;
+    left: 8px;
+    width: 35px;
+    height: 35px;
+    font-size: 23px;
+  }
+
+  #dama-toast {
+    bottom: 20px;
+    padding: 12px 18px;
+    font-size: 13px;
   }
 }
 
@@ -1011,6 +1557,34 @@ footer .logo {
     padding: 30px 16px;
     text-align: center;
   }
+
+  .dama-moving-bar {
+    padding: 11px 0;
+  }
+
+  .dama-moving-track span {
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding-right: 30px;
+  }
+
+  .product-navigation {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .product-navigation button {
+    width: 40px;
+    height: 40px;
+    font-size: 25px;
+  }
+
+  .dama-instagram-float {
+    right: 15px;
+    bottom: 90px;
+    width: 50px;
+    height: 50px;
+  }
 }
 
 /* ================= VERY SMALL PHONES ================= */
@@ -1074,6 +1648,15 @@ footer .logo {
   .product-grid {
     gap: 9px;
   }
+
+  .dama-category-filters {
+    gap: 6px;
+  }
+
+  .dama-filter-button {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
 }
 
 /* ================= LANDSCAPE PHONE ================= */
@@ -1104,456 +1687,18 @@ footer .logo {
     height: 190px;
   }
 }
-/* ================= PRODUCT IMAGE GALLERY ================= */
-
-.product-detail-image {
-  position: relative;
-}
-
-.detail-gallery {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.detail-gallery > img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.gallery-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 42px;
-  height: 42px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.92);
-  color: #202020;
-  font-size: 30px;
-  line-height: 1;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  transition: background 0.2s, color 0.2s;
-}
-
-.gallery-prev {
-  left: 12px;
-}
-
-.gallery-next {
-  right: 12px;
-}
-
-.gallery-arrow:hover {
-  background: var(--accent);
-  color: white;
-}
-
-.gallery-counter {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(32, 32, 32, 0.78);
-  color: white;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 13px;
-  z-index: 5;
-}
-/* ================= DAMA STORE MOVING BAR ================= */
-
-.dama-moving-bar {
-  width: 100%;
-  overflow: hidden;
-  background: var(--dark);
-  color: white;
-  white-space: nowrap;
-  border-top: 1px solid rgba(184, 139, 90, 0.4);
-  border-bottom: 1px solid rgba(184, 139, 90, 0.4);
-  
-  /* التعديل الجديد غير هنا */
-  padding: 5px 0;
-  line-height: 1; /* هادي كتحيد الفراغ لي كيكون مع الكتيبة */
-}
-
-.dama-moving-track {
-  display: flex;
-  width: max-content;
-  animation: dama-marquee 22s linear infinite;
-}
-
-.dama-moving-track span {
-  flex-shrink: 0;
-  padding-right: 45px;
-  color: var(--accent);
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-}
-
-@keyframes dama-marquee {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-/* ================= PRODUCT NAVIGATION ARROWS ================= */
-
-.product-navigation {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-  margin: 0 auto 25px;
-}
-
-.product-navigation button {
-  width: 46px;
-  height: 46px;
-  border: 1px solid var(--accent);
-  border-radius: 50%;
-  background: white;
-  color: var(--accent);
-  font-size: 28px;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.product-navigation button:hover {
-  background: var(--accent);
-  color: white;
-  transform: translateY(-2px);
-}
-
-.product-navigation button:active {
-  transform: scale(0.95);
-}
-
-/* إخفاء السهم القديم اللي كان داخل كل بطاقة منتج */
-
-.next-product {
-  display: none !important;
-}
-
-/* ================= MOBILE NAVIGATION ARROWS ================= */
-
-@media (max-width: 500px) {
-  .dama-moving-bar {
-    padding: 11px 0;
-  }
-
-  .dama-moving-track span {
-    font-size: 13px;
-    letter-spacing: 1px;
-    padding-right: 30px;
-  }
-
-  .product-navigation {
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .product-navigation button {
-    width: 40px;
-    height: 40px;
-    font-size: 25px;
-  }
-}
-.title-lines {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.title-lines::before,
-.title-lines::after {
-  content: "";
-  height: 2px;
-  background-color: #1a1a24;
-  flex: 1;
-  max-width: 80px;
-  margin: 0 15px;
-}
-/* =========================================
-   DAMA STORE - FAVORITES
-========================================= */
-
-.dama-favorite-btn {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 20;
-
-  width: 42px;
-  height: 42px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid rgba(184, 139, 90, 0.5);
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.95);
-  color: #777;
-
-  font-size: 27px;
-  line-height: 1;
-
-  cursor: pointer;
-  transition: 0.25s ease;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
-}
-
-.dama-favorite-btn:hover {
-  transform: scale(1.1);
-  color: #c34c60;
-}
-
-.dama-favorite-btn.is-favorite {
-  color: #d63c55;
-  background: #fff5f6;
-  border-color: #d63c55;
-}
-
-.dama-favorite-btn span {
-  display: block;
-  transform: translateY(-1px);
-}
 
 /* =========================================
-   DAMA STORE - CATEGORY FILTERS
+   ACCESSIBILITY - REDUCED MOTION
 ========================================= */
 
-.dama-category-filters {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-
-  width: 100%;
-  margin: -15px auto 35px;
-}
-
-.dama-filter-button {
-  padding: 10px 20px;
-
-  border: 1px solid var(--accent);
-  border-radius: 25px;
-
-  background: white;
-  color: var(--dark);
-
-  font-size: 14px;
-  font-weight: 700;
-
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.dama-filter-button:hover,
-.dama-filter-button.active {
-  background: var(--accent);
-  color: white;
-  transform: translateY(-2px);
-}
-
-.dama-filter-button:active {
-  transform: scale(0.97);
-}
-
-/* =========================================
-   DAMA STORE - TOAST NOTIFICATION
-========================================= */
-
-#dama-toast {
-  position: fixed;
-  left: 50%;
-  bottom: 30px;
-  z-index: 99999;
-
-  max-width: calc(100% - 30px);
-  width: max-content;
-
-  padding: 15px 24px;
-
-  background: var(--dark);
-  color: white;
-
-  border: 1px solid var(--accent);
-  border-radius: 35px;
-
-  font-size: 15px;
-  font-weight: 700;
-  text-align: center;
-
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-
-  transform: translate(-50%, 25px);
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease,
-    visibility 0.3s ease;
-}
-
-#dama-toast.show {
-  opacity: 1;
-  visibility: visible;
-  transform: translate(-50%, 0);
-}
-
-/* =========================================
-   MOBILE - FAVORITES + FILTERS + TOAST
-========================================= */
-
-@media (max-width: 700px) {
-  .dama-category-filters {
-    gap: 8px;
-    margin: -10px auto 25px;
-  }
-
-  .dama-filter-button {
-    padding: 9px 14px;
-    font-size: 12px;
-  }
-
-  .dama-favorite-btn {
-    top: 8px;
-    left: 8px;
-    width: 35px;
-    height: 35px;
-    font-size: 23px;
-  }
-
-  #dama-toast {
-    bottom: 20px;
-    padding: 12px 18px;
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 380px) {
-  .dama-category-filters {
-    gap: 6px;
-  }
-
-  .dama-filter-button {
-    padding: 8px 10px;
-    font-size: 11px;
-  }
-}
-/* كود توحيد قياس صور المنتجات */
-.product-card img, 
-.product-item img {
-    width: 200%;
-    height: 300px; /* الارتفاع الثابت لجميع الصور */
-    object-fit: contain; /* كايحافظ على شكل الساعة بلا ما تتجبد */
-    aspect-ratio: 1 / 1; /* كايخلي إطار الصورة مربع متناسق */
-}
-/* زر Instagram العائم فوق WhatsApp */
-.dama-instagram-float {
-  position: fixed;
-  right: 20px;
-  bottom: 100px;
-  width: 56px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  color: #fff;
-  background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
-  z-index: 9999;
-  text-decoration: none;
-  transition: transform 0.2s ease;
-  animation: dama-instagram-pulse 2s infinite;
-}
-
-.dama-instagram-float svg {
-  width: 28px;
-  height: 28px;
-}
-
-.dama-instagram-float:hover {
-  transform: scale(1.08);
-}
-
-@keyframes dama-instagram-pulse {
-  0%, 100% {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
-  }
-  50% {
-    box-shadow: 0 4px 18px rgba(214, 41, 118, 0.55);
-  }
-}
-
-@media (max-width: 600px) {
-  .dama-instagram-float {
-    right: 15px;
-    bottom: 90px;
-    width: 50px;
-    height: 50px;
-  }
-}
-.dama-instagram-float {
-  animation: dama-instagram-move 1.8s infinite ease-in-out,
-             dama-instagram-pulse 2s infinite;
-  transform-origin: center;
-}
-
-@keyframes dama-instagram-move {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-  }
-
-  25% {
-    transform: translateY(-5px) scale(1.05);
-  }
-
-  50% {
-    transform: translateY(0) scale(1);
-  }
-
-  75% {
-    transform: translateY(-3px) scale(1.03);
-  }
-}
-
-@keyframes dama-instagram-pulse {
-  0%, 100% {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
-  }
-
-  50% {
-    box-shadow: 0 4px 20px rgba(214, 41, 118, 0.6);
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
