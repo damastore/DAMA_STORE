@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Commander — DAMA STORE</title>
+
+  <link
+    rel="icon"
+    type="image/jpeg"
+    href="images/15.jpeg"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #202020;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    .order-page {
+      width: 100%;
+      max-width: 850px;
+      margin: auto;
+      padding: 25px 15px 50px;
+    }
+
+    .order-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .logo {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 36px;
+      font-weight: bold;
+      letter-spacing: 5px;
+      color: #b88b5a;
+    }
+
+    .logo span {
+      display: block;
+      font-size: 14px;
+      letter-spacing: 7px;
+      margin-top: 7px;
+      font-weight: normal;
+    }
+
+    .order-header h1 {
+      margin: 25px 0 8px;
+      font-size: 27px;
+    }
+
+    .order-header p {
+      margin: 0;
+      color: rgba(255,255,255,.65);
+      font-size: 14px;
+    }
+
+    .order-card {
+      background: #ffffff;
+      color: #202020;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.25);
+    }
+
+    .order-card h2 {
+      margin-top: 0;
+      margin-bottom: 18px;
+    }
+
+    .product-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 0;
+      border-bottom: 1px solid #eeeeee;
+    }
+
+    .product-item:last-child {
+      border-bottom: none;
+    }
+
+    .product-image {
+      width: 75px;
+      height: 75px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f1f1f1;
+      flex-shrink: 0;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-info {
+      flex: 1;
+    }
+
+    .product-name {
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .product-color {
+      color: #b88b5a;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .product-quantity {
+      color: #777;
+      font-size: 13px;
+    }
+
+    .product-price {
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #eeeeee;
+      padding-top: 18px;
+      margin-top: 15px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .total strong {
+      color: #b88b5a;
+    }
+
+    .delivery {
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 0;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #b88b5a;
+    }
+
+    .confirm-button {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      background: #b88b5a;
+      color: white;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .confirm-button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .back-button {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      color: #b88b5a;
+      border: 1px solid #b88b5a;
+      border-radius: 10px;
+      padding: 13px;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    #order-message {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    #success-screen {
+      display: none;
+      text-align: center;
+    }
+
+    .success-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #e8f5e9;
+      color: #23833b;
+      font-size: 42px;
+      line-height: 70px;
+      margin: 0 auto 18px;
+      font-weight: bold;
+    }
+
+    .success-title {
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+
+    .success-text {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .reference {
+      background: #f7f6f3;
+      padding: 13px;
+      border-radius: 10px;
+      margin: 18px 0;
+      font-weight: bold;
+      word-break: break-all;
+    }
+
+    .shop-button {
+      display: block;
+      text-decoration: none;
+      background: #b88b5a;
+      color: #fff;
+      border-radius: 10px;
+      padding: 14px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+
+      .order-page {
+        padding: 20px 12px 40px;
+      }
+
+      .logo {
+        font-size: 30px;
+      }
+
+      .order-header h1 {
+        font-size: 23px;
+      }
+
+      .order-card {
+        padding: 18px;
+      }
+
+      .product-image {
+        width: 65px;
+        height: 65px;
+      }
+
+      .product-price {
+        font-size: 14px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <main class="order-page">
+
+    <header class="order-header">
+
+      <div class="logo">
+        DAMA
+        <span>STORE</span>
+      </div>
+
+      <h1>
+        Finaliser votre commande
+      </h1>
+
+      <p>
+        Remplissez vos informations de livraison
+      </p>
+
+    </header>
+
+
+    <!-- ================= COMMANDE ================= -->
+
+    <div id="order-content">
+
+      <section class="order-card">
+
+        <h2>
+          Votre commande
+        </h2>
+
+        <div id="order-products"></div>
+
+        <div class="total">
+
+          <span>
+            Total
+          </span>
+
+          <strong id="order-total">
+            0 DH
+          </strong>
+
+        </div>
+
+        <p class="delivery">
+          🚚 Livraison gratuite partout au Maroc
+        </p>
+
+      </section>
+
+
+      <!-- ================= FORMULAIRE ================= -->
+
+      <section class="order-card">
+
+        <h2>
+          Informations de livraison
+        </h2>
+
+        <form id="order-form">
+
+          <div class="form-group">
+
+            <label for="customer-name">
+              Nom complet
+            </label>
+
+            <input
+              id="customer-name"
+              type="text"
+              name="name"
+              placeholder="Votre nom complet"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="customer-phone">
+              Téléphone
+            </label>
+
+            <input
+              id="customer-phone"
+              type="tel"
+              name="phone"
+              placeholder="06XXXXXXXX"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="customer-city">
+              Ville
+            </label>
+
+            <input
+              id="customer-city"
+              type="text"
+              name="city"
+              placeholder="Votre ville"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="customer-address">
+              Adresse complète
+            </label>
+
+            <textarea
+              id="customer-address"
+              name="address"
+              placeholder="Quartier, rue, numéro..."
+              required
+            ></textarea>
+
+          </div>
+
+
+          <button
+            type="submit"
+            id="confirm-order"
+            class="confirm-button"
+          >
+            Confirmer la commande
+          </button>
+
+
+          <p id="order-message"></p>
+
+        </form>
+
+
+        <a
+          href="index.html"
+          class="back-button"
+        >
+          ← Retour à la boutique
+        </a>
+
+      </section>
+
+    </div>
+
+
+    <!-- ================= SUCCESS ================= -->
+
+    <section
+      id="success-screen"
+      class="order-card"
+    >
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <h2 class="success-title">
+        Commande confirmée !
+      </h2>
+
+      <p class="success-text">
+        Merci pour votre commande chez DAMA STORE.
+        Nous avons bien reçu votre demande.
+      </p>
+
+      <div
+        id="order-reference"
+        class="reference"
+      ></div>
+
+      <a
+        href="index.html"
+        class="shop-button"
+      >
+        Retour à la boutique
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= FIREBASE ================= -->
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+    import {
+      getAuth,
+      signInAnonymously
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    import {
+      getDatabase,
+      ref,
+      push
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyBoIHMObJyJ7ehdPX5pfSwb3QYzxL0QO-Q",
+
+      authDomain:
+        "dama-store-7fd69.firebaseapp.com",
+
+      databaseURL:
+        "https://dama-store-7fd69-default-rtdb.europe-west1.firebasedatabase.app",
+
+      projectId:
+        "dama-store-7fd69",
+
+      storageBucket:
+        "dama-store-7fd69.firebasestorage.app",
+
+      messagingSenderId:
+        "1076285666524",
+
+      appId:
+        "1:1076285666524:web:15e9b02fcd7ea67ecdb019"
+
+    };
+
+
+    const app =
+      initializeApp(
+        firebaseConfig
+      );
+
+    const auth =
+      getAuth(app);
+
+    const db =
+      getDatabase(app);
+
+
+    const authReady =
+      signInAnonymously(auth)
+        .then(({ user }) => {
+
+          console.log(
+            "Firebase connecté ✅"
+          );
+
+          return user;
+
+        })
+        .catch(error => {
+
+          console.error(
+            "Firebase Auth:",
+            error
+          );
+
+          return null;
+
+        });
+
+
+    /* ================= CART ================= */
+
+    let cart = [];
+
+    try {
+
+      cart =
+        JSON.parse(
+          localStorage.getItem(
+            "dama-order-cart"
+          ) || "[]"
+        );
+
+      if (
+        !Array.isArray(cart)
+      ) {
+
+        cart = [];
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Erreur panier:",
+        error
+      );
+
+      cart = [];
+
+    }
+
+
+    /* ================= ELEMENTS ================= */
+
+    const productsContainer =
+      document.getElementById(
+        "order-products"
+      );
+
+    const totalElement =
+      document.getElementById(
+        "order-total"
+      );
+
+    const form =
+      document.getElementById(
+        "order-form"
+      );
+
+    const message =
+      document.getElementById(
+        "order-message"
+      );
+
+    const confirmButton =
+      document.getElementById(
+        "confirm-order"
+      );
+
+    const orderContent =
+      document.getElementById(
+        "order-content"
+      );
+
+    const successScreen =
+      document.getElementById(
+        "success-screen"
+      );
+
+    const referenceElement =
+      document.getElementById(
+        "order-reference"
+      );
+
+
+    /* ================= TOTAL ================= */
+
+    function getTotal() {
+
+      return cart.reduce(
+        (
+          total,
+          item
+        ) => {
+
+          return total +
+            Number(item.price) *
+            Number(item.quantity);
+
+        },
+        0
+      );
+
+    }
+
+
+    /* ================= DISPLAY ================= */
+
+    function renderOrderProducts() {
+
+      if (!productsContainer)
+        return;
+
+
+      if (
+        cart.length === 0
+      ) {
+
+        productsContainer.innerHTML = `
+
+          <p style="color:#777;">
+            Votre panier est vide.
+          </p>
+
+        `;
+
+
+        if (confirmButton) {
+
+          confirmButton.disabled =
+            true;
+
+        }
+
+        return;
+      }
+
+
+      productsContainer.innerHTML =
+        cart
+          .map(
+            item => {
+
+              const image =
+                Array.isArray(
+                  item.images
+                ) &&
+                item.images.length
+                  ? item.images[0]
+                  : item.image || "";
+
+
+              return `
+
+                <div
+                  class="product-item"
+                >
+
+                  <div
+                    class="product-image"
+                  >
+
+                    ${
+                      image
+                        ? `
+
+                          <img
+                            src="${image}"
+                            alt="${item.name}"
+                          >
+
+                        `
+                        : ""
+                    }
+
+                  </div>
+
+
+                  <div
+                    class="product-info"
+                  >
+
+                    <div
+                      class="product-name"
+                    >
+                      ${item.name}
+                    </div>
+
+
+                    ${
+                      item.color
+                        ? `
+
+                          <div
+                            class="product-color"
+                          >
+                            Couleur :
+                            ${item.color}
+                          </div>
+
+                        `
+                        : ""
+                    }
+
+
+                    <div
+                      class="product-quantity"
+                    >
+                      Quantité :
+                      ${item.quantity}
+                    </div>
+
+                  </div>
+
+
+                  <div
+                    class="product-price"
+                  >
+                    ${
+                      Number(
+                        item.price
+                      ) *
+                      Number(
+                        item.quantity
+                      )
+                    } DH
+                  </div>
+
+                </div>
+
+              `;
+
+            }
+          )
+          .join("");
+
+
+      if (totalElement) {
+
+        totalElement.textContent =
+          `${getTotal()} DH`;
+
+      }
+
+    }
+
+
+    renderOrderProducts();
+
+
+    /* ================= SUBMIT ================= */
+
+    if (form) {
+
+      form.addEventListener(
+        "submit",
+        async event => {
+
+          event.preventDefault();
+
+
+          if (
+            !cart.length
+          ) {
+
+            alert(
+              "Votre panier est vide."
+            );
+
+            return;
+          }
+
+
+          const name =
+            document
+              .getElementById(
+                "customer-name"
+              )
+              .value
+              .trim();
+
+
+          const phone =
+            document
+              .getElementById(
+                "customer-phone"
+              )
+              .value
+              .trim();
+
+
+          const city =
+            document
+              .getElementById(
+                "customer-city"
+              )
+              .value
+              .trim();
+
+
+          const address =
+            document
+              .getElementById(
+                "customer-address"
+              )
+              .value
+              .trim();
+
+
+          if (
+            !name ||
+            !phone ||
+            !city ||
+            !address
+          ) {
+
+            alert(
+              "عافاك عمّر جميع معلومات التوصيل."
+            );
+
+            return;
+          }
+
+
+          const order = {
+
+            customer: {
+
+              name,
+              phone,
+              city,
+              address
+
+            },
+
+
+            products:
+
+              cart.map(
+                item => ({
+
+                  id:
+                    item.id,
+
+                  name:
+                    item.name,
+
+                  price:
+                    Number(
+                      item.price
+                    ),
+
+                  oldPrice:
+                    Number(
+                      item.price
+                    ) + 50,
+
+                  quantity:
+                    Number(
+                      item.quantity
+                    ),
+
+                  color:
+                    item.color ||
+                    null,
+
+                  subtotal:
+                    Number(
+                      item.price
+                    ) *
+                    Number(
+                      item.quantity
+                    )
+
+                })
+              ),
+
+
+            total:
+              getTotal(),
+
+
+            delivery:
+              "Gratuite",
+
+
+            status:
+              "nouvelle",
+
+
+            createdAt:
+              new Date()
+                .toISOString()
+
+          };
+
+
+          if (confirmButton) {
+
+            confirmButton.disabled =
+              true;
+
+            confirmButton.textContent =
+              "Envoi en cours...";
+
+          }
+
+
+          if (message) {
+
+            message.textContent =
+              "";
+
+          }
+
+
+          try {
+
+            const user =
+              await authReady;
+
+
+            if (!user) {
+
+              throw new Error(
+                "Firebase Auth impossible."
+              );
+
+            }
+
+
+            const ordersRef =
+              ref(
+                db,
+                "orders"
+              );
+
+
+            const result =
+              await push(
+                ordersRef,
+                order
+              );
+
+
+            console.log(
+              "Commande enregistrée Firebase ✅",
+              result.key
+            );
+
+
+            /* مسح السلة */
+
+            localStorage.removeItem(
+              "dama-order-cart"
+            );
+
+
+            /* إظهار النجاح */
+
+            if (orderContent) {
+
+              orderContent.style.display =
+                "none";
+
+            }
+
+
+            if (successScreen) {
+
+              successScreen.style.display =
+                "block";
+
+            }
+
+
+            if (referenceElement) {
+
+              referenceElement.textContent =
+                `Référence de commande : ${result.key}`;
+
+            }
+
+          } catch (error) {
+
+            console.error(
+              "Erreur commande:",
+              error
+            );
+
+
+            let errorMessage =
+              "❌ Impossible d'envoyer la commande. Veuillez réessayer.";
+
+
+            if (
+              error?.code ===
+              "PERMISSION_DENIED"
+            ) {
+
+              errorMessage =
+                "❌ Accès refusé par Firebase. Vérifiez les règles de Realtime Database.";
+
+            }
+
+
+            if (message) {
+
+              message.textContent =
+                errorMessage;
+
+            }
+
+
+            alert(
+              errorMessage
+            );
+
+
+            if (confirmButton) {
+
+              confirmButton.disabled =
+                false;
+
+              confirmButton.textContent =
+                "Confirmer la commande";
+
+            }
+
+          }
+
+        }
+      );
+
+    }
+
+  </script>
+
+</body>
+
+</html>
