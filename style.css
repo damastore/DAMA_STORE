@@ -1702,3 +1702,19 @@ footer .logo {
     scroll-behavior: auto !important;
   }
 }
+.dama-splash-logo {
+    color: #ffffff !important;
+    font-family: 'Cinzel', serif;
+    font-weight: 800;
+}
+
+.dama-splash-logo span {
+   color: #D4AC67; !important; /* ملحوظة: تبدل لـ #ffffff باش يرجع أبيض */
+    font-family: 'Cinzel', serif;
+}
+
+.dama-splash-welcome {
+    color: #ffffff !important;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 500;
+}

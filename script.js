@@ -64,11 +64,6 @@ const products = [
       "images/aa.jpeg",
       "images/r vert.jpeg"
     ],
-    colors: [
-      { name: "Noir", value: "#111111" },
-      { name: "Bleu", value: "#1d4ed8" },
-      { name: "Vert", value: "#15803d" }
-    ]
   },
 
   {
@@ -94,10 +89,6 @@ const products = [
       "images/rool01.jpeg",
       "images/rool1.jpeg"
     ],
-    colors: [
-      { name: "Vert", value: "#15803d" },
-      { name: "Bleu", value: "#1d4ed8" }
-    ]
   },
 
   {
@@ -148,10 +139,6 @@ const products = [
       "images/22.png",
       "images/33.png"
     ],
-    colors: [
-      { name: "Noir", value: "#111111" },
-      { name: "Argent", value: "#c0c0c0" }
-    ]
   },
 
   {
@@ -420,7 +407,7 @@ function showToast(message) {
         toast.style.opacity =
           "0";
       },
-      2600
+      1000
     );
 }
 
