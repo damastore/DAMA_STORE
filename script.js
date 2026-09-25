@@ -54,7 +54,7 @@ const products = [
   {
     id: 1,
     name: "ROLEX DATEJUST",
-    price: 170.00,
+    price: 169.00,
     category: "montres",
     description: "ساعة أنيقة للاستعمال اليومي",
     images: [
@@ -74,14 +74,14 @@ const products = [
     description: "ROLEXE TABLEAU BLEU CIEL",
     images: [
       "images/sala.png",
-      "images/317.jpg",
+      "images/spa.png",
     ]
   },
 
   {
     id: 3,
     name: "ROLEX SPRITE BATMAN",
-    price: 170.00,
+    price: 169.00,
     category: "montres",
     description: "ساعة روليكس فخمة وأنيقة، قمة الفخامة والدقة الميكانيكية",
     images: [
@@ -106,7 +106,7 @@ const products = [
   {
     id: 5,
     name: "AUDEMARS PIGUET ROYAL OAK",
-    price: 170.00,
+    price: 169.00,
     category: "montres",
     description: "ساعة فخمة بتصميم راقٍ يليق بكل المناسبات.",
     images: [
@@ -119,37 +119,50 @@ const products = [
   {
     id: 6,
     name: "TISSOT ACIER",
-    price: 170.00,
+    price: 169.00,
     category: "montres",
     description: "قمة الفخامة والدقة الميكانيكية",
     images: [
-      "images/tiso.jpeg"
+      "images/lj.png",
+      "images/lk.png",
+      "images/ln.png"
     ]
   },
 
   {
     id: 7,
     name: "CASIO CARRE",
-    price: 170.00,
+    price: 169.00,
     category: "montres",
     description: "ساعة كلاسيكية فاخرة",
     images: [
       "images/11.png",
       "images/22.png",
       "images/33.png"
-    ],
+    ]
   },
 
   {
     id: 8,
+    name: "D1 MILANO POLYCARBON",
+    price: 149.00,
+    category: "montres",
+    description: "لمسة أنيقة  عربـــية",
+    images: [
+      "images/lO.png",
+      "images/li.png",
+    ]
+  },
+  {
+    id: 9,
     name: "EMPORIO ARMANI",
-    price: 150.00,
+    price: 149.00,
     category: "montres",
     description: "لمسة أنيقة خفيفة",
     images: [
-      "images/hhh.jpeg"
+      "images/hhh.jpeg",
     ]
-  }
+  },
 
 ];
 
@@ -243,7 +256,7 @@ let selectedColor = null;
 let currentImageIndex = 0;
 
 let productSlots = [
-  1, 2, 3, 4, 5, 6, 7, 8
+  1, 2, 3, 4, 5, 6, 7, 8, 9
 ];
 
 
