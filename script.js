@@ -149,7 +149,7 @@ const products = [
     category: "montres",
     description: "لمسة أنيقة  عربـــية",
     images: [
-      "images/lO.png",
+      "images/lo.png",
       "images/li.png",
     ]
   },
