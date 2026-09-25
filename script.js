@@ -68,14 +68,13 @@ const products = [
 
   {
     id: 2,
-    name: "BRACLET LACOSTE",
-    price: 119.00,
-    category: "bracelets",
-    description: "سوار لاكوست أنيق بلمسة رياضية راقية، مناسب لجميع إطلالاتك اليومية.",
+    name: "ROLEX DAY-DATE 40",
+    price: 179.00,
+    category: "montres",
+    description: "ROLEXE TABLEAU BLEU CIEL",
     images: [
-      "images/888.png",
-      "images/2.jpg",
-      "images/3.jpg"
+      "images/sala.png",
+      "images/317.jpg",
     ]
   },
 
