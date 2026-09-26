@@ -160,7 +160,7 @@ const products = [
     category: "montres",
     description: "لمسة أنيقة خفيفة",
     images: [
-      "images/hhh.jpeg",
+      "images/hhh.png",
     ]
   },
 
