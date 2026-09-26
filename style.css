@@ -2263,3 +2263,86 @@ footer .logo {
   .watch-hand.hour { height:42px; }
   .watch-hand.minute { height:57px; }
 }
+
+
+/* FINAL SIMPLE WATCH HERO — NO CIRCLES */
+.hero {
+  min-height: 540px !important;
+  padding: 70px 8% !important;
+  background: linear-gradient(120deg,#111 0%,#1c1c1c 55%,#111 100%) !important;
+  gap: 30px !important;
+}
+
+.hero::before,
+.hero::after,
+.hero-watch::after {
+  display: none !important;
+}
+
+.hero-text {
+  max-width: 560px !important;
+}
+
+.hero-kicker {
+  color: #d9b34f;
+  letter-spacing: 4px;
+  font-size: 11px;
+  margin-bottom: 18px;
+}
+
+.hero-title {
+  color: #fff;
+  font-family: Georgia,"Times New Roman",serif;
+  font-size: clamp(45px,6vw,74px);
+  line-height: 1;
+  margin: 0 0 20px;
+}
+
+.hero-title span { color:#d9b34f; }
+
+.hero-description {
+  color: rgba(255,255,255,.72);
+  max-width: 450px;
+  margin-bottom: 28px;
+}
+
+.hero-watch {
+  flex: 0 0 400px !important;
+  min-height: 390px !important;
+}
+
+.watch-strap {
+  width: 82px;
+  height: 370px;
+  background: linear-gradient(90deg,#080808,#242424,#080808);
+}
+
+.watch-case {
+  width: 220px;
+  height: 220px;
+  padding: 9px;
+  background: linear-gradient(145deg,#e8c56d,#8c672d,#d9b34f);
+  box-shadow: 0 28px 60px rgba(0,0,0,.55);
+}
+
+.watch-dial {
+  background: #101010;
+  border-color:#333;
+}
+
+.watch-brand { color:#d9b34f; }
+
+@media (max-width:760px) {
+  .hero {
+    min-height: 650px !important;
+    padding: 55px 7% 60px !important;
+  }
+
+  .hero-watch {
+    flex: 0 0 280px !important;
+    min-height: 280px !important;
+  }
+
+  .watch-case { width:175px;height:175px; }
+  .watch-strap { width:66px;height:280px; }
+}
