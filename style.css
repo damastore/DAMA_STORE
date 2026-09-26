@@ -1880,7 +1880,7 @@ footer .logo {
   border:8px solid rgba(255,255,255,.72);
   background:
     linear-gradient(145deg,rgba(255,255,255,.12),rgba(30,25,19,.16)),
-    url("images/rool01.jpeg") center/cover no-repeat;
+    url("images/rool1.jpeg") center/cover no-repeat;
   box-shadow:
     0 30px 70px rgba(48,38,27,.22),
     0 0 0 1px rgba(184,139,90,.38),
@@ -2145,4 +2145,17 @@ footer .logo{
     grid-template-columns:1fr;
     gap:35px;
   }
+}
+
+
+/* Bugatti watch hero refinement */
+.welcome-circle{
+  background-position:center center;
+  background-size:cover;
+  filter:saturate(1.04) contrast(1.03);
+}
+.welcome-circle::after{
+  background:
+    radial-gradient(circle at 50% 35%,rgba(255,255,255,.16),transparent 36%),
+    linear-gradient(145deg,rgba(255,255,255,.04),rgba(35,25,18,.20));
 }
