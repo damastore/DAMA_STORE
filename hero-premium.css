@@ -139,67 +139,85 @@
   transform: translateX(4px);
 }
 
-.welcome-logo {
+.hero-watch-visual {
   position: relative;
   width: min(560px, 100%);
-  height: 480px;
+  height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
   animation: damaPremiumWatch .95s ease both;
 }
 
-.welcome-logo::before {
+.hero-watch-visual::before {
   content: "";
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 440px;
+  height: 440px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(217,179,79,.12), transparent 65%);
-  filter: blur(4px);
+  background: radial-gradient(circle, rgba(217,179,79,.13), transparent 68%);
+  filter: blur(5px);
 }
 
-.welcome-logo::after {
-  content: "";
-  position: absolute;
-  width: 430px;
-  height: 430px;
-  border-radius: 50%;
-  border: 1px solid rgba(232,197,109,.10);
-}
-
-.welcome-circle {
+.hero-watch-box {
   position: relative;
   z-index: 2;
   width: min(500px, 100%);
-  height: 430px;
-  border-radius: 28px;
-  border: 1px solid rgba(232,197,109,.32);
-  background:
-    linear-gradient(145deg, rgba(0,0,0,.05), rgba(0,0,0,.28)),
-    url("https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=1600&q=95") center/cover no-repeat;
+  height: 440px;
+  padding: 12px;
+  border: 1px solid rgba(232,197,109,.42);
+  border-radius: 24px;
+  background: linear-gradient(145deg, #1d1a15, #080808 72%);
   box-shadow:
-    0 45px 100px rgba(0,0,0,.65),
-    0 0 70px rgba(217,179,79,.12);
+    0 45px 100px rgba(0,0,0,.68),
+    0 0 70px rgba(217,179,79,.14),
+    inset 0 0 0 1px rgba(255,255,255,.04);
   overflow: hidden;
-  display: block;
-  font-size: 0;
   transform: perspective(1200px) rotateY(-6deg) rotateX(1deg);
   transition: transform .45s ease, box-shadow .45s ease;
 }
 
-.welcome-circle:hover {
-  transform: perspective(1200px) rotateY(0deg) rotateX(0deg) translateY(-8px);
-  box-shadow:
-    0 55px 110px rgba(0,0,0,.7),
-    0 0 80px rgba(217,179,79,.20);
+.hero-watch-box::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(232,197,109,.18);
+  pointer-events: none;
+  z-index: 3;
 }
 
-.welcome-circle strong,
-.welcome-circle span,
-.welcome-circle small,
-.welcome-message {
-  display: none;
+.hero-watch-box img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 15px;
+  filter: saturate(.9) contrast(1.04) brightness(.92);
+}
+
+.hero-watch-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.10) 50%, transparent 65%);
+  transform: translateX(-110%);
+  animation: damaWatchShine 4.5s ease-in-out infinite;
+}
+
+.hero-watch-box:hover {
+  transform: perspective(1200px) rotateY(0deg) rotateX(0deg) translateY(-8px);
+  box-shadow:
+    0 55px 110px rgba(0,0,0,.72),
+    0 0 85px rgba(217,179,79,.22),
+    inset 0 0 0 1px rgba(255,255,255,.05);
+}
+
+@keyframes damaWatchShine {
+  0%, 55% { transform: translateX(-110%); }
+  78%, 100% { transform: translateX(110%); }
 }
 
 @keyframes damaPremiumText {
@@ -224,23 +242,18 @@
     padding: 60px 5%;
   }
 
-  .welcome-logo {
+  .hero-watch-visual {
     height: 390px;
   }
 
-  .welcome-logo::before {
+  .hero-watch-visual::before {
     width: 360px;
     height: 360px;
   }
 
-  .welcome-logo::after {
-    width: 330px;
-    height: 330px;
-  }
-
-  .welcome-circle {
+  .hero-watch-box {
     width: 100%;
-    height: 330px;
+    height: 350px;
   }
 }
 
@@ -280,22 +293,29 @@
     font-size: 12px;
   }
 
-  .welcome-logo {
+  .hero-watch-visual {
     width: 100%;
-    height: 290px;
+    height: 300px;
     margin-top: 0;
   }
 
-  .welcome-logo::before,
-  .welcome-logo::after {
+  .hero-watch-visual::before {
     display: none;
   }
 
-  .welcome-circle {
+  .hero-watch-box {
     width: 100%;
-    height: 270px;
+    height: 280px;
     border-radius: 20px;
     transform: none;
+  }
+
+  .hero-watch-box::before {
+    inset: 10px;
+  }
+
+  .hero-watch-box img {
+    border-radius: 12px;
   }
 }
 
@@ -310,11 +330,11 @@
     font-size: 46px;
   }
 
-  .welcome-logo {
+  .hero-watch-visual {
     height: 250px;
   }
 
-  .welcome-circle {
+  .hero-watch-box {
     height: 225px;
   }
 }
