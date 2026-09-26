@@ -1,21 +1,21 @@
 /* =========================================
-   DAMA STORE — PREMIUM HERO
+   DAMA STORE — CLASSIC LUXURY HERO
 ========================================= */
 
 .hero {
   position: relative;
-  min-height: 680px;
+  min-height: 650px;
   overflow: hidden;
   isolation: isolate;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.05fr .95fr;
   align-items: center;
-  gap: 70px;
-  padding: 70px 7%;
-  background:
-    radial-gradient(circle at 78% 48%, rgba(217,179,79,.12), transparent 28%),
-    linear-gradient(115deg, #080808 0%, #111 58%, #17130d 100%);
+  gap: 55px;
+  padding: 72px 7%;
   color: #fff;
+  background:
+    radial-gradient(circle at 72% 48%, rgba(216,177,83,.11), transparent 30%),
+    linear-gradient(110deg, #070707 0%, #11100e 58%, #19150e 100%);
 }
 
 .hero::before {
@@ -24,167 +24,168 @@
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
-    linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: linear-gradient(to right, transparent, rgba(0,0,0,.5), transparent);
+    linear-gradient(90deg, transparent 0 49.8%, rgba(232,197,109,.08) 50%, transparent 50.2%),
+    radial-gradient(circle at 76% 50%, transparent 0 28%, rgba(232,197,109,.06) 28.1% 28.2%, transparent 28.3%),
+    radial-gradient(circle at 76% 50%, transparent 0 38%, rgba(232,197,109,.04) 38.1% 38.2%, transparent 38.3%);
 }
 
 .hero::after {
   content: "";
   position: absolute;
-  width: 560px;
-  height: 560px;
-  right: -230px;
+  width: 720px;
+  height: 720px;
+  right: -310px;
   top: 50%;
   transform: translateY(-50%);
-  border: 1px solid rgba(232,197,109,.12);
+  border: 1px solid rgba(232,197,109,.08);
   border-radius: 50%;
-  box-shadow:
-    0 0 0 35px rgba(232,197,109,.025),
-    0 0 0 75px rgba(232,197,109,.015);
+  box-shadow: 0 0 0 45px rgba(232,197,109,.018), 0 0 0 95px rgba(232,197,109,.012);
   pointer-events: none;
 }
 
 .hero-text {
   position: relative;
-  z-index: 2;
-  min-width: 0;
-  text-align: left;
-  padding: 0;
-  animation: damaPremiumText .8s ease both;
+  z-index: 3;
+  max-width: 590px;
+  animation: damaClassicText .9s ease both;
 }
 
 .hero-text::before {
-  content: "COLLECTION 2026";
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  content: "DAMA STORE  •  COLLECTION";
+  display: inline-block;
   margin-bottom: 22px;
-  padding: 8px 14px;
-  border: 1px solid rgba(232,197,109,.35);
-  border-radius: 999px;
   color: #e8c56d;
+  font-family: Georgia, "Times New Roman", serif;
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
 }
 
 .hero-logo {
-  margin: 0 0 12px;
+  margin: 0;
   color: #fff;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(58px, 7vw, 96px);
-  font-weight: 800;
-  line-height: .95;
-  letter-spacing: 5px;
-  text-shadow: 0 10px 35px rgba(0,0,0,.35);
+  font-size: clamp(58px, 7vw, 94px);
+  font-weight: 700;
+  line-height: .9;
+  letter-spacing: 7px;
+}
+
+.hero-logo::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 1px;
+  margin-top: 25px;
+  background: linear-gradient(90deg, #d9b34f, transparent);
 }
 
 .hero-logo span {
   display: block;
-  margin-top: 8px;
+  margin-top: 12px;
   color: #d9b34f;
-  font-size: .38em;
-  letter-spacing: 12px;
+  font-size: .34em;
+  font-weight: 400;
+  letter-spacing: 14px;
 }
 
 .hero-description {
-  max-width: 570px;
-  margin: 25px 0 12px;
-  color: rgba(255,255,255,.86);
+  max-width: 500px;
+  margin: 25px 0 10px;
+  color: rgba(255,255,255,.78);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(18px, 2vw, 24px);
-  font-style: normal;
-  font-weight: 400;
+  font-size: clamp(18px, 2vw, 23px);
   line-height: 1.55;
-  letter-spacing: .3px;
 }
 
 .hero-scroll {
-  margin: 0 0 30px;
-  color: rgba(255,255,255,.55);
-  font-size: 13px;
-  letter-spacing: 1.5px;
+  margin: 0 0 28px;
+  color: rgba(255,255,255,.45);
+  font-size: 12px;
+  letter-spacing: 1.8px;
 }
 
 .hero-button {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  overflow: hidden;
-  padding: 15px 25px;
-  border: 1px solid #e8c56d;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #d9b34f, #b88b5a);
-  color: #111;
+  gap: 18px;
+  padding: 14px 24px;
+  border: 1px solid rgba(232,197,109,.7);
+  border-radius: 3px;
+  background: transparent;
+  color: #f4e5bd;
   text-decoration: none;
-  font-weight: 900;
-  box-shadow: 0 12px 35px rgba(217,179,79,.18);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  transition: all .3s ease;
 }
 
 .hero-button::after {
   content: "→";
   font-size: 18px;
-  transition: transform .25s ease;
 }
 
 .hero-button:hover {
-  background: linear-gradient(135deg, #e8c56d, #d9b34f);
-  box-shadow: 0 16px 45px rgba(217,179,79,.28);
-}
-
-.hero-button:hover::after {
-  transform: translateX(4px);
+  background: #d9b34f;
+  color: #111;
+  box-shadow: 0 12px 35px rgba(217,179,79,.2);
 }
 
 .hero-watch-visual {
   position: relative;
-  width: min(560px, 100%);
-  height: 500px;
+  z-index: 2;
+  width: min(540px, 100%);
+  height: 470px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  animation: damaPremiumWatch .95s ease both;
+  justify-content: center;
+  animation: damaClassicWatch 1s ease both;
 }
 
 .hero-watch-visual::before {
   content: "";
   position: absolute;
-  width: 440px;
-  height: 440px;
+  width: 410px;
+  height: 410px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(217,179,79,.13), transparent 68%);
-  filter: blur(5px);
+  background: radial-gradient(circle, rgba(217,179,79,.12), transparent 67%);
+  filter: blur(4px);
 }
 
 .hero-watch-box {
   position: relative;
-  z-index: 2;
   width: min(500px, 100%);
-  height: 440px;
-  padding: 12px;
-  border: 1px solid rgba(232,197,109,.42);
-  border-radius: 24px;
-  background: linear-gradient(145deg, #1d1a15, #080808 72%);
-  box-shadow:
-    0 45px 100px rgba(0,0,0,.68),
-    0 0 70px rgba(217,179,79,.14),
-    inset 0 0 0 1px rgba(255,255,255,.04);
+  height: 430px;
+  padding: 10px;
   overflow: hidden;
-  transform: perspective(1200px) rotateY(-6deg) rotateX(1deg);
+  border: 1px solid rgba(232,197,109,.5);
+  border-radius: 18px;
+  background: linear-gradient(145deg, #252016, #080808 70%);
+  box-shadow: 0 40px 90px rgba(0,0,0,.7), 0 0 55px rgba(217,179,79,.1);
+  transform: perspective(1200px) rotateY(-5deg);
   transition: transform .45s ease, box-shadow .45s ease;
 }
 
 .hero-watch-box::before {
+  content: "DAMA";
+  position: absolute;
+  z-index: 3;
+  left: 25px;
+  top: 20px;
+  color: rgba(232,197,109,.7);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 12px;
+  letter-spacing: 5px;
+}
+
+.hero-watch-box::after {
   content: "";
   position: absolute;
-  inset: 12px;
-  border-radius: 16px;
-  border: 1px solid rgba(232,197,109,.18);
-  pointer-events: none;
+  inset: 10px;
   z-index: 3;
+  border: 1px solid rgba(232,197,109,.2);
+  border-radius: 12px;
+  pointer-events: none;
 }
 
 .hero-watch-box img {
@@ -193,8 +194,8 @@
   display: block;
   object-fit: cover;
   object-position: center;
-  border-radius: 15px;
-  filter: saturate(.9) contrast(1.04) brightness(.92);
+  border-radius: 11px;
+  filter: saturate(.82) contrast(1.08) brightness(.78);
 }
 
 .hero-watch-shine {
@@ -202,57 +203,43 @@
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.10) 50%, transparent 65%);
-  transform: translateX(-110%);
-  animation: damaWatchShine 4.5s ease-in-out infinite;
+  background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.09) 50%, transparent 65%);
+  transform: translateX(-120%);
+  animation: damaClassicShine 5s ease-in-out infinite;
 }
 
 .hero-watch-box:hover {
-  transform: perspective(1200px) rotateY(0deg) rotateX(0deg) translateY(-8px);
-  box-shadow:
-    0 55px 110px rgba(0,0,0,.72),
-    0 0 85px rgba(217,179,79,.22),
-    inset 0 0 0 1px rgba(255,255,255,.05);
+  transform: perspective(1200px) rotateY(0deg) translateY(-7px);
+  box-shadow: 0 50px 105px rgba(0,0,0,.75), 0 0 75px rgba(217,179,79,.18);
 }
 
-@keyframes damaWatchShine {
-  0%, 55% { transform: translateX(-110%); }
-  78%, 100% { transform: translateX(110%); }
-}
-
-@keyframes damaPremiumText {
-  from { opacity: 0; transform: translateX(-25px); }
+@keyframes damaClassicText {
+  from { opacity: 0; transform: translateX(-28px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes damaPremiumWatch {
-  from { opacity: 0; transform: translateX(25px) scale(.94); }
+@keyframes damaClassicWatch {
+  from { opacity: 0; transform: translateX(28px) scale(.96); }
   to { opacity: 1; transform: translateX(0) scale(1); }
 }
 
-@keyframes damaRing {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes damaClassicShine {
+  0%, 55% { transform: translateX(-120%); }
+  78%, 100% { transform: translateX(120%); }
 }
 
 @media (max-width: 1000px) {
   .hero {
     grid-template-columns: 1fr .9fr;
-    gap: 35px;
+    gap: 30px;
     padding: 60px 5%;
   }
 
   .hero-watch-visual {
-    height: 390px;
-  }
-
-  .hero-watch-visual::before {
-    width: 360px;
-    height: 360px;
+    height: 380px;
   }
 
   .hero-watch-box {
-    width: 100%;
     height: 350px;
   }
 }
@@ -261,8 +248,8 @@
   .hero {
     min-height: 760px;
     grid-template-columns: 1fr;
+    gap: 35px;
     padding: 58px 20px 45px;
-    gap: 30px;
     text-align: center;
   }
 
@@ -271,12 +258,16 @@
   }
 
   .hero-text::before {
-    margin-bottom: 18px;
+    margin-bottom: 17px;
   }
 
   .hero-logo {
-    font-size: 56px;
-    letter-spacing: 3px;
+    font-size: 55px;
+    letter-spacing: 4px;
+  }
+
+  .hero-logo::after {
+    margin: 20px auto 0;
   }
 
   .hero-logo span {
@@ -285,18 +276,12 @@
 
   .hero-description {
     margin: 20px auto 10px;
-    max-width: 430px;
     font-size: 17px;
   }
 
-  .hero-scroll {
-    font-size: 12px;
-  }
-
   .hero-watch-visual {
+    height: 290px;
     width: 100%;
-    height: 300px;
-    margin-top: 0;
   }
 
   .hero-watch-visual::before {
@@ -305,33 +290,23 @@
 
   .hero-watch-box {
     width: 100%;
-    height: 280px;
-    border-radius: 20px;
+    height: 270px;
     transform: none;
-  }
-
-  .hero-watch-box::before {
-    inset: 10px;
-  }
-
-  .hero-watch-box img {
-    border-radius: 12px;
   }
 }
 
 @media (max-width: 380px) {
   .hero {
-    min-height: 700px;
     padding-left: 15px;
     padding-right: 15px;
   }
 
   .hero-logo {
-    font-size: 46px;
+    font-size: 45px;
   }
 
   .hero-watch-visual {
-    height: 250px;
+    height: 245px;
   }
 
   .hero-watch-box {
