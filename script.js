@@ -885,6 +885,7 @@ function previousProducts() {
   renderProducts();
 
   applySearch();
+  requestAnimationFrame(() => initDamaScrollReveal());
 }
 
 
@@ -2314,7 +2315,7 @@ applySearch();
 
 function initDamaScrollReveal() {
   const targets = document.querySelectorAll(
-    ".section-heading, .product-search, .dama-category-filters, .product-navigation, .product-card, .benefits > div, .contact > *, footer"
+    ".hero, .products-section .section-heading, .product-search, .dama-category-filters, .product-navigation, .product-card, .benefits > div, .contact > *, footer"
   );
 
   if (!targets.length) return;
