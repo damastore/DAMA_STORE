@@ -1,0 +1,370 @@
+/* =========================================
+   DAMA STORE — PREMIUM HERO
+========================================= */
+
+.hero {
+  position: relative;
+  min-height: 620px;
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: 40px;
+  padding: 80px 7%;
+  background:
+    radial-gradient(circle at 75% 45%, rgba(184,139,90,.20), transparent 30%),
+    radial-gradient(circle at 15% 80%, rgba(255,255,255,.06), transparent 25%),
+    linear-gradient(135deg, #111 0%, #202020 52%, #0b0b0b 100%);
+  color: #fff;
+}
+
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero::before {
+  width: 520px;
+  height: 520px;
+  right: -170px;
+  top: -170px;
+  border: 1px solid rgba(217,179,79,.22);
+  box-shadow:
+    0 0 0 35px rgba(217,179,79,.035),
+    0 0 0 70px rgba(217,179,79,.02);
+}
+
+.hero::after {
+  width: 300px;
+  height: 300px;
+  left: -180px;
+  bottom: -180px;
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  text-align: left;
+  padding: 0;
+  animation: damaPremiumText .8s ease both;
+}
+
+.hero-text::before {
+  content: "COLLECTION 2026";
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  padding: 8px 14px;
+  border: 1px solid rgba(232,197,109,.35);
+  border-radius: 999px;
+  color: #e8c56d;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.hero-logo {
+  margin: 0 0 12px;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(58px, 7vw, 96px);
+  font-weight: 800;
+  line-height: .95;
+  letter-spacing: 5px;
+  text-shadow: 0 10px 35px rgba(0,0,0,.35);
+}
+
+.hero-logo span {
+  display: block;
+  margin-top: 8px;
+  color: #d9b34f;
+  font-size: .38em;
+  letter-spacing: 12px;
+}
+
+.hero-description {
+  max-width: 570px;
+  margin: 25px 0 12px;
+  color: rgba(255,255,255,.86);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(18px, 2vw, 24px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: .3px;
+}
+
+.hero-scroll {
+  margin: 0 0 30px;
+  color: rgba(255,255,255,.55);
+  font-size: 13px;
+  letter-spacing: 1.5px;
+}
+
+.hero-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  padding: 15px 25px;
+  border: 1px solid #e8c56d;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #d9b34f, #b88b5a);
+  color: #111;
+  text-decoration: none;
+  font-weight: 900;
+  box-shadow: 0 12px 35px rgba(217,179,79,.18);
+}
+
+.hero-button::after {
+  content: "→";
+  font-size: 18px;
+  transition: transform .25s ease;
+}
+
+.hero-button:hover {
+  background: linear-gradient(135deg, #e8c56d, #d9b34f);
+  box-shadow: 0 16px 45px rgba(217,179,79,.28);
+}
+
+.hero-button:hover::after {
+  transform: translateX(4px);
+}
+
+.welcome-logo {
+  position: relative;
+  flex: none;
+  width: min(430px, 100%);
+  height: 430px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: damaPremiumWatch .95s ease both;
+}
+
+.welcome-logo::before {
+  content: "";
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border: 1px solid rgba(217,179,79,.25);
+  border-radius: 50%;
+  box-shadow:
+    0 0 60px rgba(217,179,79,.08),
+    inset 0 0 60px rgba(217,179,79,.04);
+  animation: damaRing 8s linear infinite;
+}
+
+.welcome-logo::after {
+  content: "DAMA • STORE • DAMA • STORE • ";
+  position: absolute;
+  width: 405px;
+  height: 405px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: rgba(232,197,109,.55);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  word-spacing: 15px;
+  transform: rotate(-18deg);
+  pointer-events: none;
+}
+
+.welcome-circle {
+  position: relative;
+  z-index: 2;
+  width: 285px;
+  height: 285px;
+  border: 1px solid rgba(232,197,109,.65);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255,255,255,.12), transparent 30%),
+    linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 30px 70px rgba(0,0,0,.45),
+    inset 0 0 0 7px rgba(255,255,255,.025),
+    0 0 55px rgba(217,179,79,.09);
+  transform: none;
+}
+
+.welcome-circle strong {
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 38px;
+  letter-spacing: 5px;
+}
+
+.welcome-circle span {
+  margin: 5px 0 22px;
+  color: #e8c56d;
+  font-size: 25px;
+  letter-spacing: 8px;
+}
+
+.welcome-circle small,
+.welcome-message {
+  color: rgba(255,255,255,.78);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+@keyframes damaPremiumText {
+  from { opacity: 0; transform: translateX(-25px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes damaPremiumWatch {
+  from { opacity: 0; transform: translateX(25px) scale(.94); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes damaRing {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 1000px) {
+  .hero {
+    grid-template-columns: 1fr .8fr;
+    padding: 65px 5%;
+  }
+
+  .welcome-logo {
+    height: 360px;
+  }
+
+  .welcome-logo::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .welcome-logo::after {
+    width: 340px;
+    height: 340px;
+  }
+
+  .welcome-circle {
+    width: 245px;
+    height: 245px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: 720px;
+    grid-template-columns: 1fr;
+    padding: 65px 22px 55px;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .hero-text {
+    text-align: center;
+  }
+
+  .hero-text::before {
+    margin-bottom: 18px;
+  }
+
+  .hero-logo {
+    font-size: 56px;
+    letter-spacing: 3px;
+  }
+
+  .hero-logo span {
+    letter-spacing: 8px;
+  }
+
+  .hero-description {
+    margin: 20px auto 10px;
+    max-width: 430px;
+    font-size: 17px;
+  }
+
+  .hero-scroll {
+    font-size: 12px;
+  }
+
+  .welcome-logo {
+    width: 100%;
+    height: 315px;
+    margin-top: -5px;
+  }
+
+  .welcome-logo::before {
+    width: 255px;
+    height: 255px;
+  }
+
+  .welcome-logo::after {
+    width: 285px;
+    height: 285px;
+    font-size: 7px;
+  }
+
+  .welcome-circle {
+    width: 220px;
+    height: 220px;
+  }
+
+  .welcome-circle strong {
+    font-size: 29px;
+  }
+
+  .welcome-circle span {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .welcome-circle small,
+  .welcome-message {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    min-height: 680px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hero-logo {
+    font-size: 47px;
+  }
+
+  .welcome-logo {
+    height: 285px;
+  }
+
+  .welcome-circle {
+    width: 200px;
+    height: 200px;
+  }
+
+  .welcome-logo::before {
+    width: 225px;
+    height: 225px;
+  }
+
+  .welcome-logo::after {
+    width: 250px;
+    height: 250px;
+  }
+}
