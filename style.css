@@ -1719,3 +1719,249 @@ footer .logo {
     font-weight: 500;
 }
 
+
+
+/* =========================================================
+   DAMA STORE — HERO PREMIUM
+   ========================================================= */
+
+.hero {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 78% 50%, rgba(184,139,90,.18), transparent 30%),
+    radial-gradient(circle at 15% 20%, rgba(255,255,255,.06), transparent 28%),
+    linear-gradient(135deg, #111111 0%, #202020 58%, #151515 100%);
+  color: #fff;
+  padding: 72px 8%;
+  gap: 70px;
+  isolation: isolate;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  right: -170px;
+  top: -150px;
+  border: 1px solid rgba(216,179,79,.18);
+  border-radius: 50%;
+  box-shadow: 0 0 0 70px rgba(216,179,79,.025), 0 0 0 140px rgba(216,179,79,.018);
+  z-index: -1;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  bottom: 38px;
+  width: 90px;
+  height: 1px;
+  background: linear-gradient(90deg, #d9b34f, transparent);
+  opacity: .7;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+  flex: 1.05;
+  max-width: 650px;
+  min-width: 0;
+  text-align: left;
+  padding: 0;
+  animation: dama-hero-text-premium .9s ease both;
+}
+
+.hero-logo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(48px, 6vw, 82px);
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 26px;
+}
+
+.hero-logo span {
+  color: #d9b34f;
+  font-size: .43em;
+  letter-spacing: 8px;
+}
+
+.hero-description {
+  max-width: 520px;
+  margin: 0 0 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  color: rgba(255,255,255,.92);
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: .2px;
+  line-height: 1.35;
+}
+
+.hero-scroll {
+  max-width: 500px;
+  margin: 0 0 32px;
+  color: rgba(255,255,255,.58);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  line-height: 1.6;
+}
+
+.hero-button {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #d9b34f, #b88b5a);
+  color: #111;
+  padding: 15px 30px;
+  border-radius: 4px;
+  font-size: 14px;
+  letter-spacing: .7px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.hero-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+  transform: skewX(-20deg);
+  transition: left .7s ease;
+}
+
+.hero-button:hover::after { left: 140%; }
+
+.hero-button:hover {
+  background: linear-gradient(135deg, #e8c56d, #c99a68);
+  color: #111;
+  box-shadow: 0 14px 35px rgba(0,0,0,.35);
+}
+
+.welcome-logo {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 360px;
+  animation: dama-hero-circle-premium 1s ease both;
+}
+
+.welcome-circle {
+  position: relative;
+  width: 330px;
+  height: 330px;
+  border: 1px solid rgba(217,179,79,.72);
+  background: radial-gradient(circle, rgba(255,255,255,.08) 0%, rgba(255,255,255,.025) 48%, transparent 70%);
+  box-shadow: 0 25px 70px rgba(0,0,0,.35), inset 0 0 0 10px rgba(255,255,255,.015), inset 0 0 50px rgba(217,179,79,.05);
+}
+
+.welcome-circle::before {
+  content: "";
+  position: absolute;
+  inset: 13px;
+  border: 1px solid rgba(217,179,79,.24);
+  border-radius: 50%;
+}
+
+.welcome-circle::after {
+  content: "✦";
+  position: absolute;
+  top: 24px;
+  color: #d9b34f;
+  font-size: 13px;
+}
+
+.welcome-circle strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 48px;
+  letter-spacing: 7px;
+  color: #fff;
+}
+
+.welcome-circle span {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 9px;
+  color: #d9b34f;
+  margin: 7px 0 22px;
+}
+
+.welcome-circle small {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,.48);
+}
+
+.welcome-circle .welcome-message {
+  margin-top: 10px;
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,.88);
+}
+
+@keyframes dama-hero-text-premium {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes dama-hero-circle-premium {
+  from { opacity: 0; transform: translateX(30px) scale(.94); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    min-height: 620px;
+    padding: 58px 7% 70px;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 42px;
+  }
+
+  .hero-text {
+    width: 100%;
+    max-width: 560px;
+    text-align: center;
+  }
+
+  .hero-logo {
+    font-size: clamp(44px, 14vw, 68px);
+    justify-content: center;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+  }
+
+  .hero-description { margin-left: auto; margin-right: auto; font-size: 19px; }
+  .hero-scroll { margin-left: auto; margin-right: auto; font-size: 12px; }
+  .welcome-logo { flex: 0 0 auto; }
+  .welcome-circle { width: 235px; height: 235px; }
+
+  .welcome-circle strong {
+    font-size: 34px;
+    letter-spacing: 5px;
+  }
+
+  .welcome-circle span {
+    font-size: 15px;
+    letter-spacing: 6px;
+    margin-bottom: 15px;
+  }
+
+  .welcome-circle small { font-size: 9px; letter-spacing: 2px; }
+  .welcome-circle .welcome-message { font-size: 12px; }
+
+  .hero::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
