@@ -2251,3 +2251,106 @@ footer .logo{
     transition: none;
   }
 }
+
+
+/* ================= RESTORED PRODUCT ARROWS + SCROLL ANIMATION ================= */
+
+/* Arrows in the same product-section position */
+.product-navigation{
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  width:100%;
+  margin:0 auto 28px;
+  position:relative;
+  z-index:50;
+}
+
+.product-navigation .products-arrow{
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  width:48px;
+  height:48px;
+  min-width:48px;
+  padding:0;
+  border:1px solid rgba(184,139,90,.55);
+  border-radius:50%;
+  background:#fff;
+  color:#b88b5a;
+  font-size:32px;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:0 8px 22px rgba(32,28,22,.10);
+  transition:transform .22s ease, background .22s ease, color .22s ease, box-shadow .22s ease;
+  pointer-events:auto !important;
+  touch-action:manipulation;
+}
+
+.product-navigation .products-arrow:hover{
+  transform:translateY(-2px);
+  background:#b88b5a;
+  color:#fff;
+  box-shadow:0 12px 28px rgba(184,139,90,.22);
+}
+
+.product-navigation .products-arrow:active{
+  transform:scale(.94);
+}
+
+/* Smooth entrance whenever product cards are refreshed by arrows */
+.product-grid .product-card{
+  animation:damaProductEnter .55s cubic-bezier(.22,1,.36,1) both;
+}
+
+.product-grid .product-card:nth-child(2){animation-delay:.05s}
+.product-grid .product-card:nth-child(3){animation-delay:.10s}
+.product-grid .product-card:nth-child(4){animation-delay:.15s}
+.product-grid .product-card:nth-child(5){animation-delay:.20s}
+.product-grid .product-card:nth-child(6){animation-delay:.25s}
+.product-grid .product-card:nth-child(7){animation-delay:.30s}
+.product-grid .product-card:nth-child(8){animation-delay:.35s}
+.product-grid .product-card:nth-child(9){animation-delay:.40s}
+
+@keyframes damaProductEnter{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Whole-site scroll reveal */
+.dama-scroll-reveal{
+  opacity:0;
+  transform:translateY(34px);
+  transition:opacity .75s ease var(--dama-reveal-delay,0ms),
+             transform .75s cubic-bezier(.22,1,.36,1) var(--dama-reveal-delay,0ms);
+}
+
+.dama-reveal-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@media(max-width:700px){
+  .product-navigation{
+    gap:14px;
+    margin-bottom:22px;
+  }
+
+  .product-navigation .products-arrow{
+    width:46px;
+    height:46px;
+    min-width:46px;
+    font-size:30px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .product-grid .product-card,
+  .dama-scroll-reveal{
+    animation:none !important;
+    opacity:1;
+    transform:none;
+    transition:none !important;
+  }
+}
