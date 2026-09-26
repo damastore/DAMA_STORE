@@ -1880,7 +1880,7 @@ footer .logo {
   border:8px solid rgba(255,255,255,.72);
   background:
     linear-gradient(145deg,rgba(255,255,255,.12),rgba(30,25,19,.16)),
-    url("images/montre.jpg") center/cover no-repeat;
+    url("images/rool01.jpeg") center/cover no-repeat;
   box-shadow:
     0 30px 70px rgba(48,38,27,.22),
     0 0 0 1px rgba(184,139,90,.38),
@@ -2116,4 +2116,33 @@ footer .logo{
   .section-heading h2{font-size:27px}
   .product-grid{gap:12px}
   .product-card{border-radius:12px}
+}
+
+
+/* Final premium polish */
+.hero{
+  grid-template-columns:minmax(0,1fr) minmax(320px,460px);
+}
+.welcome-logo{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.welcome-circle{
+  background-color:#e9dfd0;
+  background-size:cover;
+  background-position:center 42%;
+}
+.welcome-circle::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(45,31,20,.18));
+  pointer-events:none;
+}
+@media(max-width:800px){
+  .hero{
+    grid-template-columns:1fr;
+    gap:35px;
+  }
 }
