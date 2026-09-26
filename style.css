@@ -2159,3 +2159,95 @@ footer .logo{
     radial-gradient(circle at 50% 35%,rgba(255,255,255,.16),transparent 36%),
     linear-gradient(145deg,rgba(255,255,255,.04),rgba(35,25,18,.20));
 }
+
+
+/* ================= FINAL UX FIXES ================= */
+
+/* Hide all text overlays from the hero watch image */
+.welcome-circle > strong,
+.welcome-circle > span,
+.welcome-circle > .welcome-message {
+  display: none !important;
+}
+
+/* Keep gallery arrows reliably clickable on touch screens */
+.product-navigation button,
+.gallery-arrow {
+  position: relative;
+  z-index: 30;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto !important;
+  user-select: none;
+}
+
+.product-navigation {
+  position: relative;
+  z-index: 20;
+}
+
+.detail-gallery {
+  isolation: isolate;
+}
+
+.detail-gallery::after {
+  pointer-events: none !important;
+}
+
+/* Smooth product image change */
+#detail-main-img {
+  transition: opacity .18s ease, transform .22s ease;
+}
+
+.dama-gallery-changing {
+  opacity: .45;
+  transform: scale(.985);
+}
+
+/* Scroll reveal */
+.dama-scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity .7s ease var(--dama-reveal-delay, 0ms),
+    transform .7s cubic-bezier(.22,1,.36,1) var(--dama-reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.dama-reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-card.dama-scroll-reveal:hover {
+  transform: translateY(-7px);
+}
+
+@media (max-width: 700px) {
+  .dama-scroll-reveal {
+    transform: translateY(22px);
+    transition-duration: .6s;
+  }
+
+  .product-navigation button {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .gallery-arrow {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    min-height: 46px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dama-scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
