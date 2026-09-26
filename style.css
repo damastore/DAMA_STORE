@@ -1718,3 +1718,124 @@ footer .logo {
     font-family: 'Tajawal', sans-serif;
     font-weight: 500;
 }
+
+/* =========================================
+   DAMA STORE - HERO IMAGE
+========================================= */
+
+.hero {
+  background:
+    radial-gradient(circle at 72% 45%, rgba(184,139,90,.16), transparent 30%),
+    linear-gradient(135deg, #f4f2ed 0%, #e7e3da 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border: 1px solid rgba(184,139,90,.18);
+  border-radius: 50%;
+  right: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hero-product-image {
+  position: relative;
+  flex: 0 0 420px;
+  height: 390px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+}
+
+.hero-product-image::after {
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 35px;
+  bottom: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(32,32,32,.16);
+  filter: blur(18px);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.hero-image-glow {
+  position: absolute;
+  width: 290px;
+  height: 290px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(255,255,255,.38) 48%, transparent 72%);
+  z-index: -1;
+}
+
+.hero-product-image img {
+  width: 330px;
+  height: 330px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 22px 24px rgba(32,32,32,.18));
+  animation: damaHeroWatchFloat 4s ease-in-out infinite;
+}
+
+.hero-image-label {
+  position: absolute;
+  right: 18px;
+  bottom: 30px;
+  padding: 8px 14px;
+  border: 1px solid rgba(184,139,90,.55);
+  border-radius: 30px;
+  background: rgba(255,255,255,.82);
+  backdrop-filter: blur(8px);
+  color: #8d673f;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+@keyframes damaHeroWatchFloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-9px) rotate(1deg); }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    padding-top: 45px;
+    padding-bottom: 45px;
+  }
+
+  .hero::before {
+    width: 300px;
+    height: 300px;
+    right: 50%;
+    transform: translate(50%, -50%);
+  }
+
+  .hero-product-image {
+    flex: none;
+    width: 100%;
+    height: 285px;
+  }
+
+  .hero-product-image img {
+    width: 250px;
+    height: 250px;
+  }
+
+  .hero-image-glow {
+    width: 230px;
+    height: 230px;
+  }
+
+  .hero-image-label {
+    right: calc(50% - 125px);
+    bottom: 8px;
+  }
+}
