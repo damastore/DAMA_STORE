@@ -4,6 +4,7 @@
 // Product Gallery + Colors + Back Button
 // Cart + Firebase
 // Dedicated Order Page
+// OPTIMIZED VERSION
 // ============================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -18,7 +19,6 @@ import {
   ref,
   push
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
 
 /* ================= FIREBASE ================= */
 
@@ -46,7 +46,6 @@ const authReady = signInAnonymously(auth)
     return null;
   });
 
-
 /* ================= PRODUCTS ================= */
 
 const products = [
@@ -63,7 +62,7 @@ const products = [
       "images/r blu.jpeg",
       "images/aa.jpeg",
       "images/r vert.jpeg"
-    ],
+    ]
   },
 
   {
@@ -74,7 +73,7 @@ const products = [
     description: "ROLEXE TABLEAU BLEU CIEL",
     images: [
       "images/sala.png",
-      "images/spa.png",
+      "images/spa.png"
     ]
   },
 
@@ -87,7 +86,7 @@ const products = [
     images: [
       "images/rool01.jpeg",
       "images/rool1.jpeg"
-    ],
+    ]
   },
 
   {
@@ -147,12 +146,13 @@ const products = [
     name: "D1 MILANO POLYCARBON",
     price: 149.00,
     category: "montres",
-    description: "لمسة أنيقة  عربـــية",
+    description: "لمسة أنيقة عربـــية",
     images: [
       "images/lo.png",
-      "images/li.png",
+      "images/li.png"
     ]
   },
+
   {
     id: 9,
     name: "EMPORIO ARMANI",
@@ -160,19 +160,17 @@ const products = [
     category: "montres",
     description: "لمسة أنيقة خفيفة",
     images: [
-      "images/hhh.jpeg",
+      "images/hhh.jpeg"
     ]
-  },
+  }
 
 ];
-
 
 /* ================= OLD PRICE ================= */
 
 function getOldPrice(product) {
   return Number(product.price) + 50;
 }
-
 
 /* ================= ELEMENTS ================= */
 
@@ -242,7 +240,6 @@ const detailBuyNow =
 const detailAddCart =
   document.getElementById("detail-add-cart");
 
-
 /* ================= STATE ================= */
 
 let cart = [];
@@ -259,12 +256,63 @@ let productSlots = [
   1, 2, 3, 4, 5, 6, 7, 8, 9
 ];
 
+/* ================= IMAGE CACHE ================= */
+
+const imageCache = new Map();
+
+function preloadImage(src) {
+
+  if (!src || imageCache.has(src)) {
+    return;
+  }
+
+  const img = new Image();
+
+  img.decoding = "async";
+
+  img.src = src;
+
+  imageCache.set(src, img);
+}
+
+function preloadAdjacentImages() {
+
+  if (!selectedProduct) {
+    return;
+  }
+
+  const images =
+    getProductImages(selectedProduct);
+
+  if (images.length < 2) {
+    return;
+  }
+
+  const nextIndex =
+    (currentImageIndex + 1) %
+    images.length;
+
+  const previousIndex =
+    (
+      currentImageIndex -
+      1 +
+      images.length
+    ) %
+    images.length;
+
+  preloadImage(
+    images[nextIndex]
+  );
+
+  preloadImage(
+    images[previousIndex]
+  );
+}
 
 /* ================= FAVORITES ================= */
 
 const FAVORITES_KEY =
   "dama-favorites";
-
 
 function loadFavorites() {
 
@@ -278,7 +326,9 @@ function loadFavorites() {
       );
 
     return Array.isArray(saved)
-      ? saved.map(Number).filter(Number.isFinite)
+      ? saved
+          .map(Number)
+          .filter(Number.isFinite)
       : [];
 
   } catch (error) {
@@ -292,10 +342,8 @@ function loadFavorites() {
   }
 }
 
-
 let favorites =
   loadFavorites();
-
 
 function saveFavorites() {
 
@@ -315,7 +363,6 @@ function saveFavorites() {
   }
 }
 
-
 function isFavorite(productId) {
 
   return favorites.includes(
@@ -323,6 +370,50 @@ function isFavorite(productId) {
   );
 }
 
+/* ================= UPDATE FAVORITE BUTTON ================= */
+
+function updateFavoriteButtons(productId) {
+
+  const favorite =
+    isFavorite(productId);
+
+  const buttons =
+    document.querySelectorAll(
+      `[data-favorite-id="${productId}"]`
+    );
+
+  buttons.forEach(button => {
+
+    button.classList.toggle(
+      "is-favorite",
+      favorite
+    );
+
+    button.setAttribute(
+      "aria-pressed",
+      String(favorite)
+    );
+
+    button.setAttribute(
+      "aria-label",
+      favorite
+        ? "Retirer des favoris"
+        : "Ajouter aux favoris"
+    );
+
+    const span =
+      button.querySelector("span");
+
+    if (span) {
+
+      span.textContent =
+        favorite
+          ? "♥️"
+          : "♡";
+    }
+
+  });
+}
 
 function toggleFavorite(productId) {
 
@@ -333,7 +424,8 @@ function toggleFavorite(productId) {
 
     favorites =
       favorites.filter(
-        id => id !== productId
+        id =>
+          id !== productId
       );
 
     showToast(
@@ -342,7 +434,9 @@ function toggleFavorite(productId) {
 
   } else {
 
-    favorites.push(productId);
+    favorites.push(
+      productId
+    );
 
     showToast(
       "Produit ajouté aux favoris !"
@@ -351,16 +445,23 @@ function toggleFavorite(productId) {
 
   saveFavorites();
 
-  renderProducts();
+  /*
+    مهم:
+    ما بقيناش نديرو renderProducts()
+    هنا، باش ما نعاودوش نبنيو
+    جميع المنتجات والصور.
+  */
+
+  updateFavoriteButtons(
+    productId
+  );
 
   applySearch();
 }
 
-
 /* ================= TOAST ================= */
 
 let toastTimer;
-
 
 function showToast(message) {
 
@@ -416,19 +517,19 @@ function showToast(message) {
   toastTimer =
     setTimeout(
       () => {
+
         toast.style.opacity =
           "0";
+
       },
       500
     );
 }
 
-
 /* ================= CATEGORY FILTERS ================= */
 
 let activeCategory =
   "all";
-
 
 function renderCategoryFilters() {
 
@@ -456,7 +557,6 @@ function renderCategoryFilters() {
 
   filters.className =
     "dama-category-filters";
-
 
   const categories = [
 
@@ -487,7 +587,6 @@ function renderCategoryFilters() {
 
   ];
 
-
   categories.forEach(
     category => {
 
@@ -508,7 +607,6 @@ function renderCategoryFilters() {
       button.textContent =
         category.label;
 
-
       if (
         category.id ===
         activeCategory
@@ -518,7 +616,6 @@ function renderCategoryFilters() {
           "active"
         );
       }
-
 
       button.addEventListener(
         "click",
@@ -548,7 +645,6 @@ function renderCategoryFilters() {
         }
       );
 
-
       filters.appendChild(
         button
       );
@@ -556,13 +652,11 @@ function renderCategoryFilters() {
     }
   );
 
-
   searchContainer.insertAdjacentElement(
     "afterend",
     filters
   );
 }
-
 
 /* ================= PRODUCT IMAGES ================= */
 
@@ -588,13 +682,10 @@ function getProductImages(product) {
   return [];
 }
 
-
 function getProductImage(product) {
 
   const images =
-    getProductImages(
-      product
-    );
+    getProductImages(product);
 
   if (!images.length) {
 
@@ -610,17 +701,18 @@ function getProductImage(product) {
       src="${images[0]}"
       alt="${product.name}"
       loading="lazy"
+      decoding="async"
     >
   `;
 }
-
 
 /* ================= RENDER PRODUCTS ================= */
 
 function renderProducts() {
 
-  if (!productGrid)
+  if (!productGrid) {
     return;
+  }
 
   productGrid.innerHTML =
     productSlots
@@ -637,14 +729,14 @@ function renderProducts() {
                 productId
             );
 
-          if (!product)
+          if (!product) {
             return "";
+          }
 
           const favorite =
             isFavorite(
               product.id
             );
-
 
           return `
 
@@ -684,13 +776,11 @@ function renderProducts() {
 
               </div>
 
-
               <div class="product-info">
 
                 <h3>
                   ${product.name}
                 </h3>
-
 
                 ${
                   product.price > 0
@@ -722,7 +812,6 @@ function renderProducts() {
 
                       </div>
 
-
                       <p
                         class="dama-free-delivery"
                       >
@@ -750,7 +839,6 @@ function renderProducts() {
       .join("");
 }
 
-
 /* ================= SEARCH ================= */
 
 function applySearch() {
@@ -762,12 +850,10 @@ function applySearch() {
           .trim()
       : "";
 
-
   const cards =
     document.querySelectorAll(
       ".product-card"
     );
-
 
   cards.forEach(
     card => {
@@ -777,7 +863,6 @@ function applySearch() {
           card.dataset.productId
         );
 
-
       const product =
         products.find(
           item =>
@@ -785,25 +870,21 @@ function applySearch() {
             productId
         );
 
-
-      if (!product)
+      if (!product) {
         return;
-
+      }
 
       const text =
         `${product.name} ${product.description}`
           .toLowerCase();
-
 
       const matchesSearch =
         text.includes(
           searchText
         );
 
-
       let matchesCategory =
         true;
-
 
       if (
         activeCategory ===
@@ -825,7 +906,6 @@ function applySearch() {
           activeCategory;
       }
 
-
       card.style.display =
         matchesSearch &&
         matchesCategory
@@ -836,7 +916,6 @@ function applySearch() {
   );
 }
 
-
 if (productSearch) {
 
   productSearch.addEventListener(
@@ -845,15 +924,30 @@ if (productSearch) {
   );
 }
 
+/* ================= FAST PRODUCT NAVIGATION ================= */
 
-/* ================= PRODUCT NAVIGATION ================= */
+/*
+  هنا التغيير الكبير:
+
+  ما بقيناش نستعملو:
+      renderProducts()
+      applySearch()
+
+  كل مرة كتضغط السهم.
+
+  كنحركو نفس العناصر الموجودة
+  بلا ما نحذفوهم وبلا ما نعاودو
+  نحملو الصور.
+*/
 
 function nextProducts() {
 
   if (
+    !productGrid ||
     productSlots.length < 2
-  )
+  ) {
     return;
+  }
 
   const firstProduct =
     productSlots.shift();
@@ -862,18 +956,25 @@ function nextProducts() {
     firstProduct
   );
 
-  renderProducts();
+  const firstCard =
+    productGrid.firstElementChild;
 
-  applySearch();
+  if (firstCard) {
+
+    productGrid.appendChild(
+      firstCard
+    );
+  }
 }
-
 
 function previousProducts() {
 
   if (
+    !productGrid ||
     productSlots.length < 2
-  )
+  ) {
     return;
+  }
 
   const lastProduct =
     productSlots.pop();
@@ -882,11 +983,17 @@ function previousProducts() {
     lastProduct
   );
 
-  renderProducts();
+  const lastCard =
+    productGrid.lastElementChild;
 
-  applySearch();
+  if (lastCard) {
+
+    productGrid.insertBefore(
+      lastCard,
+      productGrid.firstElementChild
+    );
+  }
 }
-
 
 if (productsPrevButton) {
 
@@ -896,7 +1003,6 @@ if (productsPrevButton) {
   );
 }
 
-
 if (productsNextButton) {
 
   productsNextButton.addEventListener(
@@ -905,38 +1011,32 @@ if (productsNextButton) {
   );
 }
 
-
 /* ================= BACK BUTTON ================= */
 
 function createBackButton() {
 
-  if (!productModal)
+  if (!productModal) {
     return;
-
+  }
 
   if (
     document.getElementById(
       "dama-product-back-button"
     )
   ) {
-
     return;
   }
-
 
   const backButton =
     document.createElement(
       "button"
     );
 
-
   backButton.id =
     "dama-product-back-button";
 
-
   backButton.type =
     "button";
-
 
   backButton.innerHTML = `
     <span
@@ -952,7 +1052,6 @@ function createBackButton() {
       Retour
     </span>
   `;
-
 
   Object.assign(
     backButton.style,
@@ -972,10 +1071,11 @@ function createBackButton() {
       fontSize: "14px",
       fontWeight: "600",
       cursor: "pointer",
-      boxShadow: "0 4px 15px rgba(0,0,0,.15)"
+      boxShadow: "0 4px 15px rgba(0,0,0,.15)",
+      touchAction: "manipulation",
+      WebkitTapHighlightColor: "transparent"
     }
   );
-
 
   backButton.addEventListener(
     "click",
@@ -990,15 +1090,12 @@ function createBackButton() {
     }
   );
 
-
   productModal.appendChild(
     backButton
   );
 }
 
-
 createBackButton();
-
 
 /* ================= COLORS ================= */
 
@@ -1009,16 +1106,13 @@ function createColorSelector(product) {
       "dama-color-selector"
     );
 
-
   if (oldSelector) {
 
     oldSelector.remove();
   }
 
-
   selectedColor =
     null;
-
 
   if (
     !product.colors ||
@@ -1029,16 +1123,13 @@ function createColorSelector(product) {
     return;
   }
 
-
   const selector =
     document.createElement(
       "div"
     );
 
-
   selector.id =
     "dama-color-selector";
-
 
   Object.assign(
     selector.style,
@@ -1049,16 +1140,13 @@ function createColorSelector(product) {
     }
   );
 
-
   const title =
     document.createElement(
       "div"
     );
 
-
   title.textContent =
     "Choisissez une couleur";
-
 
   Object.assign(
     title.style,
@@ -1070,12 +1158,10 @@ function createColorSelector(product) {
     }
   );
 
-
   const colorsContainer =
     document.createElement(
       "div"
     );
-
 
   Object.assign(
     colorsContainer.style,
@@ -1087,33 +1173,27 @@ function createColorSelector(product) {
     }
   );
 
-
   product.colors.forEach(
-    (color, index) => {
+    color => {
 
       const colorButton =
         document.createElement(
           "button"
         );
 
-
       colorButton.type =
         "button";
 
-
       colorButton.dataset.color =
         color.name;
-
 
       colorButton.setAttribute(
         "aria-label",
         color.name
       );
 
-
       colorButton.title =
         color.name;
-
 
       Object.assign(
         colorButton.style,
@@ -1121,17 +1201,15 @@ function createColorSelector(product) {
           width: "34px",
           height: "34px",
           borderRadius: "50%",
-          border:
-            "2px solid #dddddd",
-          background:
-            color.value,
+          border: "2px solid #dddddd",
+          background: color.value,
           cursor: "pointer",
-          boxShadow:
-            "0 2px 8px rgba(0,0,0,.15)",
-          position: "relative"
+          boxShadow: "0 2px 8px rgba(0,0,0,.15)",
+          position: "relative",
+          touchAction: "manipulation",
+          WebkitTapHighlightColor: "transparent"
         }
       );
-
 
       if (
         color.value.toLowerCase() ===
@@ -1142,7 +1220,6 @@ function createColorSelector(product) {
           "2px solid #cccccc";
       }
 
-
       colorButton.addEventListener(
         "click",
         event => {
@@ -1151,10 +1228,8 @@ function createColorSelector(product) {
 
           event.stopPropagation();
 
-
           selectedColor =
             color.name;
-
 
           colorsContainer
             .querySelectorAll(
@@ -1164,14 +1239,12 @@ function createColorSelector(product) {
               button => {
 
                 button.style.border =
-                  button ===
-                  colorButton
+                  button === colorButton
                     ? "3px solid #b88b5a"
                     : "2px solid #dddddd";
 
               }
             );
-
 
           showToast(
             `Couleur : ${color.name}`
@@ -1180,14 +1253,12 @@ function createColorSelector(product) {
         }
       );
 
-
       colorsContainer.appendChild(
         colorButton
       );
 
     }
   );
-
 
   selector.appendChild(
     title
@@ -1197,7 +1268,6 @@ function createColorSelector(product) {
     colorsContainer
   );
 
-
   if (productDetailDescription) {
 
     productDetailDescription.insertAdjacentElement(
@@ -1206,7 +1276,6 @@ function createColorSelector(product) {
     );
   }
 }
-
 
 /* ================= PRODUCT DETAILS ================= */
 
@@ -1221,32 +1290,26 @@ function openProductDetails(
         productId
     );
 
-
   if (
     !product ||
     !productModal
-  )
+  ) {
     return;
-
+  }
 
   selectedProduct =
     product;
 
-
   selectedQuantity =
     1;
-
 
   selectedColor =
     null;
 
-
   currentImageIndex =
     0;
 
-
   createBackButton();
-
 
   if (productDetailImage) {
 
@@ -1254,7 +1317,6 @@ function openProductDetails(
       getProductImages(
         product
       );
-
 
     if (!images.length) {
 
@@ -1266,6 +1328,14 @@ function openProductDetails(
 
     } else {
 
+      /*
+        كنحضرو الصورة الحالية
+        والصور اللي غاديين يجو من بعدها
+        باش السهم يكون سريع.
+      */
+
+      preloadAdjacentImages();
+
       productDetailImage.innerHTML = `
 
         <div class="detail-gallery">
@@ -1275,6 +1345,8 @@ function openProductDetails(
             src="${images[0]}"
             alt="${product.name}"
             draggable="false"
+            loading="eager"
+            decoding="async"
           >
 
           ${
@@ -1328,24 +1400,17 @@ function openProductDetails(
 
       `;
 
-
       const prevButton =
         productDetailImage.querySelector(
           ".gallery-prev"
         );
-
 
       const nextButton =
         productDetailImage.querySelector(
           ".gallery-next"
         );
 
-
       if (prevButton) {
-
-        prevButton.style.touchAction =
-          "manipulation";
-
 
         prevButton.addEventListener(
           "click",
@@ -1355,20 +1420,13 @@ function openProductDetails(
 
             event.stopPropagation();
 
-            changeDetailImage(
-              -1
-            );
+            changeDetailImage(-1);
 
           }
         );
       }
 
-
       if (nextButton) {
-
-        nextButton.style.touchAction =
-          "manipulation";
-
 
         nextButton.addEventListener(
           "click",
@@ -1378,9 +1436,7 @@ function openProductDetails(
 
             event.stopPropagation();
 
-            changeDetailImage(
-              1
-            );
+            changeDetailImage(1);
 
           }
         );
@@ -1389,13 +1445,11 @@ function openProductDetails(
     }
   }
 
-
   if (productDetailName) {
 
     productDetailName.textContent =
       product.name;
   }
-
 
   if (productDetailPrice) {
 
@@ -1438,18 +1492,15 @@ function openProductDetails(
     }
   }
 
-
   if (productDetailDescription) {
 
     productDetailDescription.textContent =
       product.description;
   }
 
-
   createColorSelector(
     product
   );
-
 
   if (detailQuantity) {
 
@@ -1457,11 +1508,9 @@ function openProductDetails(
       selectedQuantity;
   }
 
-
   productModal.classList.add(
     "active"
   );
-
 
   productModal.setAttribute(
     "aria-hidden",
@@ -1469,19 +1518,17 @@ function openProductDetails(
   );
 }
 
-
 /* ================= CLOSE PRODUCT ================= */
 
 function closeProductDetails() {
 
-  if (!productModal)
+  if (!productModal) {
     return;
-
+  }
 
   productModal.classList.remove(
     "active"
   );
-
 
   productModal.setAttribute(
     "aria-hidden",
@@ -1489,26 +1536,24 @@ function closeProductDetails() {
   );
 }
 
-
 /* ================= CHANGE IMAGE ================= */
 
 function changeDetailImage(
   direction
 ) {
 
-  if (!selectedProduct)
+  if (!selectedProduct) {
     return;
-
+  }
 
   const images =
     getProductImages(
       selectedProduct
     );
 
-
-  if (images.length < 2)
+  if (images.length < 2) {
     return;
-
+  }
 
   currentImageIndex =
     (
@@ -1518,35 +1563,47 @@ function changeDetailImage(
     ) %
     images.length;
 
+  const nextImage =
+    images[currentImageIndex];
+
+  /*
+    كنضمنو الصورة الجاية تكون
+    متحضرة فالكاش.
+  */
+
+  preloadImage(
+    nextImage
+  );
 
   const mainImage =
     document.getElementById(
       "detail-main-img"
     );
 
-
   const counter =
     document.getElementById(
       "gallery-current"
     );
 
-
   if (mainImage) {
 
     mainImage.src =
-      images[
-        currentImageIndex
-      ];
+      nextImage;
   }
-
 
   if (counter) {
 
     counter.textContent =
       currentImageIndex + 1;
   }
-}
 
+  /*
+    كنحضرو اللي من بعدها
+    واللي قبلها.
+  */
+
+  preloadAdjacentImages();
+}
 
 if (closeProductButton) {
 
@@ -1555,7 +1612,6 @@ if (closeProductButton) {
     closeProductDetails
   );
 }
-
 
 if (productModal) {
 
@@ -1575,7 +1631,6 @@ if (productModal) {
   );
 }
 
-
 /* ================= QUANTITY ================= */
 
 if (detailMinus) {
@@ -1591,7 +1646,6 @@ if (detailMinus) {
         selectedQuantity--;
       }
 
-
       if (detailQuantity) {
 
         detailQuantity.textContent =
@@ -1601,7 +1655,6 @@ if (detailMinus) {
     }
   );
 }
-
 
 if (detailPlus) {
 
@@ -1611,7 +1664,6 @@ if (detailPlus) {
 
       selectedQuantity++;
 
-
       if (detailQuantity) {
 
         detailQuantity.textContent =
@@ -1621,7 +1673,6 @@ if (detailPlus) {
     }
   );
 }
-
 
 /* ================= CART ================= */
 
@@ -1638,10 +1689,9 @@ function addToCart(
         productId
     );
 
-
-  if (!product)
+  if (!product) {
     return;
-
+  }
 
   if (product.price <= 0) {
 
@@ -1652,14 +1702,12 @@ function addToCart(
     return;
   }
 
-
   const existingItem =
     cart.find(
       item =>
         item.id === productId &&
         item.color === color
     );
-
 
   if (existingItem) {
 
@@ -1679,9 +1727,7 @@ function addToCart(
     });
   }
 
-
   renderCart();
-
 
   showToast(
     color
@@ -1689,7 +1735,6 @@ function addToCart(
       : "🛒 Produit ajouté au panier !"
   );
 }
-
 
 /* ================= CART QUANTITY ================= */
 
@@ -1706,14 +1751,12 @@ function changeQuantity(
         product.color === color
     );
 
-
-  if (!item)
+  if (!item) {
     return;
-
+  }
 
   item.quantity +=
     amount;
-
 
   if (item.quantity <= 0) {
 
@@ -1727,10 +1770,8 @@ function changeQuantity(
       );
   }
 
-
   renderCart();
 }
-
 
 /* ================= REMOVE ================= */
 
@@ -1748,10 +1789,8 @@ function removeFromCart(
         )
     );
 
-
   renderCart();
 }
-
 
 /* ================= TOTAL ================= */
 
@@ -1769,7 +1808,6 @@ function getCartTotal() {
   );
 }
 
-
 function getCartQuantity() {
 
   return cart.reduce(
@@ -1782,7 +1820,6 @@ function getCartQuantity() {
     0
   );
 }
-
 
 /* ================= RENDER CART ================= */
 
@@ -1812,7 +1849,6 @@ function renderCart() {
                     ${item.name}
                   </strong>
 
-
                   ${
                     item.color
                       ? `
@@ -1831,7 +1867,6 @@ function renderCart() {
                       `
                       : ""
                   }
-
 
                   <p>
 
@@ -1854,7 +1889,6 @@ function renderCart() {
 
                   </p>
 
-
                   <strong>
                     ${
                       Number(
@@ -1866,7 +1900,6 @@ function renderCart() {
                     } DH
                   </strong>
 
-
                   <p
                     class="dama-free-delivery"
                   >
@@ -1874,7 +1907,6 @@ function renderCart() {
                   </p>
 
                 </div>
-
 
                 <div
                   class="cart-item-actions"
@@ -1889,11 +1921,9 @@ function renderCart() {
                     −
                   </button>
 
-
                   <span>
                     ${item.quantity}
                   </span>
-
 
                   <button
                     type="button"
@@ -1903,7 +1933,6 @@ function renderCart() {
                   >
                     +
                   </button>
-
 
                   <button
                     type="button"
@@ -1924,13 +1953,11 @@ function renderCart() {
     }
   }
 
-
   if (cartCountElement) {
 
     cartCountElement.textContent =
       getCartQuantity();
   }
-
 
   if (cartTotalElement) {
 
@@ -1939,19 +1966,17 @@ function renderCart() {
   }
 }
 
-
 /* ================= CART MODAL ================= */
 
 function openCart() {
 
-  if (!cartModal)
+  if (!cartModal) {
     return;
-
+  }
 
   cartModal.classList.add(
     "active"
   );
-
 
   cartModal.setAttribute(
     "aria-hidden",
@@ -1959,24 +1984,21 @@ function openCart() {
   );
 }
 
-
 function closeCart() {
 
-  if (!cartModal)
+  if (!cartModal) {
     return;
-
+  }
 
   cartModal.classList.remove(
     "active"
   );
-
 
   cartModal.setAttribute(
     "aria-hidden",
     "true"
   );
 }
-
 
 if (openCartButton) {
 
@@ -1986,7 +2008,6 @@ if (openCartButton) {
   );
 }
 
-
 if (closeCartButton) {
 
   closeCartButton.addEventListener(
@@ -1994,7 +2015,6 @@ if (closeCartButton) {
     closeCart
   );
 }
-
 
 if (cartModal) {
 
@@ -2014,7 +2034,6 @@ if (cartModal) {
   );
 }
 
-
 /* ================= GLOBAL CLICK ================= */
 
 document.addEventListener(
@@ -2026,13 +2045,11 @@ document.addEventListener(
         "[data-favorite-id]"
       );
 
-
     if (favoriteButton) {
 
       event.preventDefault();
 
       event.stopPropagation();
-
 
       toggleFavorite(
         Number(
@@ -2041,16 +2058,13 @@ document.addEventListener(
         )
       );
 
-
       return;
     }
-
 
     const productCard =
       event.target.closest(
         ".product-card"
       );
-
 
     if (
       productCard &&
@@ -2065,25 +2079,21 @@ document.addEventListener(
             .productId
         );
 
-
       openProductDetails(
         productId
       );
 
-
       return;
     }
-
 
     const actionButton =
       event.target.closest(
         "[data-action]"
       );
 
-
-    if (!actionButton)
+    if (!actionButton) {
       return;
-
+    }
 
     const productId =
       Number(
@@ -2091,15 +2101,12 @@ document.addEventListener(
           .productId
       );
 
-
     const color =
       actionButton.dataset.color ||
       null;
 
-
     const action =
       actionButton.dataset.action;
-
 
     if (
       action ===
@@ -2113,7 +2120,6 @@ document.addEventListener(
       );
     }
 
-
     if (
       action ===
       "decrease"
@@ -2125,7 +2131,6 @@ document.addEventListener(
         color
       );
     }
-
 
     if (
       action ===
@@ -2140,7 +2145,6 @@ document.addEventListener(
 
   }
 );
-
 
 /* ================= ORDER PAGE ================= */
 
@@ -2157,7 +2161,6 @@ function goToOrderPage() {
     return;
   }
 
-
   try {
 
     localStorage.setItem(
@@ -2166,7 +2169,6 @@ function goToOrderPage() {
         cart
       )
     );
-
 
     window.location.href =
       "commande.html";
@@ -2184,7 +2186,6 @@ function goToOrderPage() {
   }
 }
 
-
 /* ================= ADD CART ================= */
 
 if (detailAddCart) {
@@ -2193,9 +2194,9 @@ if (detailAddCart) {
     "click",
     () => {
 
-      if (!selectedProduct)
+      if (!selectedProduct) {
         return;
-
+      }
 
       if (
         selectedProduct.colors &&
@@ -2210,13 +2211,11 @@ if (detailAddCart) {
         return;
       }
 
-
       addToCart(
         selectedProduct.id,
         selectedQuantity,
         selectedColor
       );
-
 
       closeProductDetails();
 
@@ -2226,7 +2225,6 @@ if (detailAddCart) {
   );
 }
 
-
 /* ================= BUY NOW ================= */
 
 if (detailBuyNow) {
@@ -2235,9 +2233,9 @@ if (detailBuyNow) {
     "click",
     () => {
 
-      if (!selectedProduct)
+      if (!selectedProduct) {
         return;
-
+      }
 
       if (
         selectedProduct.colors &&
@@ -2252,16 +2250,13 @@ if (detailBuyNow) {
         return;
       }
 
-
       addToCart(
         selectedProduct.id,
         selectedQuantity,
         selectedColor
       );
 
-
       closeProductDetails();
-
 
       setTimeout(
         () => {
@@ -2276,7 +2271,6 @@ if (detailBuyNow) {
   );
 }
 
-
 /* ================= CHECKOUT ================= */
 
 if (checkoutButton) {
@@ -2290,7 +2284,6 @@ if (checkoutButton) {
     }
   );
 }
-
 
 /* ================= START ================= */
 

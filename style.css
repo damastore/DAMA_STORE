@@ -1828,3 +1828,74 @@ footer .logo {
     font-weight: 800;
     letter-spacing: 1px;
 }
+/* ================= PRODUCT NAVIGATION ARROWS - FAST TOUCH ================= */
+
+.product-navigation button {
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: white;
+  color: var(--accent);
+  font-size: 28px;
+  line-height: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  /* مهم للهاتف */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    transform 0.12s ease;
+}
+
+.product-navigation button:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.product-navigation button:active {
+  transform: scale(0.94);
+}
+
+
+/* ================= GALLERY ARROWS - FAST TOUCH ================= */
+
+.gallery-arrow {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    transform 0.12s ease;
+}
+
+.gallery-arrow:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+
+/* منع أي animation جديدة ملي كيتبدل ترتيب المنتجات */
+.product-grid.is-reordering .product-card {
+  animation: none !important;
+  transition: none !important;
+}
+
+
+/* ================= FIX SPLASH COLOR ================= */
+
+.dama-splash-logo span {
+  color: #D4AC67 !important;
+  font-family: 'Cinzel', serif;
+}
