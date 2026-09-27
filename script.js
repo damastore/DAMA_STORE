@@ -108,8 +108,8 @@ const products = [
     category: "montres",
     description: "ساعة فخمة بتصميم راقٍ يليق بكل المناسبات.",
     images: [
-      "images/audmars 1.png",
       "images/audemars 2.png",
+      "images/audmars 1.png",
       "images/audemars  3.png"
     ]
   },
