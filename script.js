@@ -52,82 +52,152 @@ const products = [
 
   {
     id: 1,
-    name: "ROLEX DATEJUST",
-    price: 169.99,
+    name: "rolex datejust green dial",
+    price: 179.99,
     category: "montres",
     description: "ساعة أنيقة للاستعمال اليومي",
     images: [
-      "images/rolexe 1.png",
-      "images/r1.jpeg",
-      "images/rolexe 3.png",
-      "images/aa.jpeg",
-      "images/r vert.jpeg"
+      "images/rolexe.jpeg",
     ]
   },
 
   {
     id: 2,
-    name: "ROLEX DAY-DATE 40",
+    name: "ROLEX DAY-DATE 40 TWO-TONE",
     price: 179.99,
     category: "montres",
     description: "ROLEXE TABLEAU BLEU CIEL",
     images: [
-      "images/sala.png",
-      "images/spa.png"
+      "images/rolexe2.jpeg"
     ]
   },
 
   {
     id: 3,
-    name: "ROLEX BATMAN",
-    price: 169.99,
+    name: "ROLEX DATEJUST/DAY-DATE",
+    price: 179.99,
     category: "montres",
     description: "ساعة روليكس فخمة وأنيقة، قمة الفخامة والدقة الميكانيكية",
     images: [
-      "images/rool01.jpeg"
+      "images/zra9.jpeg"
     ]
   },
 
   {
     id: 4,
-    name: "PORTEFEUILLE GOYARO",
-    price: 119.99,
+    name: "ROLEX SUBMARINER DATE",
+    price: 169.99,
     category: "accessoires",
     description: "لمسة أنيقة لكل يوم",
     images: [
-      "images/0001.jpg",
-      "images/0002.jpg",
-      "images/0003.jpg"
+      "images/batman.jpeg",
     ]
   },
 
   {
     id: 5,
     name: "AUDEMARS PIGUET ROYAL OAK",
-    price: 169.99,
+    price: 179.99,
     category: "montres",
     description: "ساعة فخمة بتصميم راقٍ يليق بكل المناسبات.",
     images: [
-      "images/audemars 2.png",
-      "images/audmars 1.png",
-      "images/audemars  3.png"
+      "images/audemars1.jpeg",
+      "images/audemars2.jpeg",
+      "images/audemars3.jpeg"
     ]
   },
 
   {
     id: 6,
     name: "TISSOT ACIER",
-    price: 169.99,
+    price: 179.99,
     category: "montres",
     description: "قمة الفخامة والدقة الميكانيكية",
     images: [
-      "images/lj.png",
-      "images/ln.png"
+      "images/tissot.jpeg"
+    ]
+  },
+{
+    id: 7,
+    name: "cartier santos cuir",
+    price: 219.99,
+    category: "montres",
+    description: "قمة الفخامة والدقة الميكانيكية",
+    images: [
+      "images/cuir.jpeg"
     ]
   },
 
   {
-    id: 7,
+    id: 8,
+    name: "CARTIER SANTOS SILVER",
+    price: 219.99,
+    category: "montres",
+    description: "قمة الفخامة والدقة الميكانيكية",
+    images: [
+      "images/oe.jpeg"
+    ]
+  },
+
+  {
+    id: 9,
+    name: "HUBLOT CLASSIC FUSION",
+    price: 199.99,
+    category: "montres",
+    description: "قمة الفخامة والدقة الميكانيكية",
+    images: [
+      "images/hublo.jpeg"
+    ]
+  },
+
+  {
+    id: 10,
+    name: "ROLEX DATEJUST FULL  GOLD",
+    price: 169.99,
+    category: "montres",
+    description: "قمة الفخامة والدقة الميكانيكية",
+    images: [
+      "images/dahbi.jpeg"
+    ]
+  },
+  
+  {
+    id: 11,
+    name: "CASIO CLASSIQUE",
+    price: 169.99,
+    category: "montres",
+    description: "قمة الفخامة والدقة الميكانيكية",
+    images: [
+      "images/casio.jpeg"
+    ]
+  },
+
+  {
+    id: 12,
+    name: "ROLEX & tissot / cuir",
+    price: 119.99,
+    category: "montres",
+    description: "قمة الفخامة والدقة الميكانيكية",
+    images: [
+      "images/jld1 (2).jpeg",
+      "images/jld2.jpeg",
+      "images/jld1 (1).jpeg"
+    ]
+  },
+
+  {
+    id: 13,
+    name: "CLASSIC TWO TONE",
+    price: 169.99,
+    category: "montres",
+    description: "لمسة أنيقة خفيفة",
+    images: [
+      "images/toto.jpeg"
+    ]
+  },
+
+  {
+    id: 14,
     name: "CASIO CARRE",
     price: 169.99,
     category: "montres",
@@ -139,34 +209,10 @@ const products = [
     ]
   },
 
-  {
-    id: 8,
-    name: "D1 MILANO POLYCARBON",
-    price: 149.99,
-    category: "montres",
-    description: "لمسة أنيقة عربية",
-    images: [
-      "images/lo.png",
-      "images/arabe 2.png",
-      "images/arab3.png"
-    ]
-  },
+  
 
   {
-    id: 9,
-    name: "PATEK PHILIPPE",
-    price: 169.99,
-    category: "montres",
-    description: "لمسة أنيقة خفيفة",
-    images: [
-      "images/pateq 1.png",
-      "images/pateq 2.png",
-      "images/pateq 3.png"
-    ]
-  },
-
-  {
-    id: 10,
+    id: 15,
     name: "EMPORIO ARMANI",
     price: 149.99,
     category: "montres",
@@ -286,7 +332,8 @@ let currentImageIndex = 0;
 
 let productSlots = [
   1, 2, 3, 4, 5,
-  6, 7, 8, 9, 10
+  6, 7, 8, 9, 10,
+  11, 12, 13, 14, 15,
 ];
 
 /* ================= IMAGE CACHE ================= */
