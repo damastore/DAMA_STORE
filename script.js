@@ -4,7 +4,7 @@
 // Product Gallery + Colors + Back Button
 // Cart + Firebase
 // Dedicated Order Page
-// FAST / OPTIMIZED VERSION
+// FAST / OPTIMIZED IMAGE VERSION
 // ============================================
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -57,7 +57,7 @@ const products = [
     category: "montres",
     description: "ساعة أنيقة للاستعمال اليومي",
     images: [
-      "images/rolexe.jpeg",
+      "images/rolexe.jpeg"
     ]
   },
 
@@ -90,7 +90,7 @@ const products = [
     category: "accessoires",
     description: "لمسة أنيقة لكل يوم",
     images: [
-      "images/batman.jpeg",
+      "images/batman.jpeg"
     ]
   },
 
@@ -117,7 +117,8 @@ const products = [
       "images/tissot.jpeg"
     ]
   },
-{
+
+  {
     id: 7,
     name: "cartier santos cuir",
     price: 219.99,
@@ -152,7 +153,7 @@ const products = [
 
   {
     id: 10,
-    name: "ROLEX DATEJUST FULL  GOLD",
+    name: "ROLEX DATEJUST FULL GOLD",
     price: 169.99,
     category: "montres",
     description: "قمة الفخامة والدقة الميكانيكية",
@@ -160,7 +161,7 @@ const products = [
       "images/dahbi.jpeg"
     ]
   },
-  
+
   {
     id: 11,
     name: "CASIO CLASSIQUE",
@@ -209,8 +210,6 @@ const products = [
     ]
   },
 
-  
-
   {
     id: 15,
     name: "EMPORIO ARMANI",
@@ -226,11 +225,6 @@ const products = [
 
 /* ================= PRODUCT MAP ================= */
 
-/*
-  بدل products.find() كل مرة،
-  كنستعملو Map باش البحث يكون أسرع.
-*/
-
 const productMap = new Map(
   products.map(product => [
     product.id,
@@ -239,9 +233,7 @@ const productMap = new Map(
 );
 
 function getProductById(productId) {
-  return productMap.get(
-    Number(productId)
-  );
+  return productMap.get(Number(productId));
 }
 
 /* ================= OLD PRICE ================= */
@@ -333,111 +325,175 @@ let currentImageIndex = 0;
 let productSlots = [
   1, 2, 3, 4, 5,
   6, 7, 8, 9, 10,
-  11, 12, 13, 14, 15,
+  11, 12, 13, 14, 15
 ];
 
-/* ================= IMAGE CACHE ================= */
+/* =========================================================
+   FAST IMAGE SYSTEM
+   ========================================================= */
 
 const imageCache = new Map();
 
 /*
-  تحميل الصورة مسبقاً.
-  إذا كانت الصورة موجودة فالكاش،
-  ما كنعاودوش نحملوها.
+  كنخزنو الصور اللي بدا تحميلها
+  باش ما نعاودوش نفس الطلب.
 */
 
-function preloadImage(src) {
+function preloadImage(
+  src,
+  priority = "auto"
+) {
 
-  if (
-    !src ||
-    imageCache.has(src)
-  ) {
+  if (!src) {
     return;
   }
 
-  const img =
-    new Image();
+  /*
+    إذا الصورة سبق تحطات فالكاش
+    ما نعاودوش تحميلها.
+  */
 
-  img.decoding =
-    "async";
+  if (imageCache.has(src)) {
+    return;
+  }
 
-  img.loading =
-    "eager";
+  const img = new Image();
 
-  img.src =
-    src;
+  img.decoding = "async";
 
-  imageCache.set(
-    src,
-    img
+  /*
+    الأولوية كتطبق على الصور المهمة.
+  */
+
+  if (
+    priority === "high"
+  ) {
+    try {
+      img.fetchPriority = "high";
+    } catch (error) {}
+  } else {
+    try {
+      img.fetchPriority = "low";
+    } catch (error) {}
+  }
+
+  img.src = src;
+
+  imageCache.set(src, img);
+}
+
+
+/*
+  تحميل الصور الرئيسية بسرعة.
+
+  أول 6 منتجات:
+  أولوية عالية.
+
+  باقي المنتجات:
+  كيتحضرو فالكواليس.
+*/
+
+function preloadMainProductImages() {
+
+  const visiblePriorityCount = 6;
+
+  products.forEach(
+    (product, index) => {
+
+      const images =
+        getProductImages(product);
+
+      if (!images.length) {
+        return;
+      }
+
+      preloadImage(
+        images[0],
+        index < visiblePriorityCount
+          ? "high"
+          : "low"
+      );
+
+    }
   );
 }
 
+
 /*
-  تحميل الصور بشكل تدريجي
-  باش ما نضغطوش على الموقع
-  عند الدخول.
+  تحميل الصور الإضافية من بعد
+  باش ما نضغطوش على الاتصال
+  وقت فتح الصفحة.
 */
 
-function preloadAllProductImages() {
+function preloadGalleryImages() {
 
-  let index = 0;
+  products.forEach(
+    product => {
 
-  const loadNext = () => {
+      const images =
+        getProductImages(product);
 
-    if (
-      index >= products.length
-    ) {
-      return;
+      if (
+        images.length <= 1
+      ) {
+        return;
+      }
+
+      for (
+        let i = 1;
+        i < images.length;
+        i++
+      ) {
+
+        preloadImage(
+          images[i],
+          "low"
+        );
+      }
+
     }
-
-    const product =
-      products[index];
-
-    index++;
-
-    const images =
-      getProductImages(product);
-
-    if (images.length) {
-
-      /*
-        كنحملو أول صورة
-        ثم الصور الأخرى بالتدريج.
-      */
-
-      preloadImage(
-        images[0]
-      );
-
-      setTimeout(
-        () => {
-
-          for (
-            let i = 1;
-            i < images.length;
-            i++
-          ) {
-
-            preloadImage(
-              images[i]
-            );
-          }
-
-          loadNext();
-
-        },
-        120
-      );
-
-    } else {
-
-      loadNext();
-    }
-  };
-
-  loadNext();
+  );
 }
+
+
+/*
+  كنقسمو تحميل الصور إلى مرحلتين:
+
+  1. الصور الرئيسية بسرعة.
+  2. الصور الإضافية فـ idle time.
+*/
+
+function startImagePreloading() {
+
+  preloadMainProductImages();
+
+  const loadGallery =
+    () => {
+
+      preloadGalleryImages();
+
+    };
+
+  if (
+    "requestIdleCallback" in window
+  ) {
+
+    requestIdleCallback(
+      loadGallery,
+      {
+        timeout: 1500
+      }
+    );
+
+  } else {
+
+    setTimeout(
+      loadGallery,
+      300
+    );
+  }
+}
+
 
 /* ================= GALLERY PRELOAD ================= */
 
@@ -473,13 +529,16 @@ function preloadAdjacentImages() {
     images.length;
 
   preloadImage(
-    images[nextIndex]
+    images[nextIndex],
+    "high"
   );
 
   preloadImage(
-    images[previousIndex]
+    images[previousIndex],
+    "high"
   );
 }
+
 
 /* ================= FAVORITES ================= */
 
@@ -544,6 +603,7 @@ function isFavorite(productId) {
   );
 }
 
+
 /* ================= UPDATE FAVORITE BUTTON ================= */
 
 function updateFavoriteButtons(productId) {
@@ -593,6 +653,7 @@ function updateFavoriteButtons(productId) {
   );
 }
 
+
 function toggleFavorite(productId) {
 
   productId =
@@ -631,6 +692,7 @@ function toggleFavorite(productId) {
 
   applySearch();
 }
+
 
 /* ================= TOAST ================= */
 
@@ -699,6 +761,7 @@ function showToast(message) {
       500
     );
 }
+
 
 /* ================= CATEGORY FILTERS ================= */
 
@@ -832,6 +895,7 @@ function renderCategoryFilters() {
   );
 }
 
+
 /* ================= PRODUCT IMAGES ================= */
 
 function getProductImages(product) {
@@ -858,6 +922,7 @@ function getProductImages(product) {
   return [];
 }
 
+
 function getProductImage(product) {
 
   const images =
@@ -880,12 +945,14 @@ function getProductImage(product) {
     <img
       src="${images[0]}"
       alt="${product.name}"
-      loading="lazy"
+      loading="eager"
       decoding="async"
+      fetchpriority="high"
       draggable="false"
     >
   `;
 }
+
 
 /* ================= RENDER PRODUCTS ================= */
 
@@ -1020,6 +1087,7 @@ function renderProducts() {
       .join("");
 }
 
+
 /* ================= SEARCH ================= */
 
 function applySearch() {
@@ -1095,6 +1163,7 @@ function applySearch() {
   );
 }
 
+
 if (productSearch) {
 
   productSearch.addEventListener(
@@ -1103,20 +1172,8 @@ if (productSearch) {
   );
 }
 
+
 /* ================= FAST PRODUCT NAVIGATION ================= */
-
-/*
-  مهم جداً:
-
-  الأسهم ما كيديروش renderProducts().
-  كنحركو نفس DOM elements.
-
-  هاد الشي كيمنع:
-  - إعادة إنشاء الصور
-  - إعادة إنشاء buttons
-  - إعادة تشغيل animations
-  - إعادة حساب كل HTML
-*/
 
 let productNavigationFrame =
   null;
@@ -1137,6 +1194,7 @@ function runProductNavigation() {
     productSlots.length < 2 ||
     !direction
   ) {
+
     productNavigationFrame =
       null;
 
@@ -1200,13 +1258,9 @@ function runProductNavigation() {
   productNavigationFrame =
     null;
 
-  /*
-    كنخليو المتصفح يكمل
-    الرسم قبل أي عملية أخرى.
-  */
-
   applySearch();
 }
+
 
 function requestProductNavigation(
   direction
@@ -1227,6 +1281,7 @@ function requestProductNavigation(
     );
 }
 
+
 function nextProducts() {
 
   requestProductNavigation(
@@ -1234,12 +1289,14 @@ function nextProducts() {
   );
 }
 
+
 function previousProducts() {
 
   requestProductNavigation(
     -1
   );
 }
+
 
 if (productsPrevButton) {
 
@@ -1256,6 +1313,7 @@ if (productsNextButton) {
     nextProducts
   );
 }
+
 
 /* ================= BACK BUTTON ================= */
 
@@ -1344,6 +1402,7 @@ function createBackButton() {
 }
 
 createBackButton();
+
 
 /* ================= COLORS ================= */
 
@@ -1528,6 +1587,7 @@ function createColorSelector(product) {
   }
 }
 
+
 /* ================= PRODUCT DETAILS ================= */
 
 function openProductDetails(
@@ -1580,17 +1640,17 @@ function openProductDetails(
     } else {
 
       /*
-        الصورة الأولى:
-        تحميل مباشر وسريع.
+        كنخليو الصورة الأولى
+        بأولوية عالية.
       */
 
       preloadImage(
-        images[0]
+        images[0],
+        "high"
       );
 
       /*
-        الصور المجاورة:
-        جاهزة للسهم.
+        كنحضرو الصور اللي حداه.
       */
 
       preloadAdjacentImages();
@@ -1784,6 +1844,7 @@ function openProductDetails(
   );
 }
 
+
 /* ================= CLOSE PRODUCT ================= */
 
 function closeProductDetails() {
@@ -1802,6 +1863,7 @@ function closeProductDetails() {
   );
 }
 
+
 /* ================= CHANGE IMAGE FAST ================= */
 
 let detailImageFrame =
@@ -1816,11 +1878,6 @@ function requestDetailImageChange(
 
   pendingImageDirection +=
     direction;
-
-  /*
-    كنحددو باش ما يكونش
-    رقم كبير بسبب الضغط السريع.
-  */
 
   if (
     pendingImageDirection > 3
@@ -1859,6 +1916,7 @@ function requestDetailImageChange(
     );
 }
 
+
 function changeDetailImageNow(
   direction
 ) {
@@ -1893,12 +1951,13 @@ function changeDetailImageNow(
     images[currentImageIndex];
 
   /*
-    إذا الصورة كانت متحضرة:
-    browser غادي يعرضها بسرعة كبيرة.
+    الصورة القادمة عندها
+    أولوية عالية.
   */
 
   preloadImage(
-    nextImage
+    nextImage,
+    "high"
   );
 
   const mainImage =
@@ -1913,11 +1972,6 @@ function changeDetailImageNow(
 
   if (mainImage) {
 
-    /*
-      نحاول نستعمل الصورة
-      من الكاش مباشرة.
-    */
-
     const cachedImage =
       imageCache.get(
         nextImage
@@ -1925,7 +1979,8 @@ function changeDetailImageNow(
 
     if (
       cachedImage &&
-      cachedImage.complete
+      cachedImage.complete &&
+      cachedImage.naturalWidth > 0
     ) {
 
       mainImage.src =
@@ -1947,13 +2002,9 @@ function changeDetailImageNow(
       currentImageIndex + 1;
   }
 
-  /*
-    نحضرو الصور اللي بعدها
-    واللي قبلها مباشرة.
-  */
-
   preloadAdjacentImages();
 }
+
 
 function changeDetailImage(
   direction
@@ -1963,6 +2014,7 @@ function changeDetailImage(
     direction
   );
 }
+
 
 /* ================= PRODUCT CLOSE EVENTS ================= */
 
@@ -1991,6 +2043,7 @@ if (productModal) {
     }
   );
 }
+
 
 /* ================= QUANTITY ================= */
 
@@ -2034,6 +2087,7 @@ if (detailPlus) {
     }
   );
 }
+
 
 /* ================= CART ================= */
 
@@ -2097,6 +2151,7 @@ function addToCart(
   );
 }
 
+
 /* ================= CART QUANTITY ================= */
 
 function changeQuantity(
@@ -2136,6 +2191,7 @@ function changeQuantity(
   renderCart();
 }
 
+
 /* ================= REMOVE ================= */
 
 function removeFromCart(
@@ -2155,6 +2211,7 @@ function removeFromCart(
   renderCart();
 }
 
+
 /* ================= TOTAL ================= */
 
 function getCartTotal() {
@@ -2171,6 +2228,7 @@ function getCartTotal() {
   );
 }
 
+
 function getCartQuantity() {
 
   return cart.reduce(
@@ -2183,6 +2241,7 @@ function getCartQuantity() {
     0
   );
 }
+
 
 /* ================= RENDER CART ================= */
 
@@ -2331,6 +2390,7 @@ function renderCart() {
   }
 }
 
+
 /* ================= CART MODAL ================= */
 
 function openCart() {
@@ -2349,6 +2409,7 @@ function openCart() {
   );
 }
 
+
 function closeCart() {
 
   if (!cartModal) {
@@ -2364,6 +2425,7 @@ function closeCart() {
     "true"
   );
 }
+
 
 if (openCartButton) {
 
@@ -2398,6 +2460,7 @@ if (cartModal) {
     }
   );
 }
+
 
 /* ================= GLOBAL CLICK ================= */
 
@@ -2511,6 +2574,7 @@ document.addEventListener(
   }
 );
 
+
 /* ================= ORDER PAGE ================= */
 
 function goToOrderPage() {
@@ -2551,6 +2615,7 @@ function goToOrderPage() {
   }
 }
 
+
 /* ================= ADD CART ================= */
 
 if (detailAddCart) {
@@ -2589,6 +2654,7 @@ if (detailAddCart) {
     }
   );
 }
+
 
 /* ================= BUY NOW ================= */
 
@@ -2636,6 +2702,7 @@ if (detailBuyNow) {
   );
 }
 
+
 /* ================= CHECKOUT ================= */
 
 if (checkoutButton) {
@@ -2650,6 +2717,7 @@ if (checkoutButton) {
   );
 }
 
+
 /* ================= START ================= */
 
 renderProducts();
@@ -2661,27 +2729,8 @@ renderCategoryFilters();
 applySearch();
 
 /*
-  منين الصفحة تكمل التحميل،
-  كنبدأو نحضرو الصور فالكواليس.
+  كنبدأو تحميل الصور الرئيسية
+  مباشرة من بعد ما يتبنى الـDOM.
 */
 
-if (
-  "requestIdleCallback" in window
-) {
-
-  requestIdleCallback(
-    () => {
-      preloadAllProductImages();
-    },
-    {
-      timeout: 2000
-    }
-  );
-
-} else {
-
-  setTimeout(
-    preloadAllProductImages,
-    800
-  );
-}
+startImagePreloading();
